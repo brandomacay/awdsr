@@ -1,4 +1,4 @@
-    <resources>
+<resources>
     <string name="app_name">Vlover</string>
     <string name="title_activity_iniciar_sesion">Iniciar Sesion</string>
 
@@ -27,4 +27,5 @@
     <string name="registrar">Registrar</string>
     <string name="cambiar_clave">¿Olvidaste tu contraseña?</string>
     <string name="title_activity_mensajes">MensajesActivity</string>
+    <string name="title_activity_edit_account">editAccount</string>
 </resources>

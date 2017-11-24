@@ -27,4 +27,6 @@
     <string name="error_field_required">Este campo es requerido</string>
     <string name="permission_rationale">"Los permisos de contactos son necesarios para proporcionar el correo electrónico"
     </string>
+    <string name="edit_account_name">Write your fullname</string>
+    <string name="edit_account_phone">Phone number</string>
 </resources>

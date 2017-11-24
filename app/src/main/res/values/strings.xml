@@ -27,5 +27,8 @@
     <string name="registrar">Registrar</string>
     <string name="cambiar_clave">¿Olvidaste tu contraseña?</string>
     <string name="title_activity_mensajes">MensajesActivity</string>
-    <string name="title_activity_edit_account">editAccount</string>
+    <string name="title_activity_edit_account">Editar cuenta</string>
+    <string name="edit_account_name">Escribe tu nombre completo</string>
+    <string name="edit_account_phone">Numero telefonico</string>
+
 </resources>

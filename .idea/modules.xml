@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Vlover.iml" filepath="$PROJECT_DIR$/Vlover.iml" />
+      <module fileurl="file://C:\Users\brand\Desktop\awdsr\Vlover.iml" filepath="C:\Users\brand\Desktop\awdsr\Vlover.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\brand\Desktop\awdsr\app\app.iml" filepath="C:\Users\brand\Desktop\awdsr\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/awdsr.iml" filepath="$PROJECT_DIR$/.idea/awdsr.iml" />
     </modules>
   </component>
 </project>

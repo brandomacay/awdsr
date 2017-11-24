@@ -47,7 +47,7 @@ public class editAccount extends AppCompatActivity {
 
         birthday_tv = (TextView) findViewById(R.id.edit_account_birthday_tv);
         // Cargar la fecha de nacimiento desde la web
-        birthday_tv.setText("Fecha de nacimiento");
+        birthday_tv.setText(getString(R.string.fecha_nacimiento));
         birthday_tv.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view) {
 

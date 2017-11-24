@@ -10,7 +10,7 @@
     <string name="error_field_required">Este campo es requerido</string>
     <string name="permission_rationale">"Los permisos de contactos son necesarios para proporcionar el correo electrónico"
     </string>
-    <string name="email">Correo electronico</string>
+    <string name="email">Funcionan los cambios que hace ALE</string>
     <string name="clave">Contraseña</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="cargando">Cargando</string>

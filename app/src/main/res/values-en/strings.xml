@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="email">Email</string>
+    <string name="email">ALE changes working fine</string>
     <string name="clave">Password</string>
     <string name="iniciar_sesion">Login</string>
     <string name="cargando">Loading</string>

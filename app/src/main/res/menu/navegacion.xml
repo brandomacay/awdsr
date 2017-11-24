@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/inicio"
+        android:icon="@drawable/inicio"
+        android:title="@string/inicio"
+        android:checkable="false"
+        />
+    <item
+        android:id="@+id/avisos"
+        android:icon="@drawable/vocine"
+        android:title="@string/avisos"
+        android:checkable="false"
+        />
+    <item
+        android:id="@+id/vlover"
+        android:icon="@drawable/vlover"
+        android:title="@string/lugares"
+        android:checkable="false"/>
+    <item
+        android:id="@+id/notificaciones"
+        android:icon="@drawable/notificacion"
+        android:title="@string/notificaciones"
+        android:checkable="false"/>
+    <item
+        android:id="@+id/cuenta"
+        android:icon="@drawable/persona"
+        android:title="@string/cuenta"
+        android:checkable="false"/>
+
+</menu>

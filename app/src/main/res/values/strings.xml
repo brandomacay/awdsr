@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Vlover</string>
+    <string name="title_activity_iniciar_sesion">Iniciar Sesion</string>
+
+    <!-- Strings related to login -->
+    <string name="action_sign_in_short">Registrarse</string>
+    <string name="error_invalid_email">Esta dirección de correo electrónico no es válida</string>
+    <string name="error_invalid_password">Esta contraseña es muy corta</string>
+    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="permission_rationale">"Los permisos de contactos son necesarios para proporcionar el correo electrónico"
+    </string>
+    <string name="email">Correo electronico</string>
+    <string name="clave">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="cargando">Cargando</string>
+    <string name="un_momento">Un momento...</string>
+    <string name="error_internet">Internet no disponible!</string>
+    <string name="error">Error de correo o contraseña</string>
+    <string name="completarcampos">Completa todos los campos</string>
+    <string name="inicio">Inicio</string>
+    <string name="avisos">Avisos</string>
+    <string name="lugares">Lugares</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="hola_mundo">Hola Mundo!</string>
+    <string name="registrar">Registrar</string>
+    <string name="cambiar_clave">¿Olvidaste tu contraseña?</string>
+    <string name="title_activity_mensajes">MensajesActivity</string>
+</resources>

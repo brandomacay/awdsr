@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">Email</string>
+    <string name="clave">Password</string>
+    <string name="iniciar_sesion">Login</string>
+    <string name="cargando">Loading</string>
+    <string name="un_momento">a moment...</string>
+    <string name="error_internet">Error Internet</string>
+    <string name="error">Error of Email or Password</string>
+    <string name="completarcampos">Complet all the camps</string>
+    <string name="inicio">Home</string>
+    <string name="avisos">Warning</string>
+    <string name="lugares">Places</string>
+    <string name="notificaciones">Notifications</string>
+    <string name="cuenta">Account</string>
+    <string name="hola_mundo">Hello World!</string>
+    <string name="cambiar_clave">Not remember password?</string>
+    <string name="registrar">Registrar</string>
+    <string name="app_name">Vlover</string>
+    <string name="title_activity_iniciar_sesion">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="action_sign_in_short">Registrarse</string>
+    <string name="error_invalid_email">Esta dirección de correo electrónico no es válida</string>
+    <string name="error_invalid_password">Esta contraseña es muy corta</string>
+    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="permission_rationale">"Los permisos de contactos son necesarios para proporcionar el correo electrónico"
+    </string>
+</resources>

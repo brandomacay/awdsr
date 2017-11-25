@@ -18,6 +18,11 @@ import com.hbb20.CountryCodePicker;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.ArrayList;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
 
 
@@ -27,6 +32,9 @@ public class editAccount extends AppCompatActivity {
    static TextView birthday_tv;
     //List<String> list;
     CountryCodePicker ccp;
+    Spinner genre_spin;
+    ArrayAdapter<String> spinner_adapter_genre;
+    List<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,8 @@ public class editAccount extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         name_et = (EditText) findViewById(R.id.edit_account_name_et);
+        genre_spin = (Spinner)findViewById(R.id.edit_account_genre_spin);
+
 
         ccp = (CountryCodePicker) findViewById(R.id.ccp);
 
@@ -59,6 +69,8 @@ public class editAccount extends AppCompatActivity {
                 //	newfrag.sh
             }
         });
+
+        load_spin_genre();
 
     }
 
@@ -97,5 +109,24 @@ public class editAccount extends AppCompatActivity {
 
         }
     }
+
+    private void load_spin_genre () {
+
+
+        list = new ArrayList<String>();
+
+        list.add(0, getString(R.string.male));
+        list.add(1, getString(R.string.female));
+
+        spinner_adapter_genre = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+
+        spinner_adapter_genre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        genre_spin.setAdapter(spinner_adapter_genre);
+        genre_spin.setWillNotDraw(false);
+
+    }
+
 
 }

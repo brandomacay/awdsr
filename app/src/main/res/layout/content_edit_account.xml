@@ -16,7 +16,8 @@
         android:id="@+id/edit_account_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_account_name"/>
+        android:hint="@string/edit_account_name"
+        android:inputType="textCapWords"/>
 
     <TextView
         android:id="@+id/edit_account_birthday_tv"
@@ -27,11 +28,23 @@
         android:textSize="18dp"
         android:textStyle="bold"
         android:padding="10dp"
+        android:layout_marginTop="10dp"
          />
+
+    <Spinner
+        android:id="@+id/edit_account_genre_spin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+
+
+    />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
 
         <com.hbb20.CountryCodePicker
             android:id="@+id/ccp"

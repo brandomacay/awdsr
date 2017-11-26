@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     onRestart();
                 }
-            }).setActionTextColor(getResources().getColor(R.color.azul_claro)).setDuration(3500).show();
+            }).setActionTextColor(getResources().getColor(R.color.azul_claro)).setDuration(4500).show();
         }
         navegacion.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

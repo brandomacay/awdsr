@@ -64,8 +64,9 @@ public class Registro extends AppCompatActivity {
                 {
 
                     Intent moveToHome = new Intent(Registro.this, MainActivity.class);
-                    moveToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    moveToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity( moveToHome );
+                    finish();
 
                 }
 

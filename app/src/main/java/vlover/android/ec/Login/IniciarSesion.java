@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -38,13 +41,23 @@ public class IniciarSesion extends AppCompatActivity {
     private CardView iniciarsesion;
     private FirebaseAnalytics mFirebaseAnalytics;
     TextView cambiarpass;
+    private AwesomeValidation awesomeValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         correo = findViewById(R.id.email);
         contra = findViewById(R.id.clave);
+
+        String contra1 = contra.getText().toString();
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
+        awesomeValidation.addValidation(this, R.id.email, Patterns.EMAIL_ADDRESS, R.string.error_email);
+        awesomeValidation.addValidation(this, R.id.clave, String.valueOf(contra1.length()>6), R.string.error_contraseña);
+
+
         cargando = new ProgressDialog(this);
         iniciarsesion = findViewById(R.id.iniciar);
         cambiarpass = findViewById(R.id.cambiar_clave);
@@ -61,71 +74,29 @@ public class IniciarSesion extends AppCompatActivity {
                 startActivity(new Intent(IniciarSesion.this,CambiarClave.class));
             }
         });
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         cargando = new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance();
         iniciarsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cargando.setMessage(getString(R.string.cargando));
-                cargando.show();
-                cargando.setCancelable(false);
-                loginUser();
+                campos_completos();
+                //startActivity(new Intent(IniciarSesion.this,MainActivity.class));
+                //Intent i = new Intent(IniciarSesion.this,MainActivity.class) ;
+                //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         });
 
     }
 
-
-    private void loginUser() {
-
-        String Email,Password;
-
-        Email = correo.getText().toString().trim();
-        Password = contra.getText().toString().trim();
-
-        if( !TextUtils.isEmpty(Email) && !TextUtils.isEmpty(Password))
-        {
-
-            mAuth.signInWithEmailAndPassword(Email,Password).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if( task.isSuccessful())
-                    {
-                        finish();
-                        cargando.dismiss();
-                        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                        if(firebaseUser != null) {
-                            Toast.makeText(IniciarSesion.this, "Bienvenido " + firebaseUser.getEmail(), Toast.LENGTH_LONG).show();
-                        }
-                        Intent moveToHome = new Intent( IniciarSesion.this, MainActivity.class);
-                        moveToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(moveToHome);
-
-                    }else
-                    {if (isNetworkConnected()) {
-                        cargando.dismiss();
-                        Toast.makeText(IniciarSesion.this, getString(R.string.error), Toast.LENGTH_LONG).show();
-                    }else {
-                        cargando.dismiss();
-                        Toast.makeText(IniciarSesion.this,getString(R.string.error_internet),Toast.LENGTH_LONG).show();
-                    }
-
-                    }
-
-                }
-            });
-
-        }else
-        {
-            cargando.dismiss();
-            Toast.makeText(IniciarSesion.this, getString(R.string.completarcampos), Toast.LENGTH_LONG).show();
-
-        }
-
+    private void verificarInicioSesion() {
     }
+    private void campos_completos() {
+        //primero valida si los campos estan correctos
+        //si todo esta bien nos pasa a la siguiente activity
+        if (awesomeValidation.validate()) {
+            startActivity(new Intent(IniciarSesion.this,MainActivity.class));
+        }
+    }
+
     private boolean isNetworkConnected() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 this.getSystemService(Context.CONNECTIVITY_SERVICE);

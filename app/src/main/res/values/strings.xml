@@ -31,5 +31,6 @@
     <string name="edit_account_name">Escribe tu nombre completo</string>
     <string name="edit_account_phone">Numero telefonico</string>
     <string name="fecha_nacimiento">Fecha de Nacimiento</string>
-
+    <string name="error_contraseña">Ingresa bien tu contraseña</string>
+    <string name="error_email">Ingresa un correo valido</string>
 </resources>

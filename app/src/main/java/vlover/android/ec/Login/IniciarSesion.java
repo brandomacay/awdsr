@@ -29,6 +29,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Pattern;
+
 import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.R;
 
@@ -51,11 +53,10 @@ public class IniciarSesion extends AppCompatActivity {
         correo = findViewById(R.id.email);
         contra = findViewById(R.id.clave);
 
-        String contra1 = contra.getText().toString();
-
-        awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this, R.id.email, Patterns.EMAIL_ADDRESS, R.string.error_email);
-        awesomeValidation.addValidation(this, R.id.clave, String.valueOf(contra1.length()>6), R.string.error_contraseña);
+        //awesomeValidation.addValidation(this, R.id.clave, Pattern.compile("Brandon"), R.string.error_contraseña);
+
 
 
         cargando = new ProgressDialog(this);
@@ -78,10 +79,8 @@ public class IniciarSesion extends AppCompatActivity {
         iniciarsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                campos_completos();
-                //startActivity(new Intent(IniciarSesion.this,MainActivity.class));
-                //Intent i = new Intent(IniciarSesion.this,MainActivity.class) ;
-                //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                verificarSiLosCamposEstanCompletados();
             }
         });
 
@@ -89,11 +88,18 @@ public class IniciarSesion extends AppCompatActivity {
 
     private void verificarInicioSesion() {
     }
-    private void campos_completos() {
+    private void verificarSiLosCamposEstanCompletados() {
         //primero valida si los campos estan correctos
         //si todo esta bien nos pasa a la siguiente activity
         if (awesomeValidation.validate()) {
-            startActivity(new Intent(IniciarSesion.this,MainActivity.class));
+            String campoclave = contra.getText().toString();
+            if (campoclave.equalsIgnoreCase("")){
+                contra.setError("Por favor ingresa tu contraseña");
+            }else if (isNetworkConnected()){
+                startActivity(new Intent(IniciarSesion.this,MainActivity.class));
+            } else {
+            Toast.makeText(this,"Sin coneccion a Internet",Toast.LENGTH_LONG).show();
+        }
         }
     }
 

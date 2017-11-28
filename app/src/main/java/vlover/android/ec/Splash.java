@@ -9,7 +9,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import vlover.android.ec.Login.IniciarSesion;
 import vlover.android.ec.MainActivity.MainActivity;
 
 public class Splash extends AppCompatActivity {

@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import vlover.android.ec.Login.IniciarSesion;
 import vlover.android.ec.R;
 import vlover.android.ec.editAccount;
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import vlover.android.ec.Login.IniciarSesion;
 import vlover.android.ec.R;
 import vlover.android.ec.editAccount;
 
@@ -39,7 +40,7 @@ public class MiCuentaFragment extends Fragment {
         // Inflate the layout for this fragment
         mView= inflater.inflate(R.layout.fragment_mi_cuenta, container, false);
 
-        edit_account_ib = (ImageButton)mView.findViewById(R.id.edit_account);
+        edit_account_ib = mView.findViewById(R.id.edit_account);
         edit_account_ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,15 +51,15 @@ public class MiCuentaFragment extends Fragment {
             }
         });
 
-        cerrar = (Button)mView.findViewById(R.id.cerrar_sesion);
+        cerrar = mView.findViewById(R.id.cerrar_sesion);
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             cerrar_sesion();
             }
         });
-        emailview = (TextView)mView.findViewById(R.id.emaildelusuario);
-        userid = (TextView)mView.findViewById(R.id.uid);
+        emailview = mView.findViewById(R.id.emaildelusuario);
+        userid = mView.findViewById(R.id.uid);
         mostrardatodeusuario();
         return mView;
     }

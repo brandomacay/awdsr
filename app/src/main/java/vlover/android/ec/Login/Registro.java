@@ -9,25 +9,34 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.R;
 
 public class Registro extends AppCompatActivity {
     //DECLARE FIELDS
-    EditText userEmailCreateEditText, userPassWordCreateEditText;
-    Button createAccountBtn;
+    EditText emailDeUsuario, claveDeUsuario, nombresDeUsuario;
+
+    Button crearCuenta;
 
     //FIREBASE AUTHENTICATION ID
     FirebaseAuth mAuth;
@@ -36,16 +45,25 @@ public class Registro extends AppCompatActivity {
     //PROGRESS DIALOG
     ProgressDialog mProgressDialog;
 
+    private AwesomeValidation awesomeValidation;
+    List<String> list;
+    ArrayAdapter<String> spinner_adapter_genre;
+    Spinner genre_spin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        //ASSIGN ID'S
-        userEmailCreateEditText = ( EditText ) findViewById(R.id.emailRegisterEditText);
-        userPassWordCreateEditText = (EditText) findViewById(R.id.passwordRegisterEditText);
 
-        createAccountBtn = ( Button) findViewById(R.id.registrar);
+        emailDeUsuario = findViewById(R.id.emailRegisterEditText);
+        claveDeUsuario = findViewById(R.id.passwordRegisterEditText);
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
+        awesomeValidation.addValidation(this, R.id.emailRegisterEditText, Patterns.EMAIL_ADDRESS, R.string.error_email);
+
+        crearCuenta = findViewById(R.id.registrar);
 
         //PROGRESS DIALOG INSTANCE
         mProgressDialog = new ProgressDialog(this);
@@ -53,92 +71,66 @@ public class Registro extends AppCompatActivity {
         //FIREBASE INSTANCE
         mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                //CHECK USER
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if( user != null )
-                {
-
-                    Intent moveToHome = new Intent(Registro.this, MainActivity.class);
-                    moveToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity( moveToHome );
-                    finish();
-
-                }
-
-            }
-        };
-
-
-        mAuth.addAuthStateListener(mAuthListener);
+        genre_spin = findViewById(R.id.edit_account_genre_spin);
+        load_spin_genre();
 
         //Crear Cuenta BTN OnClickListener
-        createAccountBtn.setOnClickListener(new View.OnClickListener() {
+        crearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mProgressDialog.setTitle("Creando cuenta");
+                verificarSiLosCamposEstanCompletados();
+                /*mProgressDialog.setTitle("Creando cuenta");
                 mProgressDialog.setMessage("Por favor espere...");
                 mProgressDialog.show();
-                mProgressDialog.setCancelable(false);
-                createUserAccount();
+                mProgressDialog.setCancelable(false);*/
 
+            }
+        });
+
+        crearCuenta.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(Registro.this, "HolaMundo!", Toast.LENGTH_LONG).show();
+                return true;
             }
         });
 
     }
 
-
-    //LOGIC FOR CREATING THE USER ACCOUNT
-    private void createUserAccount() {
-
-        String emailUser, passUser;
-
-        emailUser = userEmailCreateEditText.getText().toString().trim();
-        passUser = userPassWordCreateEditText.getText().toString().trim();
-
-        if( !TextUtils.isEmpty(emailUser) && !TextUtils.isEmpty(passUser))
-        {
-
-            mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if( task.isSuccessful() )
-                    {
-
-                        mProgressDialog.dismiss();
-                        Toast.makeText(Registro.this, "Cuenta creada exitosamente", Toast.LENGTH_LONG).show();
-                        Intent moveToHome = new Intent(Registro.this, MainActivity.class);
-                        moveToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity( moveToHome );
-
-                    }else
-                    {if (isNetworkConnected()) {
-                        mProgressDialog.dismiss();
-                        Toast.makeText(Registro.this, getString(R.string.error), Toast.LENGTH_LONG).show();
-                    }else {
-                        mProgressDialog.dismiss();
-                        Toast.makeText(Registro.this,getString(R.string.error_internet),Toast.LENGTH_LONG).show();
-                    }
-                        mProgressDialog.dismiss();
-                        Toast.makeText(Registro.this, "Error de registro", Toast.LENGTH_LONG).show();
-
-                    }
-
-                }
-            });
-
-        }else{
-            mProgressDialog.dismiss();
-            Toast.makeText(Registro.this, getString(R.string.completarcampos), Toast.LENGTH_LONG).show();
+    private void verificarSiLosCamposEstanCompletados() {
+        //primero valida si los campos estan correctos
+        //si todo esta bien nos pasa a la siguiente activity
+        String emailvacio = emailDeUsuario.getText().toString();
+        if (emailvacio.equalsIgnoreCase("")) {
+            emailDeUsuario.setError(getString(R.string.ingresatucorreo));
+        } else if (awesomeValidation.validate()) {
+            String campoclave = claveDeUsuario.getText().toString();
+            if (campoclave.equalsIgnoreCase("")) {
+                claveDeUsuario.setError(getString(R.string.ingresatuclave));
+            } else if (isNetworkConnected()) {
+                startActivity(new Intent(Registro.this, MainActivity.class));
+            } else {
+                Toast.makeText(this, getString(R.string.error_internet), Toast.LENGTH_LONG).show();
+            }
         }
+    }
+
+    private void load_spin_genre() {
+
+
+        list = new ArrayList<String>();
+        list.add(0, getString(R.string.male));
+        list.add(1, getString(R.string.female));
+        spinner_adapter_genre = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+
+        spinner_adapter_genre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        genre_spin.setAdapter(spinner_adapter_genre);
+        genre_spin.setWillNotDraw(false);
 
     }
+
     private boolean isNetworkConnected() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 this.getSystemService(Context.CONNECTIVITY_SERVICE);

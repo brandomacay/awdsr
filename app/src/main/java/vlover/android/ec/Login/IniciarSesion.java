@@ -91,10 +91,13 @@ public class IniciarSesion extends AppCompatActivity {
     private void verificarSiLosCamposEstanCompletados() {
         //primero valida si los campos estan correctos
         //si todo esta bien nos pasa a la siguiente activity
-        if (awesomeValidation.validate()) {
+        String emailvacio = correo.getText().toString();
+        if (emailvacio.equalsIgnoreCase("")) {
+            correo.setError(getString(R.string.ingresatucorreo));
+        } else if (awesomeValidation.validate()) {
             String campoclave = contra.getText().toString();
             if (campoclave.equalsIgnoreCase("")) {
-                contra.setError("Por favor ingresa tu contraseña");
+                contra.setError(getString(R.string.ingresatuclave));
             } else if (isNetworkConnected()) {
                 startActivity(new Intent(IniciarSesion.this, MainActivity.class));
             } else {

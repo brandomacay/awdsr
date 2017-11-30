@@ -1,97 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="#F5F5F5"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context=".Login.Registro">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="70dp"
+        android:gravity="center">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/signup_text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Ingresa tu primer nombre y tu primer apellido"
-            android:inputType="textPersonName" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:text="Selecciona tu genero:"
-                android:layout_height="wrap_content" />
-
-            <Spinner
-                android:id="@+id/edit_account_genre_spin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="17.5dp" />
-        </RelativeLayout>
+            android:inputType="text"
+            android:hint="Name" />
 
         <EditText
-            android:id="@+id/emailRegisterEditText"
+            android:id="@+id/signup_text_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="25dp"
-            android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:padding="15dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:background="@drawable/boton_estilo"
-            android:textAlignment="center"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent" />
+            android:hint="Email" />
 
         <EditText
-            android:id="@+id/passwordRegisterEditText"
+            android:id="@+id/signup_text_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="25dp"
-            android:hint="@string/clave"
-            android:inputType="textPassword"
-            android:background="@drawable/boton_estilo"
-            android:padding="15dp"
-            android:textAlignment="center"
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent"/>
+            android:inputType="textVisiblePassword"
+            android:hint="Password" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <Button
+            android:id="@+id/signup_btn_register"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:padding="7dp">
+            android:text="Register"/>
 
-            <Button
-                android:id="@+id/registrar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="44sp"
-                android:backgroundTint="@color/verde"
-                android:background="@drawable/boton_estilo"
-                android:text="@string/registrar"
-                android:textColor="#fff" />
 
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/signup_btn_tologin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Login"
+            android:gravity="center"/>
 
     </LinearLayout>
 

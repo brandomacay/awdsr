@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import com.hbb20.CountryCodePicker;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 
+import vlover.android.ec.services.SQLite;
+import vlover.android.ec.services.Session;
 
 
 public class editAccount extends AppCompatActivity {
@@ -35,6 +38,11 @@ public class editAccount extends AppCompatActivity {
     Spinner genre_spin;
     ArrayAdapter<String> spinner_adapter_genre;
     List<String> list;
+
+
+    private SQLite dbsqlite;
+    private Session session;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,14 @@ public class editAccount extends AppCompatActivity {
 
         //ccp.getSelectedCountryCode();
         //ccp.getSelectedCountryName();
+        dbsqlite = new SQLite(this);
 
+        // session manager
+        session = new Session(this);
+
+        HashMap<String, String> user = dbsqlite.getUserDetails();
+        String name = user.get("name");
+        name_et.setText(name);
 
         birthday_tv = (TextView) findViewById(R.id.edit_account_birthday_tv);
         // Cargar la fecha de nacimiento desde la web

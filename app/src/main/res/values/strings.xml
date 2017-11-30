@@ -10,11 +10,13 @@
     <string name="error_field_required">Este campo es requerido</string>
     <string name="permission_rationale">"Los permisos de contactos son necesarios para proporcionar el correo electrónico"
     </string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
     <string name="email">Correo electronico</string>
     <string name="clave">Contraseña</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="cargando">Cargando</string>
-    <string name="un_momento">Un momento...</string>
+    <string name="un_momento">Un momento…</string>
     <string name="error_internet">Internet no disponible!</string>
     <string name="error">Error de correo o contraseña</string>
     <string name="completarcampos">Completa todos los campos</string>
@@ -35,4 +37,11 @@
     <string name="error_email">Ingresa un correo valido</string>
     <string name="ingresatucorreo">Por favor ingresa tu correo</string>
     <string name="ingresatuclave">Por favor ingresa tu contraseña</string>
+    <string name="ingresatusnombres">Por favor ingresa tus nombres</string>
+    <string name="bienvenido">Bienvenido  ­</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="enverdaddeceacerrarsesion">¿En verdad deseas cerrar sesion?</string>
+    <string name="cerrarsesion">Cerrar Sesion</string>
+    <string name="registrando">Registrando…</string>
 </resources>

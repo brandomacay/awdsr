@@ -22,11 +22,10 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
-                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_height="45dp"
                 android:background="?attr/colorPrimary"
                 android:elevation="5dp"
-                android:minHeight="47dp"
+                android:minHeight="45dp"
                 android:theme="?attr/actionBarTheme" />
         </android.support.design.widget.AppBarLayout>
 

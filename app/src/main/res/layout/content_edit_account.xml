@@ -60,6 +60,15 @@
     </LinearLayout>
 
 
-
+    <ImageView
+        android:id="@+id/edit_account_user_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="50dp"
+        android:src="@drawable/user"/>
 
 </LinearLayout>

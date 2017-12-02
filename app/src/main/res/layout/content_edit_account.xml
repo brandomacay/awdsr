@@ -60,11 +60,6 @@
     </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/edit_account_phone_ett"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="probando push githjub"
-        android:inputType="number"/>
+
 
 </LinearLayout>

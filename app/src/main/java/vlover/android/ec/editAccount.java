@@ -1,5 +1,7 @@
 package vlover.android.ec;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
@@ -15,6 +17,9 @@ import android.app.DialogFragment;
 import android.widget.DatePicker;
 
 import com.hbb20.CountryCodePicker;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+import android.widget.ImageView;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,6 +30,7 @@ import java.util.ArrayList;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 
+
 import vlover.android.ec.services.SQLite;
 import vlover.android.ec.services.Session;
 
@@ -32,12 +38,14 @@ import vlover.android.ec.services.Session;
 public class editAccount extends AppCompatActivity {
 
     EditText name_et;
-   static TextView birthday_tv;
+    static TextView birthday_tv;
     //List<String> list;
     CountryCodePicker ccp;
     Spinner genre_spin;
     ArrayAdapter<String> spinner_adapter_genre;
     List<String> list;
+    ImageView user_image;
+    //CropImageView user_image;
 
 
     private SQLite dbsqlite;
@@ -58,6 +66,19 @@ public class editAccount extends AppCompatActivity {
         ccp = (CountryCodePicker) findViewById(R.id.ccp);
 
         ccp.detectLocaleCountry(true);
+
+        user_image = (ImageView) findViewById(R.id.edit_account_user_image);
+        user_image.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View view) {
+
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(editAccount.this);
+            }
+        });
+
+        // user_image = (CropImageView) findViewById(R.id.edit_account_cropImageView);
+        // user_image.setImageResource(R.drawable.user);
 
         //ccp.getSelectedCountryCode();
         //ccp.getSelectedCountryName();
@@ -108,18 +129,18 @@ public class editAccount extends AppCompatActivity {
             //	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             //	String today = formatter.format( ""+day+"/"+(month+1)+"/"+year );
 
-                if (month < 9 ) {
-                    if (day < 9)
-                        birthday_tv.setText(  ""+year+"-"+"0"+(month+1)+"-"+"0"+day );
-                    else
-                        birthday_tv.setText(  ""+year+"-"+"0"+(month+1)+"-"+day );
-                }
-                else {
-                    if (day < 10)
-                        birthday_tv.setText(  ""+year+"-"+(month+1)+"-"+"0"+day );
-                    else
-                        birthday_tv.setText(  ""+year+"-"+(month+1)+"-"+day );
-                }
+            if (month < 9 ) {
+                if (day < 9)
+                    birthday_tv.setText(  ""+year+"-"+"0"+(month+1)+"-"+"0"+day );
+                else
+                    birthday_tv.setText(  ""+year+"-"+"0"+(month+1)+"-"+day );
+            }
+            else {
+                if (day < 10)
+                    birthday_tv.setText(  ""+year+"-"+(month+1)+"-"+"0"+day );
+                else
+                    birthday_tv.setText(  ""+year+"-"+(month+1)+"-"+day );
+            }
 
 
         }
@@ -141,6 +162,19 @@ public class editAccount extends AppCompatActivity {
         genre_spin.setAdapter(spinner_adapter_genre);
         genre_spin.setWillNotDraw(false);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                user_image.setImageURI(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 
 

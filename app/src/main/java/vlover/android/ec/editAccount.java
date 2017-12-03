@@ -95,6 +95,7 @@ public class editAccount extends AppCompatActivity {
         String name = user.get("name");
         name_et.setText(name);
 
+        /*
         birthday_tv = (TextView) findViewById(R.id.edit_account_birthday_tv);
         // Cargar la fecha de nacimiento desde la web
         birthday_tv.setText(getString(R.string.birthday));
@@ -109,10 +110,13 @@ public class editAccount extends AppCompatActivity {
 
             }
         });
+        */
 
         load_spin_genre();
 
     }
+
+    /*
 
     public class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
@@ -152,6 +156,7 @@ public class editAccount extends AppCompatActivity {
 
         }
     }
+    */
 
     private void load_spin_genre () {
 

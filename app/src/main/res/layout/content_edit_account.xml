@@ -18,6 +18,7 @@
         android:hint="@string/edit_account_name"
         android:inputType="textCapWords"/>
 
+    <!--
     <TextView
         android:id="@+id/edit_account_birthday_tv"
         style="?android:attr/spinnerStyle"
@@ -29,6 +30,7 @@
         android:padding="10dp"
         android:layout_marginTop="0dp"
          />
+         -->
 
     <Spinner
         android:id="@+id/edit_account_genre_spin"

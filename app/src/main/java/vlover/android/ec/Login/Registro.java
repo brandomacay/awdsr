@@ -139,15 +139,18 @@ public class Registro extends AppCompatActivity {
                finish();
             }
         });
+        birthday_picked = false;
     }
 
     private void verificarelregistro(){
+
+        String ubirthday = inputBirthday.getText().toString();
         String name = inputName.getText().toString().trim();
         String email = inputEmail.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
 
         if (!name.isEmpty() || !email.isEmpty() || !password.isEmpty()) {
-            registerUser(name, email, password);
+            registerUser(ubirthday, name, email, password);
         } else {
             //Toast.makeText(getApplicationContext(),
               //      "Please enter your details!", Toast.LENGTH_LONG)
@@ -225,7 +228,7 @@ public class Registro extends AppCompatActivity {
      * email, password) to register url
      * Menyimpan data user ke web
      */
-    private void registerUser(final String name, final String email, final String password){
+    private void registerUser(final String mbirthday, final String name, final String email, final String password){
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -253,6 +256,7 @@ public class Registro extends AppCompatActivity {
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
+                      //  String birthday = user.get
                         String created_at = user
                                 .getString("created_at");
 
@@ -292,6 +296,7 @@ public class Registro extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("birthday", mbirthday);
                 params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);
@@ -384,7 +389,7 @@ public class Registro extends AppCompatActivity {
                     .append(mDay).append(" "));
             birthday_picked = true;
 
-            Toast.makeText(getActivity(),"Edad: " + getAge(mYear, mMonth, mDay), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(),"Edad: " + getAge(mYear, mMonth, mDay), Toast.LENGTH_LONG).show();
         }
     }
 

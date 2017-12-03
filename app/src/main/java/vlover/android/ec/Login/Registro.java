@@ -150,7 +150,6 @@ public class Registro extends AppCompatActivity {
         String password = inputPassword.getText().toString().trim();
 
         if (!name.isEmpty() || !email.isEmpty() || !password.isEmpty()) {
-            registerUser(ubirthday, name, email, password);
         } else {
             //Toast.makeText(getApplicationContext(),
               //      "Please enter your details!", Toast.LENGTH_LONG)

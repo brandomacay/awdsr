@@ -32,7 +32,6 @@
     <string name="female">Female</string>
     <string name="title_activity_edit_account">Edit Account</string>
     <string name="title_activity_mensajes">MessagesActovity</string>
-    <string name="fecha_nacimiento">Fecha de Nacimiento</string>
     <string name="error_contraseña">Ingresa bien tu contraseña</string>
     <string name="error_email">Ingresa un correo valido</string>
     <string name="ingresatucorreo">Por favor ingresa tu correo</string>
@@ -43,4 +42,5 @@
     <string name="no">No</string>
     <string name="enverdaddeceacerrarsesion">¿En verdad deseas cerrar sesion?</string>
     <string name="cerrarsesion">Cerrar Sesion</string>
+    <string name="birthday">birthday</string>
 </resources>

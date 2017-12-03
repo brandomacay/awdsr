@@ -12,6 +12,19 @@
         android:paddingTop="70dp"
         android:gravity="center">
 
+        <TextView
+            android:id="@+id/register_birthday_tv"
+            style="?android:attr/spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/birthday"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_marginTop="0dp"
+            />
+
         <EditText
             android:id="@+id/signup_text_name"
             android:layout_width="match_parent"

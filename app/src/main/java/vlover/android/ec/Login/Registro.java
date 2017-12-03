@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -45,11 +46,19 @@ import vlover.android.ec.services.Address;
 import vlover.android.ec.services.Controller;
 import vlover.android.ec.services.SQLite;
 import vlover.android.ec.services.Session;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.widget.DatePicker;
+import java.util.Calendar;
+import android.app.AlertDialog;
+
 
 public class Registro extends AppCompatActivity {
     private static final String TAG = Registro.class.getSimpleName();
     private Button buttonRegister;
     private Button buttonToLogin;
+    private static TextView inputBirthday;
     private EditText inputName;
     private EditText inputEmail;
     private EditText inputPassword;
@@ -60,6 +69,10 @@ public class Registro extends AppCompatActivity {
     private SQLite dbsqlite;
 
     private AwesomeValidation awesomeValidation;
+    private static boolean birthday_picked = false;
+    private static int minAge = 14;
+    private static int mYear, mMonth, mDay;
+
 
 
     @Override
@@ -72,6 +85,22 @@ public class Registro extends AppCompatActivity {
         inputPassword  = (EditText) findViewById(R.id.signup_text_password);
         buttonRegister = (Button)   findViewById(R.id.signup_btn_register);
         buttonToLogin  = (Button)   findViewById(R.id.signup_btn_tologin);
+
+        inputBirthday = (TextView) findViewById(R.id.register_birthday_tv);
+        // Cargar la fecha de nacimiento desde la web
+        inputBirthday.setText(getString(R.string.birthday));
+        inputBirthday.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View view) {
+
+
+                DialogFragment newfrag = new DatePickerFragment();
+
+                //	newfrag.setArguments(null);
+                newfrag.show(getFragmentManager(), "datePicker");
+
+            }
+        });
+
 
         Loading = new ProgressDialog(this);
         Loading.setCancelable(false);
@@ -131,8 +160,40 @@ public class Registro extends AppCompatActivity {
         String emailvacio = inputEmail.getText().toString();
         String name = inputName.getText().toString();
 
-        if (name.equalsIgnoreCase("")){
+        if (!birthday_picked) {
+            inputBirthday.setError(getString(R.string.birthday));
+            Toast.makeText(this, getString(R.string.birthday), Toast.LENGTH_SHORT).show();
+        }
+        else if (getAge(mYear, mMonth, mDay) < minAge) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(Registro.this);
+            alert.setTitle("Edad no valida");
+            alert.setMessage("Debes ser mayor de " + minAge + " para usar Vlover");
+            alert.setPositiveButton("Aceptar", null);
+            alert.show();
+        }
+
+/*
+            if (inputBirthday.getText().toString().compareTo(today()) > 0 ||
+                    ffinal_date.getText().toString().equals(initial_date.getText().toString())) {
+                new GetTransactions().execute("compra", initial_date.getText().toString(), ffinal_date.getText().toString(), "");
+            } else {
+
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("Fecha erronea");
+                alert.setMessage("La fecha inicial debe ser menor a la fecha final");
+                alert.setPositiveButton("Aceptar", null);
+                alert.show();
+
+
+            }
+            */
+
+
+        else if (name.equalsIgnoreCase("")){
             inputName.setError(getString(R.string.ingresatusnombres));
+            inputBirthday.setError(null);
         }
         else if (emailvacio.equalsIgnoreCase("")) {
             inputEmail.setError(getString(R.string.ingresatucorreo));
@@ -252,4 +313,91 @@ public class Registro extends AppCompatActivity {
         if (Loading.isShowing())
             Loading.dismiss();
     }
+
+    /*
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        //birthday_tv.this =
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            Calendar c = Calendar.getInstance();
+
+            int year = c.get(Calendar.YEAR);
+            int	month = c.get(Calendar.MONTH);
+            int	day = c.get(Calendar.DAY_OF_MONTH);
+
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+        public  void onDateSet(DatePicker view, int year, int month, int day) {
+
+            //	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            //	String today = formatter.format( ""+day+"/"+(month+1)+"/"+year );
+            birthday_picked = true;
+
+            if (month < 9 ) {
+                if (day < 9)
+                    inputBirthday.setText(  ""+year+"-"+"0"+(month+1)+"-"+"0"+day );
+                else
+                    inputBirthday.setText(  ""+year+"-"+"0"+(month+1)+"-"+day );
+            }
+            else {
+                if (day < 10)
+                    inputBirthday.setText(  ""+year+"-"+(month+1)+"-"+"0"+day );
+                else
+                    inputBirthday.setText(  ""+year+"-"+(month+1)+"-"+day );
+            }
+
+
+        }
+    }
+    */
+
+    public static class DatePickerFragment extends DialogFragment implements
+            DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // set default date
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // get selected date
+            mYear = year;
+            mMonth = month;
+            mDay = day;
+
+            // show selected date to date button
+            inputBirthday.setText(new StringBuilder()
+                    .append(mYear).append("-")
+                    .append(mMonth + 1).append("-")
+                    .append(mDay).append(" "));
+            birthday_picked = true;
+
+            Toast.makeText(getActivity(),"Edad: " + getAge(mYear, mMonth, mDay), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static int getAge(int year, int month, int day) {
+        //calculating age from dob
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        dob.set(year, month, day);
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        return age;
+    }
+
 }

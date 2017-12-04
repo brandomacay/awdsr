@@ -8,4 +8,5 @@ public class Address {
     public static String URL_REGISTER = "http://vlover.heliohost.org/register.php";
 
     public static String URL_GET_USER_PROFILE = "http://vlover.heliohost.org/get_user_profile.php";
+    public static String URL_UPDATE_USER_PROFILE = "http://vlover.heliohost.org/update_user.php";
 }

@@ -228,7 +228,8 @@ public class Registro extends AppCompatActivity {
      * email, password) to register url
      * Menyimpan data user ke web
      */
-    private void registerUser(final String mbirthday, final String name, final String email, final String password){
+    private void registerUser(final String mbirthday, final String name,
+                              final String email, final String password){
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 

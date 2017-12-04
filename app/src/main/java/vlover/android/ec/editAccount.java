@@ -189,6 +189,7 @@ public class editAccount extends AppCompatActivity {
 
         list = new ArrayList<String>();
 
+        // 0 = hombre, 1 = Mujer
         list.add(0, getString(R.string.male));
         list.add(1, getString(R.string.female));
 
@@ -242,7 +243,7 @@ public class editAccount extends AppCompatActivity {
             else {
                 //$email, $name, $genre, $country, $phonecode, $phone, $avatar, $update);
 
-                updateProfile(email_user, name_et.getText().toString(), genre_spin.getSelectedItem().toString(),
+                updateProfile(email_user, name_et.getText().toString(), "" + genre_spin.getSelectedItemPosition(),
                         ccp.getSelectedCountryNameCode() , ccp.getSelectedCountryCode(), phone_et.getText().toString(),
                         "test.png", "testupdate");
 
@@ -328,8 +329,10 @@ public class editAccount extends AppCompatActivity {
 
                         cargando.dismiss();
                         name_et.setText(name);
-                        int idspin = spinner_adapter_genre.getPosition(genre);
-                        genre_spin.setSelection(idspin, true);
+                        //int idspin = spinner_adapter_genre.getPosition(genre);
+                        if (!genre.isEmpty()) {
+                            genre_spin.setSelection(Integer.parseInt(genre), true);
+                        }
 
                         if (country.isEmpty()) {
                             ccp.detectLocaleCountry(true);
@@ -345,7 +348,7 @@ public class editAccount extends AppCompatActivity {
                           //      MainActivity.class);
                         //startActivity(intent);
                         //finish();
-                        Toast.makeText(getApplicationContext(), name + email_user +  genre + country + phone, Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getApplicationContext(), name + email_user +  genre + country + phone, Toast.LENGTH_LONG).show();
                     } else {
                         // Error in login. Get the error message
                         // Jika terjadi error dalam pengambilan data
@@ -434,8 +437,11 @@ public class editAccount extends AppCompatActivity {
 
                         cargando.dismiss();
                         name_et.setText(name);
-                        int idspin = spinner_adapter_genre.getPosition(genre);
-                        genre_spin.setSelection(idspin, true);
+                        //int idspin = spinner_adapter_genre.getPosition(genre);
+                        if (!genre.isEmpty()) {
+                            genre_spin.setSelection(Integer.parseInt(genre), true);
+                        }
+
 
                         if (country.isEmpty()) {
                             ccp.detectLocaleCountry(true);

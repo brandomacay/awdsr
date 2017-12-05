@@ -14,21 +14,14 @@ public class SQLite extends SQLiteOpenHelper {
 
     private static final String TAG = SQLite.class.getSimpleName();
 
-    // All Static variables
-    // Database Version
     private static final int DATABASE_VERSION = 1;
-
-    // Database Name
     private static final String DATABASE_NAME = "localdb";
-
-    // Login table name
     private static final String TABLE_USER = "user";
-
-    // Login Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_UID = "uid";
+    private static final String KEY_GENRE = "genre";
     private static final String KEY_CREATED_AT = "created_at";
 
     public SQLite(Context context) {
@@ -62,6 +55,7 @@ public class SQLite extends SQLiteOpenHelper {
      * Storing user details in database
      * Menyimpan data user kedalam database SQLite
      * */
+
     public void addUser(String name, String email, String uid, String created_at) {
         SQLiteDatabase db = this.getWritableDatabase();
 

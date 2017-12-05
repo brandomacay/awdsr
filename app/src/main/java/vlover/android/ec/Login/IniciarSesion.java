@@ -249,4 +249,12 @@ public class IniciarSesion extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (session.isLoggedIn()) {
+            // Jika User tidak tercatat di sesiion atau telah login, Maka user automatis akan terlogout.
+           finish();
+        }
+    }
 }

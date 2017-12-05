@@ -26,6 +26,7 @@ import vlover.android.ec.Fragmentos.InicioFragment;
 import vlover.android.ec.Fragmentos.MapaFragment;
 import vlover.android.ec.Fragmentos.MiCuentaFragment;
 import vlover.android.ec.Fragmentos.NotificacionesFragment;
+import vlover.android.ec.Mensajes.MensajesActivity;
 import vlover.android.ec.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
             //si dispone de internet
         }else{
             //no dispone internet
-            Snackbar.make(findViewById(R.id.coor),getString(R.string.error_internet),Snackbar.LENGTH_LONG).setAction("Cargar de nuevo", new View.OnClickListener() {
+            Snackbar.make(findViewById(R.id.coor),getString(R.string.error_internet),Snackbar.LENGTH_LONG).setAction("De acuerdo!", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onRestart();
+
                 }
             }).setActionTextColor(getResources().getColor(R.color.azul_claro)).setDuration(4500).show();
         }
@@ -165,10 +166,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.a) {
+        if (id == R.id.menu_buscar) {
             return true;
-        }if (id == R.id.b){
-
+        }if (id == R.id.chatear){
+            startActivity(new Intent(MainActivity.this, MensajesActivity.class));
             return true;
         }
 

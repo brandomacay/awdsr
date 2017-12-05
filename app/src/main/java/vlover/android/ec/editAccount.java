@@ -1,5 +1,6 @@
 package vlover.android.ec;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vlover.android.ec.Login.IniciarSesion;
 import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.services.Address;
@@ -60,13 +62,14 @@ import vlover.android.ec.services.Session;
 public class editAccount extends AppCompatActivity {
 
     EditText name_et, phone_et;
+    TextView cancelar;
    // public TextView birthday_tv;
     //List<String> list;
     CountryCodePicker ccp;
     Spinner genre_spin;
     ArrayAdapter<String> spinner_adapter_genre;
     List<String> list;
-    ImageView user_image;
+    CircleImageView user_image;
     String email_user = "";
     //CropImageView user_image;
 
@@ -84,6 +87,13 @@ public class editAccount extends AppCompatActivity {
         setContentView(R.layout.activity_edit_account);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+        cancelar =(TextView)findViewById(R.id.salir);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         name_et = (EditText) findViewById(R.id.edit_account_name_et);
         phone_et = (EditText) findViewById(R.id.edit_account_phone_et);
@@ -94,7 +104,7 @@ public class editAccount extends AppCompatActivity {
 
 
 
-        user_image = (ImageView) findViewById(R.id.edit_account_user_image);
+        user_image = (CircleImageView) findViewById(R.id.edit_account_user_image);
         user_image.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view) {
 
@@ -114,75 +124,15 @@ public class editAccount extends AppCompatActivity {
         // session manager
         session = new Session(this);
 
-        //HashMap<String, String> user = dbsqlite.getUserDetails();
-        //String name = user.get("name");
-        //name_et.setText(name);
-
-        /*
-        birthday_tv = (TextView) findViewById(R.id.edit_account_birthday_tv);
-        // Cargar la fecha de nacimiento desde la web
-        birthday_tv.setText(getString(R.string.birthday));
-        birthday_tv.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View view) {
-
-
-                DialogFragment newfrag = new DatePickerFragment();
-
-                //	newfrag.setArguments(null);
-                newfrag.show(getFragmentManager(), "datePicker");
-
-            }
-        });
-        */
-
+        HashMap<String, String> user = dbsqlite.getUserDetails();
+        String email =user.get("email");
+        getSupportActionBar().setTitle(email);
         load_spin_genre();
         cargando = new ProgressDialog(this);
         verificarInicioSesion();
 
 
     }
-
-    /*
-
-    public class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        //birthday_tv.this =
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            Calendar c = Calendar.getInstance();
-
-            int year = c.get(Calendar.YEAR);
-            int	month = c.get(Calendar.MONTH);
-            int	day = c.get(Calendar.DAY_OF_MONTH);
-
-
-            return new DatePickerDialog(editAccount.this, this, year, month, day);
-        }
-        public  void onDateSet(DatePicker view, int year, int month, int day) {
-
-            //	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            //	String today = formatter.format( ""+day+"/"+(month+1)+"/"+year );
-
-            if (month < 9 ) {
-                if (day < 9)
-                    birthday_tv.setText(  ""+year+"-"+"0"+(month+1)+"-"+"0"+day );
-                else
-                    birthday_tv.setText(  ""+year+"-"+"0"+(month+1)+"-"+day );
-            }
-            else {
-                if (day < 10)
-                    birthday_tv.setText(  ""+year+"-"+(month+1)+"-"+"0"+day );
-                else
-                    birthday_tv.setText(  ""+year+"-"+(month+1)+"-"+day );
-            }
-
-
-        }
-    }
-    */
 
     private void load_spin_genre () {
 
@@ -243,11 +193,19 @@ public class editAccount extends AppCompatActivity {
             else {
                 //$email, $name, $genre, $country, $phonecode, $phone, $avatar, $update);
 
-                updateProfile(email_user, name_et.getText().toString(), "" + genre_spin.getSelectedItemPosition(),
-                        ccp.getSelectedCountryNameCode() , ccp.getSelectedCountryCode(), phone_et.getText().toString(),
-                        "test.png", "testupdate");
+                if (isNetworkConnected()){
+                    updateProfile(email_user, name_et.getText().toString(), "" + genre_spin.getSelectedItemPosition(),
+                            ccp.getSelectedCountryNameCode() , ccp.getSelectedCountryCode(), phone_et.getText().toString(),
+                            "test.png", "testupdate");
 
-                Toast.makeText(this, "Guardando...", Toast.LENGTH_SHORT).show();
+                    cargando.setMessage("Guardando...");
+                    cargando.show();
+                    cargando.setCancelable(false);
+                }else
+                {
+                    Toast.makeText(editAccount.this,getString(R.string.error_internet),Toast.LENGTH_LONG).show();
+                }
+
 
                 return true;
             }
@@ -323,9 +281,8 @@ public class editAccount extends AppCompatActivity {
                         String country = user.getString("country");
                         String created_at = user.getString("created_at");
 
-                        // Inserting row in users table
-                        // memasukkan data kedalam SQLite
-                        //dbsqlite.addUser(name, email, uid, created_at);
+                        //session.setLogin(false);
+
 
                         cargando.dismiss();
                         name_et.setText(name);
@@ -430,11 +387,13 @@ public class editAccount extends AppCompatActivity {
                         String genre = user.getString("genre");
                         String country = user.getString("country");
                         String created_at = user.getString("created_at");
+                        //dbsqlite.updateUser(name);
 
                         // Inserting row in users table
                         // memasukkan data kedalam SQLite
-                        //dbsqlite.addUser(name, email, uid, created_at);
+                        //dbsqlite.deleteUsers();
 
+                        //dbsqlite.addUser(name,phone,genre,country,email);
                         cargando.dismiss();
                         name_et.setText(name);
                         //int idspin = spinner_adapter_genre.getPosition(genre);
@@ -457,7 +416,9 @@ public class editAccount extends AppCompatActivity {
                         //      MainActivity.class);
                         //startActivity(intent);
                         //finish();
-                        Toast.makeText(getApplicationContext(), "Actualizado", Toast.LENGTH_LONG).show();
+                        cargando.dismiss();
+                        Toast.makeText(getApplicationContext(), "Actualizacion exitosa!", Toast.LENGTH_LONG).show();
+                        finish();
 
                     } else {
                         // Error in login. Get the error message

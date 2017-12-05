@@ -176,24 +176,6 @@ public class Registro extends AppCompatActivity {
             alert.show();
         }
 
-/*
-            if (inputBirthday.getText().toString().compareTo(today()) > 0 ||
-                    ffinal_date.getText().toString().equals(initial_date.getText().toString())) {
-                new GetTransactions().execute("compra", initial_date.getText().toString(), ffinal_date.getText().toString(), "");
-            } else {
-
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("Fecha erronea");
-                alert.setMessage("La fecha inicial debe ser menor a la fecha final");
-                alert.setPositiveButton("Aceptar", null);
-                alert.show();
-
-
-            }
-            */
-
-
         else if (name.equalsIgnoreCase("")){
             inputName.setError(getString(R.string.ingresatusnombres));
             inputBirthday.setError(null);
@@ -257,9 +239,8 @@ public class Registro extends AppCompatActivity {
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
-                      //  String birthday = user.get
-                        String created_at = user
-                                .getString("created_at");
+                        String created_at = user.getString("created_at");
+                        //  String birthday = user.get
 
                         dbsqlite.addUser(name, email, uid, created_at);
 
@@ -319,48 +300,6 @@ public class Registro extends AppCompatActivity {
         if (Loading.isShowing())
             Loading.dismiss();
     }
-
-    /*
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        //birthday_tv.this =
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            Calendar c = Calendar.getInstance();
-
-            int year = c.get(Calendar.YEAR);
-            int	month = c.get(Calendar.MONTH);
-            int	day = c.get(Calendar.DAY_OF_MONTH);
-
-
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-        public  void onDateSet(DatePicker view, int year, int month, int day) {
-
-            //	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            //	String today = formatter.format( ""+day+"/"+(month+1)+"/"+year );
-            birthday_picked = true;
-
-            if (month < 9 ) {
-                if (day < 9)
-                    inputBirthday.setText(  ""+year+"-"+"0"+(month+1)+"-"+"0"+day );
-                else
-                    inputBirthday.setText(  ""+year+"-"+"0"+(month+1)+"-"+day );
-            }
-            else {
-                if (day < 10)
-                    inputBirthday.setText(  ""+year+"-"+(month+1)+"-"+"0"+day );
-                else
-                    inputBirthday.setText(  ""+year+"-"+(month+1)+"-"+day );
-            }
-
-
-        }
-    }
-    */
 
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {

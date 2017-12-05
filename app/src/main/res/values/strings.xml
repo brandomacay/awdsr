@@ -44,4 +44,5 @@
     <string name="cerrarsesion">Cerrar Sesion</string>
     <string name="registrando">Registrando…</string>
     <string name="birthday">Fecha de nacimiento</string>
+    <string name="buscar">Buscar</string>
 </resources>

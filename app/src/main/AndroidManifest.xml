@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Splash" />
         <activity android:name=".MainActivity.MainActivity" />
         <activity android:name=".Login.CambiarClave" />
         <activity
@@ -36,7 +35,6 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".editAccount"
-            android:label="@string/title_activity_edit_account"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"></activity>
 
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:11.0.4'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.5.+'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 
     testImplementation 'junit:junit:4.12'
     compile 'com.basgeekball:awesome-validation:1.3'

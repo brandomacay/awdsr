@@ -2,8 +2,11 @@ package vlover.android.ec.Fragmentos;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
 import vlover.android.ec.Login.IniciarSesion;
+import vlover.android.ec.Login.Registro;
 import vlover.android.ec.R;
 import vlover.android.ec.editAccount;
 import vlover.android.ec.services.SQLite;
@@ -61,8 +66,18 @@ public class    MiCuentaFragment extends Fragment {
         edit_account_ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), editAccount.class);
-                startActivity(i);
+
+                if (isNetworkConnected()){
+                    Intent i = new Intent(getContext(), editAccount.class);
+                    startActivity(i);
+                }else{
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    //alert.setTitle("");
+                    alert.setMessage(getString(R.string.error_internet));
+                    alert.setPositiveButton("OK", null);
+                    alert.show();                }
+
+
 
             }
         });
@@ -95,6 +110,12 @@ public class    MiCuentaFragment extends Fragment {
         dbsqlite.deleteUsers();
        salir();
 
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 
     private void salir(){

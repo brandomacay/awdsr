@@ -4,12 +4,21 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.support.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,6 +40,10 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -110,6 +123,8 @@ public class editAccount extends AppCompatActivity {
 
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
+                        .setMinCropResultSize(100,100)
+                        .setMaxCropResultSize(1000,1000)
                         .start(editAccount.this);
             }
         });
@@ -159,6 +174,10 @@ public class editAccount extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
+
+                //Bitmap bitt = Bitmap.createBitmap(compressImage(resultUri.toString()));
+               // Uri u = Uri.parse(compressImage(resultUri.toString()));
+               //user_image.setImageURI(compressImage(resultUri.toString()));
                 user_image.setImageURI(resultUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
@@ -473,6 +492,9 @@ public class editAccount extends AppCompatActivity {
         // menambahkan request dalam antrian system request data
         Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
+
+
 
 
 }

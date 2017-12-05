@@ -39,6 +39,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
         compile 'com.hbb20:ccp:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 
 }
 

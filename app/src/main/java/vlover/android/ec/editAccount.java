@@ -31,15 +31,20 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.widget.DatePicker;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.hbb20.CountryCodePicker;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -83,7 +88,7 @@ public class editAccount extends AppCompatActivity {
     ArrayAdapter<String> spinner_adapter_genre;
     List<String> list;
     CircleImageView user_image;
-    String email_user = "";
+    String email_user = "", uniqueid = "";
     //CropImageView user_image;
 
 
@@ -179,6 +184,18 @@ public class editAccount extends AppCompatActivity {
                // Uri u = Uri.parse(compressImage(resultUri.toString()));
                //user_image.setImageURI(compressImage(resultUri.toString()));
                 user_image.setImageURI(resultUri);
+                try {
+                    //getting bitmap object from uri
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+
+                    //displaying selected image to imageview
+                    //imageView.setImageBitmap(bitmap);
+
+                    //calling the method uploadBitmap to upload image
+                    uploadBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
@@ -215,7 +232,7 @@ public class editAccount extends AppCompatActivity {
                 if (isNetworkConnected()){
                     updateProfile(email_user, name_et.getText().toString(), "" + genre_spin.getSelectedItemPosition(),
                             ccp.getSelectedCountryNameCode() , ccp.getSelectedCountryCode(), phone_et.getText().toString(),
-                            "test.png", "testupdate");
+                             "testupdate");
 
                     cargando.setMessage("Guardando...");
                     cargando.show();
@@ -294,11 +311,27 @@ public class editAccount extends AppCompatActivity {
 
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");
+                        uniqueid = uid;
                         email_user = user.getString("email");
                         String phone = user.getString("phone");
                         String genre = user.getString("genre");
                         String country = user.getString("country");
                         String created_at = user.getString("created_at");
+
+                        if (!user.getString("avatar").isEmpty()) {
+                            String avatar = "http://vlover.heliohost.org/uploads/"+
+                                    uniqueid + "/" + user.getString("avatar");
+                            Picasso.with(getApplication())
+                                    .load(avatar)
+                                    .resize(200, 200)
+                                    .centerCrop()
+
+                                    //.resize(width,height).
+                                    .into(user_image);
+                             //Toast.makeText(getApplicationContext(), avatar, Toast.LENGTH_LONG).show();
+
+                        }
+
 
                         //session.setLogin(false);
 
@@ -373,7 +406,7 @@ public class editAccount extends AppCompatActivity {
     //$email, $name, $genre, $country, $phonecode, $phone, $avatar, $update);
     public void updateProfile(final String uEmail,final String uName ,
             final String uGenre, final String uCountry, final String uPhonecode,
-                              final String uPhone, final String uAvatar, final String uUpdate){
+                              final String uPhone, final String uUpdate){
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -401,6 +434,7 @@ public class editAccount extends AppCompatActivity {
 
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");
+
                         //String email = user.getString("email");
                         String phone = user.getString("phone");
                         String genre = user.getString("genre");
@@ -479,7 +513,7 @@ public class editAccount extends AppCompatActivity {
                 params.put("country", uCountry);
                 params.put("phonecode", uPhonecode);
                 params.put("phone", uPhone);
-                params.put("avatar", uAvatar);
+               // params.put("avatar", uAvatar);
                 params.put("update", uUpdate);
 
 
@@ -494,6 +528,72 @@ public class editAccount extends AppCompatActivity {
     }
 
 
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private void uploadBitmap(final Bitmap bitmap) {
+
+        //getting the tag from the edittext
+       // final String tags = editTextTags.getText().toString().trim();
+        final String tags = "pruebaxxx";
+
+        //our custom volley request
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Address.UPLOAD_URL,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        try {
+                            JSONObject obj = new JSONObject(new String(response.data));
+                            Toast.makeText(getApplicationContext(), obj.getString("message") , Toast.LENGTH_SHORT).show();
+                            if (obj.getString("error").equals("false")){
+                               // Toast.makeText(getApplicationContext(), "....guardando en bd", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /*
+            * If you want to add more parameters with the image
+            * you can do it here
+            * here we have only one parameter with the image
+            * which is tags
+            * */
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("userid", uniqueid);
+                params.put("tags", tags);
+                return params;
+            }
+
+            /*
+            * Here we are passing image by renaming it with a unique name
+            * */
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("pic", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+        };
+
+        //adding the request to volley
+        Volley.newRequestQueue(this).add(volleyMultipartRequest);
+    }
 
 
 

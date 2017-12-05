@@ -9,4 +9,7 @@ public class Address {
 
     public static String URL_GET_USER_PROFILE = "http://vlover.heliohost.org/get_user_profile.php";
     public static String URL_UPDATE_USER_PROFILE = "http://vlover.heliohost.org/update_user.php";
+    private static final String ROOT_URL = "http://vlover.heliohost.org/api.php?apicall=";
+    public static final String UPLOAD_URL = ROOT_URL + "uploadpic";
+    public static final String GET_PICS_URL = ROOT_URL + "getpics";
 }

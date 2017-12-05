@@ -128,8 +128,15 @@ public class editAccount extends AppCompatActivity {
 
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
+                        .setCropMenuCropButtonTitle("Guardar")
+                        .setCropShape(CropImageView.CropShape.OVAL)
+
+
                         .setMinCropResultSize(100,100)
-                        .setMaxCropResultSize(1000,1000)
+                        .setMaxCropResultSize(800,800)
+                        .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
+                        .setOutputCompressQuality(75)
+
                         .start(editAccount.this);
             }
         });
@@ -187,6 +194,8 @@ public class editAccount extends AppCompatActivity {
                 try {
                     //getting bitmap object from uri
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                    //bitmap.compress(Bitmap.CompressFormat.JPEG, 75, );
+                    //user_image.get
 
                     //displaying selected image to imageview
                     //imageView.setImageBitmap(bitmap);
@@ -533,7 +542,7 @@ public class editAccount extends AppCompatActivity {
 
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 

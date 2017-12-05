@@ -192,6 +192,9 @@ public class editAccount extends AppCompatActivity {
                     //imageView.setImageBitmap(bitmap);
 
                     //calling the method uploadBitmap to upload image
+                    cargando.setMessage("Subiendo...");
+                    cargando.show();
+                    cargando.setCancelable(false);
                     uploadBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -549,11 +552,13 @@ public class editAccount extends AppCompatActivity {
                             JSONObject obj = new JSONObject(new String(response.data));
                             Toast.makeText(getApplicationContext(), obj.getString("message") , Toast.LENGTH_SHORT).show();
                             if (obj.getString("error").equals("false")){
+                                cargando.dismiss();
                                // Toast.makeText(getApplicationContext(), "....guardando en bd", Toast.LENGTH_SHORT).show();
 
                             }
 
                         } catch (JSONException e) {
+                            cargando.dismiss();
                             e.printStackTrace();
                         }
                     }
@@ -561,6 +566,7 @@ public class editAccount extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        cargando.dismiss();
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {

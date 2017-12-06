@@ -1,5 +1,6 @@
 package vlover.android.ec.Login;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -154,7 +155,7 @@ public class IniciarSesion extends AppCompatActivity {
                     if (!error) {
                         // user successfully logged in
                         // Create login session - membuat session
-                        session.setLogin(true);
+
 
 
                         String uid = jsonObject.getString("uid");
@@ -164,18 +165,34 @@ public class IniciarSesion extends AppCompatActivity {
                         String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");
+                       int verified = user.getInt("verified");
 
-                        // Inserting row in users table
-                        // memasukkan data kedalam SQLite
-                        dbsqlite.addUser(name, email, uid, created_at);
+                        if (verified == 0){
+                            session.setLogin(false);
+                            cargando.dismiss();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(IniciarSesion.this);
+                            alert.setTitle("Correo no verificado");
+                            alert.setMessage("Tu registro aun no esta completo. Verifica tu email en bandeja de entrada, SPAM u otros.");
+                            alert.setPositiveButton("Aceptar", null);
+                            alert.show();
+                        }
+                        else {
+                            session.setLogin(true);
+                            // Inserting row in users table
+                            // memasukkan data kedalam SQLite
+                            dbsqlite.addUser(name, email, uid, created_at);
 
-                        cargando.dismiss();
+                            cargando.dismiss();
 
-                        Intent intent = new Intent(IniciarSesion.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(getApplicationContext(), getString(R.string.bienvenido)+user.getString("name"), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(IniciarSesion.this,
+                                    MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                            Toast.makeText(getApplicationContext(), getString(R.string.bienvenido)+user.getString("name"), Toast.LENGTH_LONG).show();
+
+                        }
+
+
                     } else {
                         // Error in login. Get the error message
                         // Jika terjadi error dalam pengambilan data

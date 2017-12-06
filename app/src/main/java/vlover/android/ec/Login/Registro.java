@@ -232,6 +232,8 @@ public class Registro extends AppCompatActivity {
 
                     if (!error) {
 
+                        /*
+
 
                         session.setLogin(true);
                         String uid = jsonObject.getString("uid");
@@ -244,12 +246,18 @@ public class Registro extends AppCompatActivity {
 
                         dbsqlite.addUser(name, email, uid, created_at);
 
-                        Toast.makeText(getApplicationContext(), getString(R.string.bienvenido)+user.getString("name"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.bienvenido)+user.getString("name"),
+                         Toast.LENGTH_LONG).show();
+
+                         */
+                        Toast.makeText(getApplicationContext(),
+                                "Registrado: Completa el registro accediendo a tu correo electronico",
+                                Toast.LENGTH_LONG).show();
 
 
                         Intent intent = new Intent(
                                 Registro.this,
-                                MainActivity.class);
+                                IniciarSesion.class);
                         startActivity(intent);
                         finish();
                     } else {

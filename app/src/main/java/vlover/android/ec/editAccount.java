@@ -38,7 +38,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+//import com.bumptech.glide.Glide;
 import com.hbb20.CountryCodePicker;
+
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -133,7 +135,7 @@ public class editAccount extends AppCompatActivity {
 
 
                         .setMinCropResultSize(100,100)
-                        .setMaxCropResultSize(800,800)
+                        .setMaxCropResultSize(1600,1600)
                         .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
                         .setOutputCompressQuality(75)
 
@@ -333,6 +335,13 @@ public class editAccount extends AppCompatActivity {
                         if (!user.getString("avatar").isEmpty()) {
                             String avatar = "http://vlover.heliohost.org/uploads/"+
                                     uniqueid + "/" + user.getString("avatar");
+
+                            Picasso.with(getApplication())
+                                    .load(avatar)
+                                    .resize(200, 200)
+                                    .centerCrop()
+                                    .into(user_image);
+                            /*
                             Picasso.with(getApplication())
                                     .load(avatar)
                                     .resize(200, 200)
@@ -340,6 +349,15 @@ public class editAccount extends AppCompatActivity {
 
                                     //.resize(width,height).
                                     .into(user_image);
+                                    */
+                            /*
+                            Glide.with(editAccount.this)
+                                    .load(avatar)
+
+                                    .thumbnail(0.1f)
+
+                                    .into(user_image);
+                                    */
                              //Toast.makeText(getApplicationContext(), avatar, Toast.LENGTH_LONG).show();
 
                         }

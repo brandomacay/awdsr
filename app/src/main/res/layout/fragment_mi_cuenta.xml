@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v4.widget.NestedScrollView
         android:scrollbars="vertical"
@@ -29,15 +30,22 @@
                         android:src="@drawable/editar"
                         android:id="@+id/edit_account" />
 
-                    <ImageView
-                        android:layout_marginTop="45dp"
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/myaccount_user_image_iv"
+                        app:civ_border_color="@color/colorAccent"
+                        app:civ_border_width="1dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_width="150dp"
-                        android:tint="@color/colorPrimary"
-                        android:layout_height="150dp"
-                        android:src="@drawable/persona"/>
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:src="@drawable/user"
+                        android:contentDescription="TODO"/>
                     <TextView
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="0dp"
                         android:id="@+id/nombres"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
@@ -163,13 +171,14 @@
                         android:layout_height="36dp"
                         android:src="@drawable/telefono"/>
                     <TextView
+                        android:id="@+id/myaccount_phone_tv"
                         android:textStyle="bold"
 
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
-                        android:text="+266 225 225"/>
+                        android:text=""/>
                 </LinearLayout>
 
                 <LinearLayout

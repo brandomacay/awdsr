@@ -97,6 +97,8 @@ public class editAccount extends AppCompatActivity {
     private SQLite dbsqlite;
     private Session session;
     ProgressDialog cargando;
+    String previous_avatar = "";
+    //int profilecount = 0;
    // private boolean birthday_picked;
 
 
@@ -334,13 +336,23 @@ public class editAccount extends AppCompatActivity {
 
                         if (!user.getString("avatar").isEmpty()) {
                             String avatar = "http://vlover.heliohost.org/uploads/"+
-                                    uniqueid + "/" + user.getString("avatar");
+                                    uniqueid + "/avatar/" + user.getString("avatar");
+
 
                             Picasso.with(getApplication())
                                     .load(avatar)
                                     .resize(200, 200)
                                     .centerCrop()
                                     .into(user_image);
+                            previous_avatar = user.getString("avatar");
+                            /*
+
+                            String sss = user.getString("avatar").substring(6);
+                            String[] parts = sss.split(".");
+                            String part1 = parts[0]; // 004
+                            //String part2 = parts[1];
+                            profilecount = Integer.parseInt(part1);
+                            */
                             /*
                             Picasso.with(getApplication())
                                     .load(avatar)
@@ -568,7 +580,8 @@ public class editAccount extends AppCompatActivity {
 
         //getting the tag from the edittext
        // final String tags = editTextTags.getText().toString().trim();
-        final String tags = "pruebaxxx";
+        final String tags = previous_avatar;
+        Toast.makeText(getApplicationContext(), previous_avatar , Toast.LENGTH_SHORT).show();
 
         //our custom volley request
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Address.UPLOAD_URL,

@@ -52,7 +52,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
-                        .setCropMenuCropButtonTitle("Guardar")
+                        .setCropMenuCropButtonTitle("Añadir")
                         .setCropShape(CropImageView.CropShape.RECTANGLE)
                         .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
                         .setOutputCompressQuality(75)
@@ -79,12 +79,6 @@ public class PostActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
     }
 
 }

@@ -182,9 +182,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/persona"/>
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/correo"/>
                     <TextView
                         android:textStyle="bold"
                         android:layout_gravity="center_vertical"

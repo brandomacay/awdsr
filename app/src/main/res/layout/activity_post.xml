@@ -5,5 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="vlover.android.ec.Post.PostActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="?attr/colorAccent"
+                android:elevation="5dp"
+                android:minHeight="45dp"
+                android:theme="?attr/actionBarTheme">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/regresar"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="-5dp"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_vertical"
+                        android:text="Publicar" />
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/pp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textColor="@color/negro"
+                android:textSize="15dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/hola_mundo"/>
+
+        </LinearLayout>
+
+    <EditText
+        android:id="@+id/descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripcion"/>
+
+        <ImageView
+            android:id="@+id/select_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:maxHeight="300dp"
+            android:src="@drawable/user"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

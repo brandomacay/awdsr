@@ -1,12 +1,15 @@
 package vlover.android.ec.Fragmentos;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vlover.android.ec.Post.PostActivity;
 import vlover.android.ec.R;
 
 /**
@@ -14,6 +17,8 @@ import vlover.android.ec.R;
  */
 public class InicioFragment extends Fragment {
 
+    View mView;
+    FloatingActionButton fab;
 
     public InicioFragment() {
         // Required empty public constructor
@@ -24,7 +29,15 @@ public class InicioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inicio, container, false);
+        mView= inflater.inflate(R.layout.fragment_inicio, container, false);
+        fab= mView.findViewById(R.id.post);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), PostActivity.class));
+            }
+        });
+        return mView;
     }
 
 }

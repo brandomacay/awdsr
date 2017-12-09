@@ -7,7 +7,7 @@
     android:paddingTop="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    tools:context="vlover.android.ec.editAccount"
+    tools:context="vlover.android.ec.Edition.Account"
     tools:showIn="@layout/activity_edit_account"
     android:orientation="vertical">
 

@@ -1,4 +1,4 @@
-package vlover.android.ec.services;
+package vlover.android.ec.Service;
 
 import android.content.ContentValues;
 import android.content.Context;

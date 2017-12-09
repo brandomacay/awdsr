@@ -1,4 +1,4 @@
-package vlover.android.ec.services;
+package vlover.android.ec.Service;
 
 public class Address {
     // Server user login url
@@ -12,4 +12,5 @@ public class Address {
     private static final String ROOT_URL = "http://vlover.heliohost.org/api.php?apicall=";
     public static final String UPLOAD_URL = ROOT_URL + "uploadpic";
     public static final String GET_PICS_URL = ROOT_URL + "getpics";
+
 }

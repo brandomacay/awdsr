@@ -31,14 +31,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import vlover.android.ec.Edition.Account;
 import vlover.android.ec.Login.IniciarSesion;
-import vlover.android.ec.Login.Registro;
 import vlover.android.ec.R;
-import vlover.android.ec.editAccount;
-import vlover.android.ec.services.Address;
-import vlover.android.ec.services.Controller;
-import vlover.android.ec.services.SQLite;
-import vlover.android.ec.services.Session;
+import vlover.android.ec.Service.Address;
+import vlover.android.ec.Service.Controller;
+import vlover.android.ec.Service.SQLite;
+import vlover.android.ec.Service.Session;
 
 
 public class    MiCuentaFragment extends Fragment {
@@ -91,7 +90,7 @@ public class    MiCuentaFragment extends Fragment {
             public void onClick(View view) {
 
                 if (isNetworkConnected()){
-                    Intent i = new Intent(getContext(), editAccount.class);
+                    Intent i = new Intent(getContext(), Account.class);
                     startActivity(i);
                 }else{
                     AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
@@ -199,7 +198,7 @@ public class    MiCuentaFragment extends Fragment {
                                     .into(user_image);
                                     */
                             /*
-                            Glide.with(editAccount.this)
+                            Glide.with(Account.this)
                                     .load(avatar)
 
                                     .thumbnail(0.1f)

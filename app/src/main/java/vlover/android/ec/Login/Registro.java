@@ -5,18 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,26 +21,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.R;
-import vlover.android.ec.services.Address;
-import vlover.android.ec.services.Controller;
-import vlover.android.ec.services.SQLite;
-import vlover.android.ec.services.Session;
+import vlover.android.ec.Service.Address;
+import vlover.android.ec.Service.Controller;
+import vlover.android.ec.Service.SQLite;
+import vlover.android.ec.Service.Session;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -171,7 +159,7 @@ public class Registro extends AppCompatActivity {
 
             AlertDialog.Builder alert = new AlertDialog.Builder(Registro.this);
             alert.setTitle("Edad no valida");
-            alert.setMessage("Debes ser mayor de " + minAge + " para usar Vlover");
+            alert.setMessage("Debes ser mayor de " + minAge + " años para usar Vlover");
             alert.setPositiveButton("Aceptar", null);
             alert.show();
         }

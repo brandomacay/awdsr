@@ -1,6 +1,5 @@
-package vlover.android.ec.services;
+package vlover.android.ec.Service;
 
-import android.animation.ObjectAnimator;
 import android.app.Application;
 import android.text.TextUtils;
 

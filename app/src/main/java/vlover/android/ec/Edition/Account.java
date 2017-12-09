@@ -1,35 +1,21 @@
-package vlover.android.ec;
+package vlover.android.ec.Edition;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.support.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.support.design.widget.FloatingActionButton;
 //import android.support.design.widget.Snackbar;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
-import android.app.DatePickerDialog;
 //import android.content.DialogInterface;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.widget.DatePicker;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -44,14 +30,9 @@ import com.hbb20.CountryCodePicker;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 //import java.util.Set;
@@ -71,15 +52,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import vlover.android.ec.Login.IniciarSesion;
-import vlover.android.ec.MainActivity.MainActivity;
-import vlover.android.ec.services.Address;
-import vlover.android.ec.services.Controller;
-import vlover.android.ec.services.SQLite;
-import vlover.android.ec.services.Session;
+import vlover.android.ec.R;
+import vlover.android.ec.Service.Address;
+import vlover.android.ec.Service.Controller;
+import vlover.android.ec.Service.SQLite;
+import vlover.android.ec.Service.Session;
+import vlover.android.ec.VolleyMultipartRequest;
 
 
-public class editAccount extends AppCompatActivity {
+public class Account extends AppCompatActivity {
 
     EditText name_et, phone_et;
     TextView cancelar;
@@ -141,7 +122,7 @@ public class editAccount extends AppCompatActivity {
                         .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
                         .setOutputCompressQuality(75)
 
-                        .start(editAccount.this);
+                        .start(Account.this);
             }
         });
 
@@ -255,7 +236,7 @@ public class editAccount extends AppCompatActivity {
                     cargando.setCancelable(false);
                 }else
                 {
-                    Toast.makeText(editAccount.this,getString(R.string.error_internet),Toast.LENGTH_LONG).show();
+                    Toast.makeText(Account.this,getString(R.string.error_internet),Toast.LENGTH_LONG).show();
                 }
 
 
@@ -363,7 +344,7 @@ public class editAccount extends AppCompatActivity {
                                     .into(user_image);
                                     */
                             /*
-                            Glide.with(editAccount.this)
+                            Glide.with(Account.this)
                                     .load(avatar)
 
                                     .thumbnail(0.1f)

@@ -176,7 +176,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_gravity="center">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informacion:"
+                    android:textSize="18dp"/>
                 <LinearLayout
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal"
                     android:paddingStart="10dp"
                     android:layout_width="match_parent"
@@ -242,10 +249,29 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/notificacion"/>
+                        android:src="@drawable/trabajo"/>
                     <TextView
                         android:textStyle="bold"
-                        android:id="@+id/uid"
+                        android:id="@+id/trabajo"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text=""/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/flag_ecuador"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/direccion"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

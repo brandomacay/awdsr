@@ -16,6 +16,7 @@ import vlover.android.ec.R;
  */
 public class AvisosFragment extends Fragment {
 
+    View mView;
 
     public AvisosFragment() {
         // Required empty public constructor
@@ -26,7 +27,9 @@ public class AvisosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_avisos, container, false);
+        mView= inflater.inflate(R.layout.fragment_avisos, container, false);
+
+        return mView;
     }
 
 }

@@ -1,6 +1,7 @@
 package vlover.android.ec.Fragmentos;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,8 +14,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +25,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vlover.android.ec.Edition.Account;
@@ -45,12 +52,14 @@ public class    MiCuentaFragment extends Fragment {
     View mView;
     Button cerrar;
     ImageButton edit_account_ib;
-    private TextView emailview,nameview, phoneview;
+    private TextView emailview,nameview, phoneview,generoview,adressview;
     private SQLite dbsqlite;
     private Session session;
     ProgressDialog cargando;
     String email_user = "", uniqueid = "";
     CircleImageView user_image;
+    List<String> list;
+   // RelativeLayout bloqueo;
 
 
 
@@ -68,20 +77,18 @@ public class    MiCuentaFragment extends Fragment {
         emailview = (TextView) mView.findViewById(R.id.emaildelusuario);
         nameview = (TextView) mView.findViewById(R.id.nombres);
         phoneview = (TextView) mView.findViewById(R.id.myaccount_phone_tv);
-
+        generoview = (TextView)mView.findViewById(R.id.genero);
+        adressview=(TextView)mView.findViewById(R.id.direccion);
         user_image = (CircleImageView) mView.findViewById(R.id.myaccount_user_image_iv);
-
-
+       // bloqueo = (RelativeLayout)mView.findViewById(R.id.blocked);
+        //bloqueo.setVisibility(View.GONE);
         //mostrardatodeusuario();
+
+
         dbsqlite = new SQLite(getContext());
 
         // session manager
         session = new Session(getContext());
-
-
-
-
-
 
 
         edit_account_ib = mView.findViewById(R.id.edit_account);
@@ -115,13 +122,11 @@ public class    MiCuentaFragment extends Fragment {
         cargando = new ProgressDialog(getActivity());
 
 
+
         return mView;
     }
 
-
     private void  mostrardatodeusuario() {
-
-
 
         HashMap<String, String> user = dbsqlite.getUserDetails();
         String name = user.get("name");
@@ -132,6 +137,19 @@ public class    MiCuentaFragment extends Fragment {
 
 
     }
+
+    /*private void condicionInternet(){
+        if(isNetworkConnected()){
+            bloqueo.setVisibility(View.INVISIBLE);
+            mostrardatodeusuario();
+
+        }else{
+            bloqueo.setVisibility(View.VISIBLE);
+        }
+    }*/
+
+
+
 
 
     public void getProfile(final String email){
@@ -179,66 +197,14 @@ public class    MiCuentaFragment extends Fragment {
                                     .resize(200, 200)
                                     .centerCrop()
                                     .into(user_image);
-                            //previous_avatar = user.getString("avatar");
-                            /*
-
-                            String sss = user.getString("avatar").substring(6);
-                            String[] parts = sss.split(".");
-                            String part1 = parts[0]; // 004
-                            //String part2 = parts[1];
-                            profilecount = Integer.parseInt(part1);
-                            */
-                            /*
-                            Picasso.with(getApplication())
-                                    .load(avatar)
-                                    .resize(200, 200)
-                                    .centerCrop()
-
-                                    //.resize(width,height).
-                                    .into(user_image);
-                                    */
-                            /*
-                            Glide.with(Account.this)
-                                    .load(avatar)
-
-                                    .thumbnail(0.1f)
-
-                                    .into(user_image);
-                                    */
-                            //Toast.makeText(getApplicationContext(), avatar, Toast.LENGTH_LONG).show();
-
                         }
-
-
-                        //session.setLogin(false);
-
-
                         cargando.dismiss();
                         nameview.setText(name);
                         phoneview.setText("+" + phonecode + " " + phone);
-                        //int idspin = spinner_adapter_genre.getPosition(genre);
-                        /*
-                        if (!genre.isEmpty()) {
-                            genre_spin.setSelection(Integer.parseInt(genre), true);
-                        }
 
-                        if (country.isEmpty()) {
-                            ccp.detectLocaleCountry(true);
-                        }
-                        else {
-                            ccp.setCountryForNameCode(country);
-                        }
-                        phone_et.setText(phone);
-                        */
-
-
-
-                        //Intent intent = new Intent(IniciarSesion.this,
-                        //      MainActivity.class);
-                        //startActivity(intent);
-                        //finish();
-                        // Toast.makeText(getApplicationContext(), name + email_user +  genre + country + phone, Toast.LENGTH_LONG).show();
-                    } else {
+                        //generoview.setText(genre);
+                        adressview.setText(country);
+                       } else {
                         // Error in login. Get the error message
                         // Jika terjadi error dalam pengambilan data
                         String errorMsg = jsonObject.getString("error_msg");
@@ -281,7 +247,6 @@ public class    MiCuentaFragment extends Fragment {
         // menambahkan request dalam antrian system request data
         Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
-
     public void logout(){
         session.setLogin(false);
 
@@ -329,7 +294,7 @@ public class    MiCuentaFragment extends Fragment {
         //Log.e("DEBUG", "onResume of LoginFragment");
         super.onResume();
         mostrardatodeusuario();
+       //condicionInternet();
+
     }
-
-
 }

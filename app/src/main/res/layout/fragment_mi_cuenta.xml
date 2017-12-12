@@ -19,7 +19,6 @@
             <android.support.constraint.ConstraintLayout
                 android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:elevation="25dp"
                 android:layout_height="100dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -65,6 +64,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/myaccount_user_image_iv"
@@ -87,7 +87,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Publicaciones"
-                                android:textSize="11sp" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Amigos"
-                                android:textSize="11sp" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -133,7 +133,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Seguidores"
-                                android:textSize="11sp"
+                                android:textSize="13sp"
                                  />
 
                             <TextView
@@ -293,5 +293,8 @@
                 android:textColor="#fff" />
         </LinearLayout>
 
+
+
     </android.support.v4.widget.NestedScrollView>
+
 </FrameLayout>

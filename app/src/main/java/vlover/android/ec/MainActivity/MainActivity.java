@@ -22,11 +22,13 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import vlover.android.ec.Adapters.ViewPagerAdapter;
 import vlover.android.ec.Fragmentos.AvisosFragment;
+import vlover.android.ec.Fragmentos.ErrorInternetFragment;
 import vlover.android.ec.Fragmentos.InicioFragment;
 import vlover.android.ec.Fragmentos.MapaFragment;
 import vlover.android.ec.Fragmentos.MiCuentaFragment;
 import vlover.android.ec.Fragmentos.NotificacionesFragment;
 import vlover.android.ec.Mensajes.MensajesActivity;
+import vlover.android.ec.MyWork.MyWorkActivity;
 import vlover.android.ec.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navegacion;
     ViewPager page;
     MenuItem prevMenuItem;
+    ErrorInternetFragment error1,error2,error3,error4,error5;
     InicioFragment inicios;
     AvisosFragment avisoss;
     MapaFragment vs;
@@ -59,12 +62,12 @@ public class MainActivity extends AppCompatActivity {
             //si dispone de internet
         }else{
             //no dispone internet
-            Snackbar.make(findViewById(R.id.coor),getString(R.string.error_internet),Snackbar.LENGTH_LONG).setAction("De acuerdo!", new View.OnClickListener() {
+            Snackbar.make(findViewById(R.id.coor),getString(R.string.error_internet),Snackbar.LENGTH_LONG).setAction("ok", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                 }
-            }).setActionTextColor(getResources().getColor(R.color.azul_claro)).setDuration(4500).show();
+            }).setActionTextColor(getResources().getColor(R.color.azul_claro)).setDuration(1000).show();
         }
         navegacion.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -116,7 +119,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-        setupViewPager(page);
+
+        if (isNetworkConnected()){
+            setupViewPager(page);
+        }else {
+            errorInternetPage(page);
+        }
     }
 
 
@@ -136,6 +144,23 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(cuentas);
         viewPager.setAdapter(adapter);
     }
+
+    private void errorInternetPage (ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        error1=new ErrorInternetFragment();
+        error2=new ErrorInternetFragment();
+        error3=new ErrorInternetFragment();
+        error4=new ErrorInternetFragment();
+        error5=new ErrorInternetFragment();
+
+        adapter.addFragment(error1);
+        adapter.addFragment(error2);
+        adapter.addFragment(error3);
+        adapter.addFragment(error4);
+        adapter.addFragment(error5);
+        viewPager.setAdapter(adapter);
+    }
+
     private boolean isNetworkConnected() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -164,13 +189,14 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_buscar) {
             return true;
         }if (id == R.id.chatear){
             startActivity(new Intent(MainActivity.this, MensajesActivity.class));
             return true;
+        }if (id== R.id.trabajo){
+            startActivity(new Intent(MainActivity.this, MyWorkActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

@@ -301,7 +301,7 @@ public class Account extends AppCompatActivity {
                     if (!error) {
                         // user successfully logged in
                         // Create login session - membuat session
-                      //  session.setLogin(true);
+                        //  session.setLogin(true);
 
 
                         String uid = jsonObject.getString("uid");
@@ -351,7 +351,7 @@ public class Account extends AppCompatActivity {
 
                                     .into(user_image);
                                     */
-                             //Toast.makeText(getApplicationContext(), avatar, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), avatar, Toast.LENGTH_LONG).show();
 
                         }
 
@@ -377,10 +377,10 @@ public class Account extends AppCompatActivity {
 
 
                         //Intent intent = new Intent(IniciarSesion.this,
-                          //      MainActivity.class);
+                        //      MainActivity.class);
                         //startActivity(intent);
                         //finish();
-                       // Toast.makeText(getApplicationContext(), name + email_user +  genre + country + phone, Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getApplicationContext(), name + email_user +  genre + country + phone, Toast.LENGTH_LONG).show();
                     } else {
                         // Error in login. Get the error message
                         // Jika terjadi error dalam pengambilan data

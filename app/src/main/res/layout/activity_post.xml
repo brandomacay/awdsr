@@ -6,6 +6,46 @@
     android:layout_height="match_parent"
     tools:context="vlover.android.ec.Post.PostActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/colorAccent"
+            android:elevation="5dp"
+            android:minHeight="45dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/regresar"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="-5dp"/>
+                <Button
+                    android:id="@+id/send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center_vertical"
+                    android:text="Publicar" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,52 +53,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="?attr/colorAccent"
-                android:elevation="5dp"
-                android:minHeight="45dp"
-                android:theme="?attr/actionBarTheme">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:tint="@color/colorPrimary"
-                android:src="@drawable/regresar"
-                android:adjustViewBounds="true"
-                android:layout_marginStart="-5dp"/>
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:gravity="center_vertical"
-                        android:text="Publicar" />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-
-
-        </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/pp"/>
+                android:id="@+id/img_avatar"
+                android:layout_margin="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/persona"/>
             <TextView
+                android:id="@+id/name_user"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -66,37 +74,157 @@
                 android:textColor="@color/negro"
                 android:textSize="15dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/hola_mundo"/>
+               />
 
         </LinearLayout>
 
-    <EditText
-        android:id="@+id/descripcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Descripcion"/>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardCornerRadius="2dp"
-            app:cardElevation="25dp"
-            app:cardBackgroundColor="#F4F4F4"
             app:cardPreventCornerOverlap="true"
-            android:clickable="true"
-            android:minHeight="300dp">
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="0dp"
+                    android:textColor="@color/colorPrimary"
+                    tools:layout_editor_absoluteX="151dp"
+                    tools:layout_editor_absoluteY="400dp"
+                    tools:ignore="MissingConstraints" />
 
-            <TextView
+                <EditText
+                    android:id="@+id/descripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorAccent"
+                    android:hint="Describe como fue tu dia" />
+            <ImageView
+                android:id="@+id/post_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Click para seleccionar una foto"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-        <ImageView
-            android:id="@+id/select_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true" />
+                android:adjustViewBounds="true" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:background="#DDDDDD"
+                    android:layout_margin="4dp"
+                    android:layout_height="0.5dp"/>
+            <HorizontalScrollView
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/select_image"
+                        android:layout_gravity="center"
+                        app:backgroundTint="@color/colorPrimary"
+                        android:tint="@color/colorAccent"
+                        android:layout_margin="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/agregar_imagen" />
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Subir imagen"/>
+                </LinearLayout>
+
+                    <View
+                        android:background="#DDDDDD"
+                        android:layout_margin="1mm"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/encuesta"
+                        android:layout_gravity="center"
+                        android:layout_margin="7dp"
+                        app:backgroundTint="@color/colorPrimary"
+                        android:tint="@color/colorAccent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/encuesta" />
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Encuestar"/>
+                </LinearLayout>
+                    <View
+                        android:background="#DDDDDD"
+                        android:layout_margin="1mm"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/invitar"
+                            android:layout_margin="7dp"
+                            app:backgroundTint="@color/colorPrimary"
+                            android:tint="@color/colorAccent"
+                            app:fabSize="auto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            app:srcCompat="@drawable/invitar" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Invitar" />
+                    </LinearLayout>
+                    <View
+                        android:background="#DDDDDD"
+                        android:layout_margin="1mm"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"/>
+
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            </LinearLayout>
+
         </android.support.v7.widget.CardView>
+
+
     </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

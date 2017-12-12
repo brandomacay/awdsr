@@ -1,13 +1,18 @@
 package vlover.android.ec.Post;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -15,52 +20,89 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vlover.android.ec.Edition.Account;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Address;
+import vlover.android.ec.Service.Controller;
+import vlover.android.ec.Service.SQLite;
+import vlover.android.ec.Service.Session;
 import vlover.android.ec.VolleyMultipartRequest;
 
 public class PostActivity extends AppCompatActivity {
-
+    ProgressDialog cargando;
+    CircleImageView user_image;
+    private TextView nombre_usuario,user_email;
+    String email_user = "", uniqueid = "";
     ImageView imagen,regresar;
+    FloatingActionButton seleccionar_imagen;
+    EditText descripcion_post;
+    Button enviar;
+    private SQLite dbsqlite;
+    private Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        imagen=(ImageView)findViewById(R.id.select_image);
+        user_email =(TextView)findViewById(R.id.email);
+        cargando = new ProgressDialog(this);
+        imagen=(ImageView)findViewById(R.id.post_photo);
         regresar=(ImageView)findViewById(R.id.back);
+        enviar=(Button)findViewById(R.id.send);
+        descripcion_post =(EditText)findViewById(R.id.descripcion);
+        user_image = (CircleImageView) findViewById(R.id.img_avatar);
+        seleccionar_imagen = (FloatingActionButton)findViewById(R.id.select_image);
+        nombre_usuario = (TextView)findViewById(R.id.name_user);
         regresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        imagen.setOnClickListener(new View.OnClickListener() {
+        dbsqlite = new SQLite(PostActivity.this);
+
+        // session manager
+        session = new Session(PostActivity.this);
+        seleccionar_imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
-                        .setCropMenuCropButtonTitle("Añadir")
+                        .setCropMenuCropButtonTitle("Elegir")
                         .setCropShape(CropImageView.CropShape.RECTANGLE)
                         .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
                         .setOutputCompressQuality(75)
-
                         .start(PostActivity.this);
             }
         });
+
     }
+    private void  mostrardatodeusuario() {
+
+        HashMap<String, String> user = dbsqlite.getUserDetails();
+        getProfile(email_user);
+        String email = user.get("email");
+        user_email.setText(email);
+        getProfile(email);
+
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -79,6 +121,101 @@ public class PostActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    public void getProfile(final String email){
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Address.URL_GET_USER_PROFILE, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                //Log.d(TAG, "Login Response: " + response.toString());
+
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean("error");
+
+                    // Check for error node in json
+                    // jika tidak ada eror, mulai mengeksekusi proses mengam data
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session - membuat session
+                        //  session.setLogin(true);
+
+
+                        String uid = jsonObject.getString("uid");
+
+                        JSONObject user = jsonObject.getJSONObject("user");
+                        String name = user.getString("name");
+                        uniqueid = uid;
+                        email_user = user.getString("email");
+                        if (!user.getString("avatar").isEmpty()) {
+                            String avatar = "http://vlover.heliohost.org/uploads/"+
+                                    uniqueid + "/avatar/" + user.getString("avatar");
+
+
+                            Picasso.with(PostActivity.this)
+                                    .load(avatar)
+                                    .resize(50, 50)
+                                    .centerCrop()
+                                    .into(user_image);
+                        }
+                        cargando.dismiss();
+                        nombre_usuario.setText(name);
+
+                        //generoview.setText(genre);
+                    } else {
+                        // Error in login. Get the error message
+                        // Jika terjadi error dalam pengambilan data
+                       /* String errorMsg = jsonObject.getString("error_msg");
+                        Toast.makeText(PostActivity.this,
+                                errorMsg, Toast.LENGTH_LONG).show();*/
+                        cargando.dismiss();
+                    }
+                }  catch (JSONException e) {
+                    // JSON error
+                    // Jika terjadi eror pada proses json
+                    e.printStackTrace();
+                    Toast.makeText(PostActivity.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    cargando.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // terjadi ketidak sesuain data user pada saat login
+                //Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(PostActivity.this,
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                cargando.dismiss();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email);
+
+
+                return params;
+            }
+
+        };
+        // Adding request to request queue
+        // menambahkan request dalam antrian system request data
+        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    @Override
+    public void onResume() {
+        //Log.e("DEBUG", "onResume of LoginFragment");
+        super.onResume();
+        mostrardatodeusuario();
     }
 
 }

@@ -69,7 +69,7 @@ public class Registro extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
 
         inputName      = (EditText) findViewById(R.id.signup_text_name);
-        inputEmail     = (EditText) findViewById(R.id.signup_text_email);
+        inputEmail     = (EditText) findViewById(R.id.email);
         inputPassword  = (EditText) findViewById(R.id.signup_text_password);
         buttonRegister = (Button)   findViewById(R.id.signup_btn_register);
         buttonToLogin  = (Button)   findViewById(R.id.signup_btn_tologin);
@@ -95,7 +95,7 @@ public class Registro extends AppCompatActivity {
 
 
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-        awesomeValidation.addValidation(this, R.id.signup_text_email, Patterns.EMAIL_ADDRESS, R.string.error_email);
+        awesomeValidation.addValidation(this, R.id.email, Patterns.EMAIL_ADDRESS, R.string.error_email);
         // SqLite database handler
         dbsqlite = new SQLite(getApplicationContext());
 

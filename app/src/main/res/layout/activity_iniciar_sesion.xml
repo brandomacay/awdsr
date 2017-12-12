@@ -44,7 +44,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="43dp"
             android:background="#11000000"
-            android:drawableLeft="@drawable/persona"
+            android:drawableLeft="@drawable/email"
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"

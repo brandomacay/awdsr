@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:background="@color/colorAccent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,6 +15,8 @@
         android:gravity="center">
 
         <TextView
+            android:drawableTop="@color/anaranjado"
+            android:background="@color/colorPrimary"
             android:id="@+id/register_birthday_tv"
             style="?android:attr/spinnerStyle"
             android:layout_width="match_parent"
@@ -26,32 +30,48 @@
             />
 
         <EditText
+            android:layout_marginVertical="5dp"
             android:id="@+id/signup_text_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Name" />
-
-        <EditText
-            android:id="@+id/signup_text_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:drawableStart="@drawable/persona"
+            android:ems="10"
+            android:hint="Nombres"
             android:inputType="textEmailAddress"
-            android:hint="Email" />
+            android:textSize="16dp" />
 
         <EditText
+            android:layout_marginVertical="5dp"
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:drawableStart="@drawable/email"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textSize="16dp" />
+
+        <EditText
+            android:layout_marginVertical="5dp"
             android:id="@+id/signup_text_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textVisiblePassword"
-            android:hint="Password" />
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:drawableStart="@drawable/candado_bloqueado"
+            android:ems="10"
+            android:hint="@string/clave"
+            android:inputType="textPassword"
+            android:textSize="16dp" />
+
 
 
         <Button
             android:id="@+id/signup_btn_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"/>
+            android:text="@string/registrar"/>
 
 
         <Button

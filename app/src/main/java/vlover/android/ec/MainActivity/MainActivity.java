@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +18,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import vlover.android.ec.Adapters.ViewPagerAdapter;
 import vlover.android.ec.Fragmentos.AvisosFragment;
-import vlover.android.ec.Fragmentos.ErrorInternetFragment;
 import vlover.android.ec.Fragmentos.InicioFragment;
 import vlover.android.ec.Fragmentos.MapaFragment;
 import vlover.android.ec.Fragmentos.MiCuentaFragment;
@@ -37,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navegacion;
     ViewPager page;
     MenuItem prevMenuItem;
-    ErrorInternetFragment error1,error2,error3,error4,error5;
+    RelativeLayout bloqueo;
+    FloatingActionButton fabreload;
     InicioFragment inicios;
     AvisosFragment avisoss;
     MapaFragment vs;
@@ -52,23 +55,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         page = findViewById(R.id.pagina);
         navegacion = findViewById(R.id.navegacion);
+        bloqueo = findViewById(R.id.blocked);
+        fabreload = findViewById(R.id.fab_reload);
+        fabreload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent recargar = new Intent(MainActivity.this,MainActivity.class);
+                startActivity(recargar);
+                finish();
+                overridePendingTransition(0,0);
+                Toast.makeText(MainActivity.this,"Recargando...",Toast.LENGTH_LONG).show();
+                if (isNetworkConnected()){
+                    Toast.makeText(MainActivity.this,"Coneccion establecida!",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(MainActivity.this,"ERROR DE INTERNET",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        bloqueo.setVisibility(View.GONE);
         con =findViewById(R.id.coor);
         //getWindow().setStatusBarColor(getResources().getColor(R.color.foreground_material_light));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         //getSupportActionBar().hide();
-        if(isNetworkConnected()){
-            //si dispone de internet
-        }else{
-            //no dispone internet
-            Snackbar.make(findViewById(R.id.coor),getString(R.string.error_internet),Snackbar.LENGTH_LONG).setAction("ok", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            }).setActionTextColor(getResources().getColor(R.color.azul_claro)).setDuration(1000).show();
-        }
         navegacion.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -122,10 +132,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (isNetworkConnected()){
             setupViewPager(page);
+            bloqueo.setVisibility(View.INVISIBLE);
         }else {
-            errorInternetPage(page);
+            bloqueo.setVisibility(View.VISIBLE);
         }
     }
+
 
 
 
@@ -142,22 +154,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(vs);
         adapter.addFragment(notificacioness);
         adapter.addFragment(cuentas);
-        viewPager.setAdapter(adapter);
-    }
-
-    private void errorInternetPage (ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        error1=new ErrorInternetFragment();
-        error2=new ErrorInternetFragment();
-        error3=new ErrorInternetFragment();
-        error4=new ErrorInternetFragment();
-        error5=new ErrorInternetFragment();
-
-        adapter.addFragment(error1);
-        adapter.addFragment(error2);
-        adapter.addFragment(error3);
-        adapter.addFragment(error4);
-        adapter.addFragment(error5);
         viewPager.setAdapter(adapter);
     }
 

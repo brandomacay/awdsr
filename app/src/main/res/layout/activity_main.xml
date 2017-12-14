@@ -36,7 +36,40 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </android.support.v4.view.ViewPager>
+        <RelativeLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/blocked"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#F4F4F4">
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/ic_sin_internet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sin coneccion a internet!"
+                    android:textSize="18dp"
+                    />
+                <android.support.design.widget.FloatingActionButton
+                    android:foregroundGravity="center"
+                    android:layout_marginVertical="25dp"
+                    android:id="@+id/fab_reload"
+                    app:fabSize="mini"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/colorPrimary"
+                    android:src="@drawable/recargar"/>
+            </LinearLayout>
 
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 
 

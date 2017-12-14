@@ -50,12 +50,12 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ffff"
-                android:drawableLeft="@drawable/persona"
-                android:hint="Email"
+                android:drawableStart="@drawable/persona"
+                android:hint="@string/email"
                 android:drawableTint="@color/colorAccent" />
         </android.support.design.widget.TextInputLayout>
 

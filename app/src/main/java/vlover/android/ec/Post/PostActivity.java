@@ -211,6 +211,109 @@ public class PostActivity extends AppCompatActivity {
         Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+
+    public void sendPost(final String uEmail,final String uName ,
+                              final String uGenre, final String uCountry, final String uPhonecode,
+                              final String uPhone, final String uUpdate){
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Address.URL_POST_USER, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                //Log.d(TAG, "Login Response: " + response.toString());
+
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean("error");
+
+                    // Check for error node in json
+                    // jika tidak ada eror, mulai mengeksekusi proses mengam data
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session - membuat session
+                        //  session.setLogin(true);
+
+
+
+                        // String uid = jsonObject.getString("uid");
+
+                        JSONObject user = jsonObject.getJSONObject("user");
+                        String name = user.getString("name");
+
+                        //String email = user.getString("email");
+                        String phone = user.getString("phone");
+                        String genre = user.getString("genre");
+                        String country = user.getString("country");
+                        String created_at = user.getString("created_at");
+                        //dbsqlite.updateUser(name);
+
+                        // Inserting row in users table
+                        // memasukkan data kedalam SQLite
+                        //dbsqlite.deleteUsers();
+
+                        //dbsqlite.addUser(name,phone,genre,country,email);
+                        cargando.dismiss();
+                        cargando.dismiss();
+                        Toast.makeText(getApplicationContext(), "Publicado", Toast.LENGTH_LONG).show();
+                        finish();
+
+                    } else {
+                        // Error in login. Get the error message
+                        // Jika terjadi error dalam pengambilan data
+                        String errorMsg = jsonObject.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                        cargando.dismiss();
+                    }
+                }  catch (JSONException e) {
+                    // JSON error
+                    // Jika terjadi eror pada proses json
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    cargando.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // terjadi ketidak sesuain data user pada saat login
+                //Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                cargando.dismiss();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                //email, $name, $genre, $country, $phonecode, $phone, $avatar, $update);
+
+                params.put("email", uEmail);
+                params.put("name", uName);
+                params.put("genre", uGenre);
+                params.put("country", uCountry);
+                params.put("phonecode", uPhonecode);
+                params.put("phone", uPhone);
+                // params.put("avatar", uAvatar);
+                params.put("update", uUpdate);
+
+
+
+                return params;
+            }
+
+        };
+        // Adding request to request queue
+        // menambahkan request dalam antrian system request data
+        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
     @Override
     public void onResume() {
         //Log.e("DEBUG", "onResume of LoginFragment");

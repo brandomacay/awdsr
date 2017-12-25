@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +27,9 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import vlover.android.ec.MainActivity.MainActivity;
@@ -51,6 +55,9 @@ public class Registro extends AppCompatActivity {
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog Loading;
+    Spinner genre_spin;
+    ArrayAdapter<String> spinner_adapter_genre;
+    List<String> list;
 
     // class yang diambil dari packages services
     private Session session;
@@ -76,6 +83,7 @@ public class Registro extends AppCompatActivity {
 
         inputBirthday = (TextView) findViewById(R.id.register_birthday_tv);
         // Cargar la fecha de nacimiento desde la web
+        genre_spin = (Spinner)findViewById(R.id.edit_account_genre_spin);
         inputBirthday.setText(getString(R.string.birthday));
         inputBirthday.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view) {
@@ -93,7 +101,7 @@ public class Registro extends AppCompatActivity {
         Loading = new ProgressDialog(this);
         Loading.setCancelable(false);
 
-
+        load_spin_genre();
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this, R.id.email, Patterns.EMAIL_ADDRESS, R.string.error_email);
         // SqLite database handler
@@ -129,6 +137,22 @@ public class Registro extends AppCompatActivity {
         });
         birthday_picked = false;
     }
+    private void load_spin_genre () {
+        list = new ArrayList<String>();
+        // 0 = hombre, 1 = Mujer
+        list.add(0, getString(R.string.male));
+        list.add(1, getString(R.string.female));
+
+        spinner_adapter_genre = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+
+        spinner_adapter_genre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        genre_spin.setAdapter(spinner_adapter_genre);
+        genre_spin.setWillNotDraw(false);
+
+    }
+
 
     private void verificarelregistro(){
 
@@ -136,9 +160,8 @@ public class Registro extends AppCompatActivity {
         String name = inputName.getText().toString().trim();
         String email = inputEmail.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
-
         if (!name.isEmpty() || !email.isEmpty() || !password.isEmpty()) {
-            registerUser(ubirthday, name, email, password);
+            registerUser(ubirthday,"" + genre_spin.getSelectedItemPosition(), name, email, password);
         } else {
             //Toast.makeText(getApplicationContext(),
               //      "Please enter your details!", Toast.LENGTH_LONG)
@@ -198,7 +221,7 @@ public class Registro extends AppCompatActivity {
      * email, password) to register url
      * Menyimpan data user ke web
      */
-    private void registerUser(final String mbirthday, final String name,
+    private void registerUser(final String mbirthday,final String ugenero, final String name,
                               final String email, final String password){
         // Tag used to cancel the request
         String tag_string_req = "req_register";
@@ -220,33 +243,9 @@ public class Registro extends AppCompatActivity {
 
                     if (!error) {
 
-                        /*
-
-
-                        session.setLogin(true);
-                        String uid = jsonObject.getString("uid");
-
-                        JSONObject user = jsonObject.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String created_at = user.getString("created_at");
-                        //  String birthday = user.get
-
-                        dbsqlite.addUser(name, email, uid, created_at);
-
-                        Toast.makeText(getApplicationContext(), getString(R.string.bienvenido)+user.getString("name"),
-                         Toast.LENGTH_LONG).show();
-
-                         */
                         Toast.makeText(getApplicationContext(),
-                                "Registrado: Completa el registro accediendo a tu correo electronico",
+                                "Hemos enviado un mensaje de verificacion a tu correo"+"",
                                 Toast.LENGTH_LONG).show();
-
-
-                        Intent intent = new Intent(
-                                Registro.this,
-                                IniciarSesion.class);
-                        startActivity(intent);
                         finish();
                     } else {
 
@@ -275,6 +274,7 @@ public class Registro extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("birthday", mbirthday);
+                params.put("genre", ugenero);
                 params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);

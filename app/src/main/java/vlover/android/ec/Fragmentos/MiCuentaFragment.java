@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +61,9 @@ public class    MiCuentaFragment extends Fragment {
     String email_user = "", uniqueid = "";
     CircleImageView user_image;
     List<String> list;
-   // RelativeLayout bloqueo;
+    RelativeLayout bloqueo;
+    RelativeLayout loading;
+    FloatingActionButton fabreload;
 
 
 
@@ -73,7 +77,9 @@ public class    MiCuentaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView= inflater.inflate(R.layout.fragment_mi_cuenta, container, false);
-
+        bloqueo = (RelativeLayout)mView.findViewById(R.id.error);
+        loading = (RelativeLayout)mView.findViewById(R.id.cargando);
+        fabreload= (FloatingActionButton)mView.findViewById(R.id.fabR);
         emailview = (TextView) mView.findViewById(R.id.emaildelusuario);
         nameview = (TextView) mView.findViewById(R.id.nombres);
         phoneview = (TextView) mView.findViewById(R.id.myaccount_phone_tv);
@@ -100,11 +106,9 @@ public class    MiCuentaFragment extends Fragment {
                     Intent i = new Intent(getContext(), Account.class);
                     startActivity(i);
                 }else{
-                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                    //alert.setTitle("");
-                    alert.setMessage(getString(R.string.error_internet));
-                    alert.setPositiveButton("OK", null);
-                    alert.show();                }
+                    Snackbar.make(view, "Sin Internet!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null)
+                            .show();         }
 
 
 
@@ -121,7 +125,18 @@ public class    MiCuentaFragment extends Fragment {
 
         cargando = new ProgressDialog(getActivity());
 
-
+        fabreload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isNetworkConnected()){
+                    bloqueo.setVisibility(View.INVISIBLE);
+                    loading.setVisibility(View.VISIBLE);
+                    onResume();
+                }else{
+                    Toast.makeText(getContext(),getString(R.string.error_internet),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         return mView;
     }
@@ -134,8 +149,6 @@ public class    MiCuentaFragment extends Fragment {
         //nameview.setText(name);
         emailview.setText(email);
         getProfile(email);
-
-
     }
 
     /*private void condicionInternet(){
@@ -188,37 +201,39 @@ public class    MiCuentaFragment extends Fragment {
                         String created_at = user.getString("created_at");
 
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = "http://vlover.heliohost.org/uploads/"+
+                            String avatar = "https://vlover.000webhostapp.com/uploads/"+
                                     uniqueid + "/avatar/" + user.getString("avatar");
+                                Picasso.with(getActivity())
+                                        .load(avatar)
+                                        .resize(200, 200)
+                                        .centerCrop()
+                                        .into(user_image);
 
 
-                            Picasso.with(getActivity())
-                                    .load(avatar)
-                                    .resize(200, 200)
-                                    .centerCrop()
-                                    .into(user_image);
                         }
-                        cargando.dismiss();
+
+                        loading.setVisibility(View.INVISIBLE);
                         nameview.setText(name);
                         phoneview.setText("+" + phonecode + " " + phone);
-
                         //generoview.setText(genre);
                         adressview.setText(country);
+
                        } else {
                         // Error in login. Get the error message
                         // Jika terjadi error dalam pengambilan data
                         String errorMsg = jsonObject.getString("error_msg");
                         Toast.makeText(getActivity(),
                                 errorMsg, Toast.LENGTH_LONG).show();
-                        cargando.dismiss();
+                        loading.setVisibility(View.INVISIBLE);
+                        bloqueo.setVisibility(View.VISIBLE);
                     }
                 }  catch (JSONException e) {
                     // JSON error
                     // Jika terjadi eror pada proses json
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    cargando.dismiss();
-                }
+                    loading.setVisibility(View.INVISIBLE);
+                    bloqueo.setVisibility(View.VISIBLE);                }
             }
         }, new Response.ErrorListener() {
 
@@ -226,9 +241,12 @@ public class    MiCuentaFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 // terjadi ketidak sesuain data user pada saat login
                 //Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getActivity(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                cargando.dismiss();
+                bloqueo.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
+                /*Toast.makeText(getActivity(),
+                        getString(R.string.error_internet)+".  Intentalo mas tarde", Toast.LENGTH_LONG).show();*/
+                loading.setVisibility(View.INVISIBLE);
+                bloqueo.setVisibility(View.VISIBLE);
             }
         }) {
 
@@ -294,7 +312,7 @@ public class    MiCuentaFragment extends Fragment {
         //Log.e("DEBUG", "onResume of LoginFragment");
         super.onResume();
         mostrardatodeusuario();
-       //condicionInternet();
+        //condicionInternet();
 
     }
 }

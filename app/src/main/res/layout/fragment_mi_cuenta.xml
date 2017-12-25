@@ -31,7 +31,6 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:contentDescription="TODO"
                     android:src="@drawable/user"
                     app:civ_border_color="@color/colorPrimaryDark"
                     app:civ_border_width="1dp"
@@ -295,6 +294,76 @@
 
 
 
+
     </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/error"
+        android:visibility="gone"
+        android:background="#F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayouterror"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabR"
+                android:foregroundGravity="center"
+                android:layout_gravity="center"
+                app:fabSize="mini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/recargar"/>
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fabR"
+                android:layout_centerHorizontal="true"
+                android:text="@string/error_internet" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/textView3"
+                android:layout_centerHorizontal="true"
+                android:text="Intentelo de nuevo" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/cargando"
+        android:background="#F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/cargandoo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cargandoo"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/cargando"
+            />
+    </RelativeLayout>
 
 </FrameLayout>

@@ -67,9 +67,6 @@ public class Account extends AppCompatActivity {
    // public TextView birthday_tv;
     //List<String> list;
     CountryCodePicker ccp;
-    Spinner genre_spin;
-    ArrayAdapter<String> spinner_adapter_genre;
-    List<String> list;
     CircleImageView user_image;
     String email_user = "", uniqueid = "";
     //CropImageView user_image;
@@ -100,7 +97,6 @@ public class Account extends AppCompatActivity {
 
         name_et = (EditText) findViewById(R.id.edit_account_name_et);
         phone_et = (EditText) findViewById(R.id.edit_account_phone_et);
-        genre_spin = (Spinner)findViewById(R.id.edit_account_genre_spin);
 
 
         ccp = (CountryCodePicker) findViewById(R.id.ccp);
@@ -139,31 +135,12 @@ public class Account extends AppCompatActivity {
         HashMap<String, String> user = dbsqlite.getUserDetails();
         String email =user.get("email");
         getSupportActionBar().setTitle(email);
-        load_spin_genre();
         cargando = new ProgressDialog(this);
         verificarInicioSesion();
 
 
     }
 
-    private void load_spin_genre () {
-
-
-        list = new ArrayList<String>();
-
-        // 0 = hombre, 1 = Mujer
-        list.add(0, getString(R.string.male));
-        list.add(1, getString(R.string.female));
-
-        spinner_adapter_genre = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-
-        spinner_adapter_genre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        genre_spin.setAdapter(spinner_adapter_genre);
-        genre_spin.setWillNotDraw(false);
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -227,7 +204,7 @@ public class Account extends AppCompatActivity {
                 //$email, $name, $genre, $country, $phonecode, $phone, $avatar, $update);
 
                 if (isNetworkConnected()){
-                    updateProfile(email_user, name_et.getText().toString(), "" + genre_spin.getSelectedItemPosition(),
+                    updateProfile(email_user, name_et.getText().toString(),
                             ccp.getSelectedCountryNameCode() , ccp.getSelectedCountryCode(), phone_et.getText().toString(),
                              "testupdate");
 
@@ -311,12 +288,12 @@ public class Account extends AppCompatActivity {
                         uniqueid = uid;
                         email_user = user.getString("email");
                         String phone = user.getString("phone");
-                        String genre = user.getString("genre");
+                        //String genre = user.getString("genre");
                         String country = user.getString("country");
                         String created_at = user.getString("created_at");
 
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = "http://vlover.heliohost.org/uploads/"+
+                            String avatar = "https://vlover.000webhostapp.com/uploads/"+
                                     uniqueid + "/avatar/" + user.getString("avatar");
 
 
@@ -362,9 +339,9 @@ public class Account extends AppCompatActivity {
                         cargando.dismiss();
                         name_et.setText(name);
                         //int idspin = spinner_adapter_genre.getPosition(genre);
-                        if (!genre.isEmpty()) {
+                        /*if (!genre.isEmpty()) {
                             genre_spin.setSelection(Integer.parseInt(genre), true);
-                        }
+                        }*/
 
                         if (country.isEmpty()) {
                             ccp.detectLocaleCountry(true);
@@ -420,15 +397,14 @@ public class Account extends AppCompatActivity {
             }
 
         };
-        // Adding request to request queue
-        // menambahkan request dalam antrian system request data
+
+
         Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
 
     //$email, $name, $genre, $country, $phonecode, $phone, $avatar, $update);
-    public void updateProfile(final String uEmail,final String uName ,
-            final String uGenre, final String uCountry, final String uPhonecode,
+    public void updateProfile(final String uEmail,final String uName , final String uCountry, final String uPhonecode,
                               final String uPhone, final String uUpdate){
         // Tag used to cancel the request
         String tag_string_req = "req_login";
@@ -473,9 +449,9 @@ public class Account extends AppCompatActivity {
                         cargando.dismiss();
                         name_et.setText(name);
                         //int idspin = spinner_adapter_genre.getPosition(genre);
-                        if (!genre.isEmpty()) {
+                        /*if (!genre.isEmpty()) {
                             genre_spin.setSelection(Integer.parseInt(genre), true);
-                        }
+                        }*/
 
 
                         if (country.isEmpty()) {
@@ -532,11 +508,10 @@ public class Account extends AppCompatActivity {
 
                 params.put("email", uEmail);
                 params.put("name", uName);
-                params.put("genre", uGenre);
+               //params.put("genre", uGenre);
                 params.put("country", uCountry);
                 params.put("phonecode", uPhonecode);
                 params.put("phone", uPhone);
-               // params.put("avatar", uAvatar);
                 params.put("update", uUpdate);
 
 

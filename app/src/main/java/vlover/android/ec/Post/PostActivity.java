@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.internal.NavigationMenuPresenter;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
@@ -32,11 +34,14 @@ import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vlover.android.ec.Edition.Account;
+import vlover.android.ec.Fragmentos.MiCuentaFragment;
+import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Address;
 import vlover.android.ec.Service.Controller;
@@ -47,27 +52,28 @@ import vlover.android.ec.VolleyMultipartRequest;
 public class PostActivity extends AppCompatActivity {
     ProgressDialog cargando;
     CircleImageView user_image;
-    private TextView nombre_usuario,user_email;
-    String email_user = "", uniqueid = "";
+    TextView nombre_usuario,user_email;
+    String uniqueid = "", email_user = "",postid = "";
     ImageView imagen,regresar;
     FloatingActionButton seleccionar_imagen;
     EditText descripcion_post;
+    int likes = 0,comentarios =0;
     Button enviar;
     private SQLite dbsqlite;
     private Session session;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         user_email =(TextView)findViewById(R.id.email);
         cargando = new ProgressDialog(this);
         imagen=(ImageView)findViewById(R.id.post_photo);
         regresar=(ImageView)findViewById(R.id.back);
-        enviar=(Button)findViewById(R.id.send);
-        descripcion_post =(EditText)findViewById(R.id.descripcion);
+        enviar=(Button) findViewById(R.id.send);
+        descripcion_post =(EditText) findViewById(R.id.descripcion);
         user_image = (CircleImageView) findViewById(R.id.img_avatar);
-        seleccionar_imagen = (FloatingActionButton)findViewById(R.id.select_image);
-        nombre_usuario = (TextView)findViewById(R.id.name_user);
+        seleccionar_imagen = (FloatingActionButton) findViewById(R.id.select_image);
+        nombre_usuario = (TextView) findViewById(R.id.name_user);
         regresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +97,19 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
+        enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               //  sendPost(nombre_usuario.getText().toString(),descripcion_post.getText().toString());
+            }
+        });
+
+
+
     }
+
+
+
     private void  mostrardatodeusuario() {
 
         HashMap<String, String> user = dbsqlite.getUserDetails();
@@ -99,8 +117,6 @@ public class PostActivity extends AppCompatActivity {
         String email = user.get("email");
         user_email.setText(email);
         getProfile(email);
-
-
     }
 
     @Override
@@ -132,19 +148,13 @@ public class PostActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                //Log.d(TAG, "Login Response: " + response.toString());
+
 
                 try{
                     JSONObject jsonObject = new JSONObject(response);
                     boolean error = jsonObject.getBoolean("error");
 
-                    // Check for error node in json
-                    // jika tidak ada eror, mulai mengeksekusi proses mengam data
                     if (!error) {
-                        // user successfully logged in
-                        // Create login session - membuat session
-                        //  session.setLogin(true);
-
 
                         String uid = jsonObject.getString("uid");
 
@@ -153,31 +163,28 @@ public class PostActivity extends AppCompatActivity {
                         uniqueid = uid;
                         email_user = user.getString("email");
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = "http://vlover.heliohost.org/uploads/"+
+                            String avatar = "https://vlover.000webhostapp.com/uploads/"+
                                     uniqueid + "/avatar/" + user.getString("avatar");
-
-
                             Picasso.with(PostActivity.this)
                                     .load(avatar)
                                     .resize(50, 50)
                                     .centerCrop()
                                     .into(user_image);
+
+
                         }
                         cargando.dismiss();
                         nombre_usuario.setText(name);
 
                         //generoview.setText(genre);
                     } else {
-                        // Error in login. Get the error message
-                        // Jika terjadi error dalam pengambilan data
-                       /* String errorMsg = jsonObject.getString("error_msg");
+                        /*String errorMsg = jsonObject.getString("error_msg");
                         Toast.makeText(PostActivity.this,
                                 errorMsg, Toast.LENGTH_LONG).show();*/
                         cargando.dismiss();
                     }
                 }  catch (JSONException e) {
                     // JSON error
-                    // Jika terjadi eror pada proses json
                     e.printStackTrace();
                     Toast.makeText(PostActivity.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     cargando.dismiss();
@@ -187,7 +194,6 @@ public class PostActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                // terjadi ketidak sesuain data user pada saat login
                 //Log.e(TAG, "Login Error: " + error.getMessage());
                 Toast.makeText(PostActivity.this,
                         error.getMessage(), Toast.LENGTH_LONG).show();
@@ -206,113 +212,11 @@ public class PostActivity extends AppCompatActivity {
             }
 
         };
-        // Adding request to request queue
-        // menambahkan request dalam antrian system request data
+
         Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
 
-    public void sendPost(final String uEmail,final String uName ,
-                              final String uGenre, final String uCountry, final String uPhonecode,
-                              final String uPhone, final String uUpdate){
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                Address.URL_POST_USER, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                //Log.d(TAG, "Login Response: " + response.toString());
-
-                try{
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean("error");
-
-                    // Check for error node in json
-                    // jika tidak ada eror, mulai mengeksekusi proses mengam data
-                    if (!error) {
-                        // user successfully logged in
-                        // Create login session - membuat session
-                        //  session.setLogin(true);
-
-
-
-                        // String uid = jsonObject.getString("uid");
-
-                        JSONObject user = jsonObject.getJSONObject("user");
-                        String name = user.getString("name");
-
-                        //String email = user.getString("email");
-                        String phone = user.getString("phone");
-                        String genre = user.getString("genre");
-                        String country = user.getString("country");
-                        String created_at = user.getString("created_at");
-                        //dbsqlite.updateUser(name);
-
-                        // Inserting row in users table
-                        // memasukkan data kedalam SQLite
-                        //dbsqlite.deleteUsers();
-
-                        //dbsqlite.addUser(name,phone,genre,country,email);
-                        cargando.dismiss();
-                        cargando.dismiss();
-                        Toast.makeText(getApplicationContext(), "Publicado", Toast.LENGTH_LONG).show();
-                        finish();
-
-                    } else {
-                        // Error in login. Get the error message
-                        // Jika terjadi error dalam pengambilan data
-                        String errorMsg = jsonObject.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                        cargando.dismiss();
-                    }
-                }  catch (JSONException e) {
-                    // JSON error
-                    // Jika terjadi eror pada proses json
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    cargando.dismiss();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // terjadi ketidak sesuain data user pada saat login
-                //Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                cargando.dismiss();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                //email, $name, $genre, $country, $phonecode, $phone, $avatar, $update);
-
-                params.put("email", uEmail);
-                params.put("name", uName);
-                params.put("genre", uGenre);
-                params.put("country", uCountry);
-                params.put("phonecode", uPhonecode);
-                params.put("phone", uPhone);
-                // params.put("avatar", uAvatar);
-                params.put("update", uUpdate);
-
-
-
-                return params;
-            }
-
-        };
-        // Adding request to request queue
-        // menambahkan request dalam antrian system request data
-        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
 
     @Override
     public void onResume() {

@@ -28,6 +28,28 @@
             android:padding="10dp"
             android:layout_marginTop="0dp"
             />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/geners"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimary"
+                android:text="Seleccione su genero: "
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_height="match_parent" />
+            <Spinner
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/spinner_background"
+                android:id="@+id/edit_account_genre_spin"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                />
+
+        </LinearLayout>
 
         <EditText
             android:layout_marginVertical="5dp"

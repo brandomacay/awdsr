@@ -37,18 +37,22 @@
         android:id="@+id/edit_account_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_account_name"
-        android:inputType="textCapWords"/>
-
-
-    <Spinner
-        android:id="@+id/edit_account_genre_spin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-
-
-    />
+        android:hint="@string/edit_account_name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_account_name"
+            android:inputType="textCapWords"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_account_name"
+            android:inputType="textCapWords"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_account_name"
+            android:inputType="textCapWords"/>
 
 
     <LinearLayout

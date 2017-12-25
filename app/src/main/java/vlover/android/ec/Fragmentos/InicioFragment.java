@@ -1,14 +1,21 @@
 package vlover.android.ec.Fragmentos;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vlover.android.ec.Edition.Account;
+import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.Post.PostActivity;
 import vlover.android.ec.R;
 
@@ -34,10 +41,24 @@ public class InicioFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), PostActivity.class));
+                if (isNetworkConnected()){
+                    Intent i = new Intent(getContext(), PostActivity.class);
+                    startActivity(i);
+                }else{
+                    Snackbar.make(view, "Accion denegada. Sin Internet!", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null)
+                            .show();         }
+
             }
         });
         return mView;
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 
 }

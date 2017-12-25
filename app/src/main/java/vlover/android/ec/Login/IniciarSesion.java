@@ -3,6 +3,7 @@ package vlover.android.ec.Login;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -115,12 +116,67 @@ public class IniciarSesion extends AppCompatActivity {
                 // proses email dan password
                 checkLogin(email, password);
             } else {
-                // Prompt user to enter credentials
-                // jika tidak di isi
-                Toast.makeText(getApplicationContext(),
-                        "Please enter the credentials!", Toast.LENGTH_LONG)
-                        .show();
             }
+    }
+
+    public void resendEmail(final String email, final String uid){
+
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Address.URL_RESEND_EMAIL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Login Response: " + response.toString());
+
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean("error");
+
+                    if (!error) {
+                        //JSONObject user = jsonObject.getJSONObject("user");
+                        //String email = user.getString("email");
+                    } else {
+
+                        String errorMsg = jsonObject.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                        cargando.dismiss();
+                    }
+                }  catch (JSONException e) {
+
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    cargando.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // terjadi ketidak sesuain data user pada saat login
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                cargando.dismiss();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email);
+                params.put("unique_uid",uid);
+               // params.put("unique_id",password);
+                return params;
+            }
+
+        };
+        // Adding request to request queue
+        // menambahkan request dalam antrian system request data
+        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     public void checkLogin(final String email, final String password){
@@ -141,16 +197,14 @@ public class IniciarSesion extends AppCompatActivity {
                     // Check for error node in json
                     // jika tidak ada eror, mulai mengeksekusi proses mengam data
                     if (!error) {
-                        // user successfully logged in
-                        // Create login session - membuat session
-
 
 
                         String uid = jsonObject.getString("uid");
 
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");
-                        String email = user.getString("email");
+                        final String uuid = user.getString("unique_id");
+                        final String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");
                        int verified = user.getInt("verified");
@@ -162,6 +216,13 @@ public class IniciarSesion extends AppCompatActivity {
                             alert.setTitle("Correo no verificado");
                             alert.setMessage("Tu registro aun no esta completo. Verifica tu email en bandeja de entrada, SPAM u otros.");
                             alert.setPositiveButton("Aceptar", null);
+                            alert.setNegativeButton("Reenviar correo", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    String email = correo.getText().toString();
+                                    resendEmail(email,uuid);
+                                }
+                            });
                             alert.show();
                         }
                         else {

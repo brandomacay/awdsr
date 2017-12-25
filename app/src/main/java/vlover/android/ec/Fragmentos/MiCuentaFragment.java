@@ -13,12 +13,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +51,7 @@ import vlover.android.ec.Service.SQLite;
 import vlover.android.ec.Service.Session;
 
 
-public class    MiCuentaFragment extends Fragment {
+public class   MiCuentaFragment extends Fragment {
 
     View mView;
     Button cerrar;
@@ -64,6 +66,7 @@ public class    MiCuentaFragment extends Fragment {
     RelativeLayout bloqueo;
     RelativeLayout loading;
     FloatingActionButton fabreload;
+    NestedScrollView linear;
 
 
 
@@ -81,16 +84,12 @@ public class    MiCuentaFragment extends Fragment {
         loading = (RelativeLayout)mView.findViewById(R.id.cargando);
         fabreload= (FloatingActionButton)mView.findViewById(R.id.fabR);
         emailview = (TextView) mView.findViewById(R.id.emaildelusuario);
+        linear = (NestedScrollView) mView.findViewById(R.id.linear);
         nameview = (TextView) mView.findViewById(R.id.nombres);
         phoneview = (TextView) mView.findViewById(R.id.myaccount_phone_tv);
         generoview = (TextView)mView.findViewById(R.id.genero);
         adressview=(TextView)mView.findViewById(R.id.direccion);
         user_image = (CircleImageView) mView.findViewById(R.id.myaccount_user_image_iv);
-       // bloqueo = (RelativeLayout)mView.findViewById(R.id.blocked);
-        //bloqueo.setVisibility(View.GONE);
-        //mostrardatodeusuario();
-
-
         dbsqlite = new SQLite(getContext());
 
         // session manager
@@ -129,6 +128,7 @@ public class    MiCuentaFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isNetworkConnected()){
+                    linear.setVisibility(View.VISIBLE);
                     bloqueo.setVisibility(View.INVISIBLE);
                     loading.setVisibility(View.VISIBLE);
                     onResume();
@@ -224,6 +224,7 @@ public class    MiCuentaFragment extends Fragment {
                         String errorMsg = jsonObject.getString("error_msg");
                         Toast.makeText(getActivity(),
                                 errorMsg, Toast.LENGTH_LONG).show();
+                        linear.setVisibility(View.INVISIBLE);
                         loading.setVisibility(View.INVISIBLE);
                         bloqueo.setVisibility(View.VISIBLE);
                     }
@@ -233,7 +234,11 @@ public class    MiCuentaFragment extends Fragment {
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     loading.setVisibility(View.INVISIBLE);
-                    bloqueo.setVisibility(View.VISIBLE);                }
+                    bloqueo.setVisibility(View.VISIBLE);
+                    linear.setVisibility(View.INVISIBLE);
+
+
+                }
             }
         }, new Response.ErrorListener() {
 
@@ -243,10 +248,7 @@ public class    MiCuentaFragment extends Fragment {
                 //Log.e(TAG, "Login Error: " + error.getMessage());
                 bloqueo.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.GONE);
-                /*Toast.makeText(getActivity(),
-                        getString(R.string.error_internet)+".  Intentalo mas tarde", Toast.LENGTH_LONG).show();*/
-                loading.setVisibility(View.INVISIBLE);
-                bloqueo.setVisibility(View.VISIBLE);
+                linear.setVisibility(View.INVISIBLE);
             }
         }) {
 

@@ -170,8 +170,6 @@ public class PostActivity extends AppCompatActivity {
                                     .resize(50, 50)
                                     .centerCrop()
                                     .into(user_image);
-
-
                         }
                         cargando.dismiss();
                         nombre_usuario.setText(name);

@@ -168,7 +168,7 @@ public class IniciarSesion extends AppCompatActivity {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
-                params.put("unique_uid",uid);
+                params.put("unique_id", uid);
                // params.put("unique_id",password);
                 return params;
             }
@@ -219,8 +219,8 @@ public class IniciarSesion extends AppCompatActivity {
                             alert.setNegativeButton("Reenviar correo", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    String email = correo.getText().toString();
-                                    resendEmail(email,useruid);
+                                   // String email = email;
+                                    resendEmail(email, useruid);
                                 }
                             });
                             alert.show();

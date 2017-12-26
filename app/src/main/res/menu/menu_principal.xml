@@ -7,24 +7,24 @@
         android:title="@string/buscar"
         android:icon="@drawable/buscar"
         app:showAsAction="always"
-        android:orderInCategory="1"
+        android:orderInCategory="0"
+        android:checked="true"
         android:checkable="true"
-        android:iconifiedByDefault="true"
+        android:enabled="true"
         app:actionViewClass="android.support.v7.widget.SearchView"
         />
     <item
         android:id="@+id/chatear"
         android:icon="@drawable/chat"
-        android:orderInCategory="88"
+        android:orderInCategory="1"
         android:title="Chat"
-        android:iconTint="#424242"
         app:showAsAction="always" />
     <item
         android:id="@+id/trabajo"
         android:iconTint="#424242"
         android:icon="@drawable/trabajo"
-        android:title="@string/hola_mundo"
-        android:orderInCategory="3"
+        android:title="Mi trabajo"
+        android:orderInCategory="2"
         app:showAsAction="always"/>
 
 

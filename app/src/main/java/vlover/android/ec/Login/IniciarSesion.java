@@ -137,6 +137,7 @@ public class IniciarSesion extends AppCompatActivity {
                     if (!error) {
                         //JSONObject user = jsonObject.getJSONObject("user");
                         //String email = user.getString("email");
+                        Toast.makeText(IniciarSesion.this,"Correo enviado",Toast.LENGTH_LONG).show();
                     } else {
 
                         String errorMsg = jsonObject.getString("error_msg");
@@ -168,7 +169,7 @@ public class IniciarSesion extends AppCompatActivity {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
-                params.put("unique_id", uid);
+                params.put("unique_id",uid);
                // params.put("unique_id",password);
                 return params;
             }
@@ -219,8 +220,8 @@ public class IniciarSesion extends AppCompatActivity {
                             alert.setNegativeButton("Reenviar correo", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                   // String email = email;
-                                    resendEmail(email, useruid);
+                                    String email = correo.getText().toString();
+                                    resendEmail(email,useruid);
                                 }
                             });
                             alert.show();

@@ -201,7 +201,7 @@ public class   MiCuentaFragment extends Fragment {
                         String created_at = user.getString("created_at");
 
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = "https://vlover.000webhostapp.com/uploads/"+
+                            String avatar = "http://vlover.ruvnot.com/uploads/"+
                                     uniqueid + "/avatar/" + user.getString("avatar");
                                 Picasso.with(getActivity())
                                         .load(avatar)

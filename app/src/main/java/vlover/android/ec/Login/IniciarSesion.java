@@ -219,7 +219,7 @@ public class IniciarSesion extends AppCompatActivity {
                             alert.setNegativeButton("Reenviar correo", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                   // String email = email;
+                                   // String email = correo.getText().toString();
                                     resendEmail(email, useruid);
                                 }
                             });

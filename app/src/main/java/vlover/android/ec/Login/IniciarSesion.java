@@ -203,7 +203,7 @@ public class IniciarSesion extends AppCompatActivity {
 
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");
-                        final String uuid = user.getString("unique_id");
+                        final String useruid = user.getString("unique_id");
                         final String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");
@@ -220,7 +220,7 @@ public class IniciarSesion extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     String email = correo.getText().toString();
-                                    resendEmail(email,uuid);
+                                    resendEmail(email,useruid);
                                 }
                             });
                             alert.show();

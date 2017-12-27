@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL("http://vlover.ruvnot.com/fish-search.php");
+                url = new URL("http://vlover.ruvnot.com/user-search.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

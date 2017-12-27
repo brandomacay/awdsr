@@ -1,21 +1,17 @@
 package vlover.android.ec.MainActivity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,9 +45,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import vlover.android.ec.AdapterFish;
+import vlover.android.ec.AdapterSearchUser;
 import vlover.android.ec.Adapters.ViewPagerAdapter;
-import vlover.android.ec.DataFish;
+import vlover.android.ec.DataSearchUser;
 import vlover.android.ec.Fragmentos.AvisosFragment;
 import vlover.android.ec.Fragmentos.InicioFragment;
 import vlover.android.ec.Fragmentos.MapaFragment;
@@ -84,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
     public RecyclerView mRVFish;
-    public AdapterFish mAdapter;
-    List<DataFish> data;
+    public AdapterSearchUser mAdapter;
+    List<DataSearchUser> data;
 
     //SearchView searchView = null;
 
@@ -96,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         data=new ArrayList<>();
         mRVFish = (RecyclerView) findViewById(R.id.fishPriceList);
-        mAdapter = new AdapterFish(MainActivity.this, data);
+        mAdapter = new AdapterSearchUser(MainActivity.this, data);
 
         page = findViewById(R.id.pagina);
         navegacion = findViewById(R.id.navegacion);
@@ -400,12 +396,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     // Extract data from json and store into ArrayList as class objects
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
-                        DataFish fishData = new DataFish();
-                        fishData.fishName = json_data.getString("name");
-                        fishData.catName = json_data.getString("email");
+                        DataSearchUser userData = new DataSearchUser();
+                        userData.userName = json_data.getString("name");
+                        userData.userEmail = json_data.getString("email");
                         //fishData.sizeName = json_data.getString("size_name");
                         //fishData.price = json_data.getInt("price");
-                        data.add(fishData);
+                        data.add(userData);
                     }
 
                     // Setup and Handover data to recyclerview

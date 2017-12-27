@@ -1,8 +1,6 @@
 package vlover.android.ec;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,19 +11,16 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.List;
 
-import vlover.android.ec.MainActivity.MainActivity;
-import vlover.android.ec.User.UserActivity;
-
-public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private LayoutInflater inflater;
-    List<DataFish> data= Collections.emptyList();
-    DataFish current;
+    List<DataSearchUser> data= Collections.emptyList();
+    DataSearchUser current;
     int poss;
 
     // create constructor to initialize context and data sent from MainActivity
-    public AdapterFish(Context context, List<DataFish> data){
+    public AdapterSearchUser(Context context, List<DataSearchUser> data){
         this.context=context;
         inflater= LayoutInflater.from(context);
         this.data=data;
@@ -34,7 +29,7 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // Inflate the layout when ViewHolder created
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.container_fish, parent,false);
+        View view=inflater.inflate(R.layout.container_search_user, parent,false);
         MyHolder holder=new MyHolder(view);
         return holder;
     }
@@ -45,12 +40,12 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         // Get current position of item in RecyclerView to bind data and assign values from list
         MyHolder myHolder= (MyHolder) holder;
-        DataFish current=data.get(position);
-        myHolder.textFishName.setText(current.fishName);
-        myHolder.textSize.setText("Size: " + current.sizeName);
-        myHolder.textType.setText(current.catName);
-        myHolder.textPrice.setText("Rs. " + current.price + "\\Kg");
-        myHolder.textPrice.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+        DataSearchUser current=data.get(position);
+        myHolder.textUserName.setText(current.userName);
+
+        myHolder.textUserEmail.setText(current.userEmail);
+
+        //myHolder.textPrice.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         //poss = position;
 
     }
@@ -66,18 +61,18 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView textFishName;
-        TextView textSize;
-        TextView textType;
-        TextView textPrice;
+        TextView textUserName;
+
+        TextView textUserEmail;
+
 
         // create constructor to get widget reference
         public MyHolder(View itemView) {
             super(itemView);
-            textFishName= (TextView) itemView.findViewById(R.id.textFishName);
-            textSize = (TextView) itemView.findViewById(R.id.textSize);
-            textType = (TextView) itemView.findViewById(R.id.textType);
-            textPrice = (TextView) itemView.findViewById(R.id.textPrice);
+            textUserName = (TextView) itemView.findViewById(R.id.search_user_name);
+
+            textUserEmail = (TextView) itemView.findViewById(R.id.search_user_email);
+
             itemView.setOnClickListener(this);
         }
 
@@ -86,7 +81,7 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
             String s;
 
-            s = textType.getText().toString();
+            s = textUserEmail.getText().toString();
 
             Toast.makeText(context, "email: " + s , Toast.LENGTH_SHORT).show();
             data.clear();

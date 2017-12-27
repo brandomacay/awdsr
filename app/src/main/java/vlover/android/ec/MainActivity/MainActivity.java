@@ -271,7 +271,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             if (searchView != null) {
+                mRVFish.setVisibility(View.VISIBLE);
                 searchView.clearFocus();
+            }else{
+                mRVFish.setVisibility(View.GONE);
+
             }
             new AsyncFetch(query).execute();
 

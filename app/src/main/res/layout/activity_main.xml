@@ -8,13 +8,6 @@
     tools:context=".MainActivity.MainActivity">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fishPriceList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:layout_weight="1"
-        />
 
 
     <android.support.design.widget.CoordinatorLayout
@@ -36,6 +29,15 @@
                 android:elevation="5dp"
                 android:minHeight="45dp"
                 android:theme="?attr/actionBarTheme" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fishPriceList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:layout_weight="1"
+                />
+
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager

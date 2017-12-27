@@ -120,9 +120,11 @@ public class IniciarSesion extends AppCompatActivity {
     }
 
     public void resendEmail(final String email, final String uid){
+        cargando.setMessage(getString(R.string.cargando));
+        cargando.setCancelable(false);
+        cargando.show();
 
         String tag_string_req = "req_login";
-
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Address.URL_RESEND_EMAIL, new Response.Listener<String>() {
 
@@ -137,6 +139,12 @@ public class IniciarSesion extends AppCompatActivity {
                     if (!error) {
                         //JSONObject user = jsonObject.getJSONObject("user");
                         //String email = user.getString("email");
+                        cargando.dismiss();
+                        AlertDialog.Builder alert = new AlertDialog.Builder(IniciarSesion.this);
+                        alert.setTitle("Verificacion enviada");
+                        alert.setMessage("Revisa tu buzon de mensajes o SPAM, espera como minimo 1 minutos si aun no te a llegado");
+                        alert.setPositiveButton("Ok", null);
+                        alert.show();
                     } else {
 
                         String errorMsg = jsonObject.getString("error_msg");
@@ -212,7 +220,7 @@ public class IniciarSesion extends AppCompatActivity {
                         if (verified == 0){
                             session.setLogin(false);
                             cargando.dismiss();
-                            AlertDialog.Builder alert = new AlertDialog.Builder(IniciarSesion.this);
+                            final AlertDialog.Builder alert = new AlertDialog.Builder(IniciarSesion.this);
                             alert.setTitle("Correo no verificado");
                             alert.setMessage("Tu registro aun no esta completo. Verifica tu email en bandeja de entrada, SPAM u otros.");
                             alert.setPositiveButton("Aceptar", null);

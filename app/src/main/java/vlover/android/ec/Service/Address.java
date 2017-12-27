@@ -3,6 +3,7 @@ package vlover.android.ec.Service;
 public class Address {
     // Server user login url
     //https://vlover.ruvnot.com
+
     public static String URL_LOGIN = "http://vlover.ruvnot.com/login.php";
 
     // Server user register url

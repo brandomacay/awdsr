@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         searchView.setSubmitButtonEnabled(true);
 
-       // searchView.seton
+        // searchView.seton
 
         return true;
     }
@@ -238,8 +238,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-       // if (id == R.id.menu_buscar) {
-         //   return true;
+        // if (id == R.id.menu_buscar) {
+        //   return true;
         //}
         if (id == R.id.chatear){
             startActivity(new Intent(MainActivity.this, MensajesActivity.class));

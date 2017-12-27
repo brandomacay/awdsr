@@ -15,14 +15,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".MainActivity" />
+
+
         <activity android:name=".Login.IniciarSesion">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity.MainActivity" />
+        <activity
+            android:name=".MainActivity.MainActivity" android:launchMode="singleTop" >
+            <intent-filter>
+
+                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity android:name=".Login.CambiarClave" />
         <activity
             android:name=".Login.Registro"
@@ -40,7 +57,8 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".Post.PostActivity" />
-        <activity android:name=".MyWork.MyWorkActivity"></activity>
+        <activity android:name=".MyWork.MyWorkActivity" />
+
     </application>
 
 </manifest>

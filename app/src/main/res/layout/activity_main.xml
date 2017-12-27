@@ -8,6 +8,15 @@
     tools:context=".MainActivity.MainActivity">
 
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fishPriceList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:layout_weight="1"
+        />
+
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:id="@+id/coor"

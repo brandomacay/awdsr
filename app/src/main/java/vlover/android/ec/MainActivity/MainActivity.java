@@ -56,8 +56,9 @@ import vlover.android.ec.Fragmentos.NotificacionesFragment;
 import vlover.android.ec.Mensajes.MensajesActivity;
 import vlover.android.ec.MyWork.MyWorkActivity;
 import vlover.android.ec.R;
+import vlover.android.ec.SearchActivity;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
     BottomNavigationView navegacion;
@@ -74,14 +75,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     CoordinatorLayout con;
     RecyclerView recyclerView;
     private Toolbar toolbar;
-    private SearchView searchView = null;
-    private MenuItem searchMenuItem;
-    // CONNECTION_TIMEOUT and READ_TIMEOUT are in milliseconds
-    public static final int CONNECTION_TIMEOUT = 10000;
-    public static final int READ_TIMEOUT = 15000;
-    public RecyclerView mRVFish;
-    public AdapterSearchUser mAdapter;
-    List<DataSearchUser> data;
 
     //SearchView searchView = null;
 
@@ -89,10 +82,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        data=new ArrayList<>();
-        mRVFish = (RecyclerView) findViewById(R.id.fishPriceList);
-        mAdapter = new AdapterSearchUser(MainActivity.this, data);
 
         page = findViewById(R.id.pagina);
         navegacion = findViewById(R.id.navegacion);
@@ -214,20 +203,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_principal, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
-            searchView.setIconified(false);
-        }
-
-
-        searchView.setSubmitButtonEnabled(true);
-
         // searchView.seton
 
         return true;
@@ -240,9 +215,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        // if (id == R.id.menu_buscar) {
-        //   return true;
-        //}
+         if (id == R.id.buscar) {
+
+             if (isNetworkConnected()){
+                 Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                 startActivity(intent);
+                 overridePendingTransition(0,0);
+             }else{
+                 Toast.makeText(MainActivity.this,getString(R.string.error_internet),Toast.LENGTH_LONG).show();
+             }
+
+           return true;
+        }
 
         if (id == R.id.chatear){
             startActivity(new Intent(MainActivity.this, MensajesActivity.class));
@@ -254,178 +238,5 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-
-    // Every time when you press search button on keypad an Activity is recreated which in turn calls this function
-    @Override
-    protected void onNewIntent(Intent intent) {
-        // Get search query and create object of class AsyncFetch
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            if (searchView != null) {
-                mRVFish.setVisibility(View.VISIBLE);
-                searchView.clearFocus();
-            }else{
-                mRVFish.setVisibility(View.GONE);
-
-            }
-            new AsyncFetch(query).execute();
-
-        }
-    }
-
-    // Create class AsyncFetch
-    private class AsyncFetch extends AsyncTask<String, String, String> {
-
-        ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
-        HttpURLConnection conn;
-        URL url = null;
-        String searchQuery;
-
-        public AsyncFetch(String searchQuery){
-            this.searchQuery=searchQuery;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            //this method will be running on UI thread
-            pdLoading.setMessage("\tLoading...");
-            pdLoading.setCancelable(false);
-            pdLoading.show();
-
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-
-                // Enter URL address where your php file resides
-                url = new URL("http://vlover.ruvnot.com/user-search.php");
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return e.toString();
-            }
-            try {
-
-                // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(READ_TIMEOUT);
-                conn.setConnectTimeout(CONNECTION_TIMEOUT);
-                conn.setRequestMethod("POST");
-
-                // setDoInput and setDoOutput to true as we send and recieve data
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                // add parameter to our above url
-                Uri.Builder builder = new Uri.Builder().appendQueryParameter("searchQuery", searchQuery);
-                String query = builder.build().getEncodedQuery();
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
-                conn.connect();
-
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-                return e1.toString();
-            }
-
-            try {
-
-                int response_code = conn.getResponseCode();
-
-                // Check if successful connection made
-                if (response_code == HttpURLConnection.HTTP_OK) {
-
-                    // Read data sent from server
-                    InputStream input = conn.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                    StringBuilder result = new StringBuilder();
-                    String line;
-
-                    while ((line = reader.readLine()) != null) {
-                        result.append(line);
-                    }
-
-                    // Pass data to onPostExecute method
-                    return (result.toString());
-
-                } else {
-                    return("Connection error");
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                return e.toString();
-            } finally {
-                conn.disconnect();
-            }
-
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            //this method will be running on UI thread
-            pdLoading.dismiss();
-
-
-            pdLoading.dismiss();
-            if(result.equals("no rows")) {
-                Toast.makeText(MainActivity.this, "No Results found for entered query", Toast.LENGTH_LONG).show();
-            }else{
-
-                try {
-
-                    JSONArray jArray = new JSONArray(result);
-
-                    // Extract data from json and store into ArrayList as class objects
-                    for (int i = 0; i < jArray.length(); i++) {
-                        JSONObject json_data = jArray.getJSONObject(i);
-                        DataSearchUser userData = new DataSearchUser();
-                        userData.userName = json_data.getString("name");
-                        userData.userEmail = json_data.getString("email");
-                        //fishData.sizeName = json_data.getString("size_name");
-                        //fishData.price = json_data.getInt("price");
-                        data.add(userData);
-                    }
-
-                    // Setup and Handover data to recyclerview
-
-                    mRVFish.setAdapter(mAdapter);
-                    mRVFish.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-                } catch (JSONException e) {
-                    // You to understand what actually error is and handle it appropriately
-                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                    Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-        }
-
-    }
-
-    public void clean_response () {
-        mRVFish.setAdapter(mAdapter);
-    }
 }

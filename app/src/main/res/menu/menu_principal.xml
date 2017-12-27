@@ -4,16 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
-        android:id="@+id/action_search"
-
+        android:id="@+id/buscar"
         android:title="@string/buscar"
         android:icon="@drawable/buscar"
-        app:showAsAction="collapseActionView|always"
         android:orderInCategory="0"
-        android:checked="true"
-        android:checkable="true"
-        android:enabled="true"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/chatear"
@@ -31,3 +26,4 @@
 
 
 </menu>
+

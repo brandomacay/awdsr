@@ -77,6 +77,7 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
 
             Toast.makeText(context, "You clicked an item", Toast.LENGTH_SHORT).show();
+            v.
 
         }
 

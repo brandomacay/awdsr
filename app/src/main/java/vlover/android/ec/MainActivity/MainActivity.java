@@ -243,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         // if (id == R.id.menu_buscar) {
         //   return true;
         //}
+
         if (id == R.id.chatear){
             startActivity(new Intent(MainActivity.this, MensajesActivity.class));
             return true;

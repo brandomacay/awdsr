@@ -7,7 +7,6 @@ public class Address {
 
     // Server user register url
     public static String URL_REGISTER = "http://vlover.ruvnot.com/register.php";
-    public static String URL_GLOBAL = "http://vlover.ruvnot.com/";
     public static String URL_GET_USER_PROFILE = "http://vlover.ruvnot.com/get_user_profile.php";
     public static String URL_UPDATE_USER_PROFILE = "http://vlover.ruvnot.com/update_user.php";
     public static String URL_POST_USER = "http://vlover.ruvnot.com/post_user.php";

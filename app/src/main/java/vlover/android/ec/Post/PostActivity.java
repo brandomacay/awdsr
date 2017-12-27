@@ -163,7 +163,7 @@ public class PostActivity extends AppCompatActivity {
                         uniqueid = uid;
                         email_user = user.getString("email");
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = "http://vlover.ruvnot.com/uploads/"+
+                            String avatar = getString(R.string.url_global)+"uploads/"+
                                     uniqueid + "/avatar/" + user.getString("avatar");
                             Picasso.with(PostActivity.this)
                                     .load(avatar)

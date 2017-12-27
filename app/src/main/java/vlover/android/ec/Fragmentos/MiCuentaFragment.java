@@ -183,9 +183,6 @@ public class   MiCuentaFragment extends Fragment {
                     // Check for error node in json
                     // jika tidak ada eror, mulai mengeksekusi proses mengam data
                     if (!error) {
-                        // user successfully logged in
-                        // Create login session - membuat session
-                        //  session.setLogin(true);
 
 
                         String uid = jsonObject.getString("uid");
@@ -201,7 +198,7 @@ public class   MiCuentaFragment extends Fragment {
                         String created_at = user.getString("created_at");
 
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = "http://vlover.ruvnot.com/uploads/"+
+                            String avatar = getString(R.string.url_global)+"uploads/"+
                                     uniqueid + "/avatar/" + user.getString("avatar");
                                 Picasso.with(getActivity())
                                         .load(avatar)

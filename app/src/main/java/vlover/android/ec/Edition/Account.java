@@ -292,7 +292,7 @@ public class Account extends AppCompatActivity {
                         String country = user.getString("country");
                         String created_at = user.getString("created_at");
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = "http://vlover.ruvnot.com/uploads/"+
+                            String avatar = getString(R.string.url_global)+"uploads/"+
                                     uniqueid + "/avatar/" + user.getString("avatar");
                             Picasso.with(getApplication())
                                     .load(avatar)

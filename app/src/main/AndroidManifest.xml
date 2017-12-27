@@ -15,14 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="android.app.default_searchable"
             android:value=".MainActivity" />
 
-
         <activity android:name=".Login.IniciarSesion">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,12 +27,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity.MainActivity" android:launchMode="singleTop" >
+            android:name=".MainActivity.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
-
                 <action android:name="android.intent.action.SEARCH" />
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -58,7 +56,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".Post.PostActivity" />
         <activity android:name=".MyWork.MyWorkActivity" />
-
+        <activity android:name=".User.UserActivity"></activity>
     </application>
 
 </manifest>

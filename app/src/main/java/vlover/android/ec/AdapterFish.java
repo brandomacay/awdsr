@@ -1,6 +1,8 @@
 package vlover.android.ec;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import vlover.android.ec.MainActivity.MainActivity;
+import vlover.android.ec.User.UserActivity;
 
 public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -85,9 +88,9 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             s = textType.getText().toString();
 
-
             Toast.makeText(context, "email: " + s , Toast.LENGTH_SHORT).show();
             data.clear();
+
 
 
           //  MainActivity mActivity= new MainActivity();

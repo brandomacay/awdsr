@@ -11,12 +11,15 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.List;
 
+import vlover.android.ec.MainActivity.MainActivity;
+
 public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private LayoutInflater inflater;
     List<DataFish> data= Collections.emptyList();
     DataFish current;
+    int poss;
 
     // create constructor to initialize context and data sent from MainActivity
     public AdapterFish(Context context, List<DataFish> data){
@@ -45,6 +48,7 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         myHolder.textType.setText("Category: " + current.catName);
         myHolder.textPrice.setText("Rs. " + current.price + "\\Kg");
         myHolder.textPrice.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+        //poss = position;
 
     }
 
@@ -53,6 +57,8 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemCount() {
         return data.size();
     }
+
+
 
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -75,8 +81,22 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // Click event for all items
         @Override
         public void onClick(View v) {
+            String s;
 
-            Toast.makeText(context, "You clicked an item", Toast.LENGTH_SHORT).show();
+            s = textFishName.getText().toString();
+
+
+            Toast.makeText(context, "You clicked an item: " + s , Toast.LENGTH_SHORT).show();
+            data.clear();
+
+
+          //  MainActivity mActivity= new MainActivity();
+           // mActivity.clean_response();
+
+           // MainActivity.clean_results();
+           // data.notifyAll();
+
+
 
 
         }

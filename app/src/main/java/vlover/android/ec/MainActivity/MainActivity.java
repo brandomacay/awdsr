@@ -83,8 +83,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     // CONNECTION_TIMEOUT and READ_TIMEOUT are in milliseconds
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
-    private RecyclerView mRVFish;
-    private AdapterFish mAdapter;
+    public RecyclerView mRVFish;
+    public AdapterFish mAdapter;
+    List<DataFish> data;
 
     //SearchView searchView = null;
 
@@ -92,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        data=new ArrayList<>();
+        mRVFish = (RecyclerView) findViewById(R.id.fishPriceList);
+        mAdapter = new AdapterFish(MainActivity.this, data);
+
         page = findViewById(R.id.pagina);
         navegacion = findViewById(R.id.navegacion);
         bloqueo = findViewById(R.id.blocked);
@@ -380,7 +386,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             //this method will be running on UI thread
             pdLoading.dismiss();
-            List<DataFish> data=new ArrayList<>();
+
 
             pdLoading.dismiss();
             if(result.equals("no rows")) {
@@ -395,16 +401,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
                         DataFish fishData = new DataFish();
-                        fishData.fishName = json_data.getString("fish_name");
-                        fishData.catName = json_data.getString("cat_name");
-                        fishData.sizeName = json_data.getString("size_name");
-                        fishData.price = json_data.getInt("price");
+                        fishData.fishName = json_data.getString("name");
+                      //  fishData.catName = json_data.getString("cat_name");
+                        //fishData.sizeName = json_data.getString("size_name");
+                        //fishData.price = json_data.getInt("price");
                         data.add(fishData);
                     }
 
                     // Setup and Handover data to recyclerview
-                    mRVFish = (RecyclerView) findViewById(R.id.fishPriceList);
-                    mAdapter = new AdapterFish(MainActivity.this, data);
+
                     mRVFish.setAdapter(mAdapter);
                     mRVFish.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
@@ -418,5 +423,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         }
 
+    }
+
+    public void clean_response () {
+        mRVFish.setAdapter(mAdapter);
     }
 }

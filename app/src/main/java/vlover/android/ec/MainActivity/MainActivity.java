@@ -402,7 +402,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                         JSONObject json_data = jArray.getJSONObject(i);
                         DataFish fishData = new DataFish();
                         fishData.fishName = json_data.getString("name");
-                      //  fishData.catName = json_data.getString("cat_name");
+                        fishData.catName = json_data.getString("email");
                         //fishData.sizeName = json_data.getString("size_name");
                         //fishData.price = json_data.getInt("price");
                         data.add(fishData);

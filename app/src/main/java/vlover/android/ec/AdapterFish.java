@@ -45,7 +45,7 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         DataFish current=data.get(position);
         myHolder.textFishName.setText(current.fishName);
         myHolder.textSize.setText("Size: " + current.sizeName);
-        myHolder.textType.setText("Category: " + current.catName);
+        myHolder.textType.setText(current.catName);
         myHolder.textPrice.setText("Rs. " + current.price + "\\Kg");
         myHolder.textPrice.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         //poss = position;
@@ -83,10 +83,10 @@ public class AdapterFish extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
             String s;
 
-            s = textFishName.getText().toString();
+            s = textType.getText().toString();
 
 
-            Toast.makeText(context, "You clicked an item: " + s , Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "email: " + s , Toast.LENGTH_SHORT).show();
             data.clear();
 
 

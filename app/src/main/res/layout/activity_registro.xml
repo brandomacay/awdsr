@@ -16,7 +16,7 @@
 
         <TextView
             android:drawableTop="@color/anaranjado"
-            android:background="@color/colorPrimary"
+            android:background="#DDDDDD"
             android:id="@+id/register_birthday_tv"
             style="?android:attr/spinnerStyle"
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             <TextView
                 android:id="@+id/geners"
                 android:textSize="18dp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/negro"
                 android:text="Seleccione su genero: "
                 android:layout_width="wrap_content"
                 android:gravity="center"

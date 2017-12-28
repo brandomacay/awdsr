@@ -1,6 +1,7 @@
 package vlover.android.ec.Fragmentos;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -54,9 +55,8 @@ import vlover.android.ec.Service.Session;
 public class   MiCuentaFragment extends Fragment {
 
     View mView;
-    Button cerrar;
-    ImageButton edit_account_ib;
-    private TextView emailview,nameview, phoneview,generoview,adressview;
+    Button cerrar, edit_account_ib;
+    private TextView emailview, nameview;
     private SQLite dbsqlite;
     private Session session;
     ProgressDialog cargando;
@@ -86,9 +86,6 @@ public class   MiCuentaFragment extends Fragment {
         emailview = (TextView) mView.findViewById(R.id.emaildelusuario);
         linear = (NestedScrollView) mView.findViewById(R.id.linear);
         nameview = (TextView) mView.findViewById(R.id.nombres);
-        phoneview = (TextView) mView.findViewById(R.id.myaccount_phone_tv);
-        generoview = (TextView)mView.findViewById(R.id.genero);
-        adressview=(TextView)mView.findViewById(R.id.direccion);
         user_image = (CircleImageView) mView.findViewById(R.id.myaccount_user_image_iv);
         dbsqlite = new SQLite(getContext());
 
@@ -191,11 +188,11 @@ public class   MiCuentaFragment extends Fragment {
                         String name = user.getString("name");
                         uniqueid = uid;
                         email_user = user.getString("email");
-                        String phonecode = user.getString("phonecode");
+                        /*String phonecode = user.getString("phonecode");
                         String phone = user.getString("phone");
                         String genre = user.getString("genre");
                         String country = user.getString("country");
-                        String created_at = user.getString("created_at");
+                        String created_at = user.getString("created_at");*/
 
                         if (!user.getString("avatar").isEmpty()) {
                             String avatar = getString(R.string.url_global)+"uploads/"+
@@ -211,9 +208,9 @@ public class   MiCuentaFragment extends Fragment {
 
                         loading.setVisibility(View.INVISIBLE);
                         nameview.setText(name);
-                        phoneview.setText("+" + phonecode + " " + phone);
-                        //generoview.setText(genre);
-                        adressview.setText(country);
+                        /*phoneview.setText("+" + phonecode + " " + phone);
+                        generoview.setText(genre);
+                        adressview.setText(country);*/
 
                        } else {
                         // Error in login. Get the error message

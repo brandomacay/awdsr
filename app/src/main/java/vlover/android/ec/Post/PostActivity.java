@@ -266,6 +266,7 @@ public class PostActivity extends AppCompatActivity {
                         imagen.setImageDrawable(null);
                         imagen.setImageResource(0);
 
+
                         //generoview.setText(genre);
                     } else {
                         String errorMsg = jsonObject.getString("error_msg");

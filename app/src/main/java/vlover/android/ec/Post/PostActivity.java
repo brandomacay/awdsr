@@ -297,7 +297,6 @@ public class PostActivity extends AppCompatActivity {
                 params.put("content", descripcion_post.getText().toString());
                 params.put("datetime", "fecha de prueba");
 
-
                 return params;
             }
 

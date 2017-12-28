@@ -111,6 +111,7 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
                 mRVFish.setVisibility(View.GONE);
 
             }
+            data.clear();
             new AsyncFetch(query).execute();
 
         }

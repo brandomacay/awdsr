@@ -229,7 +229,7 @@ public class PostActivity extends AppCompatActivity {
         String tag_string_req = "req_login";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Address.URL_GET_USER_PROFILE, new Response.Listener<String>() {
+                "http://vlover.ruvnot.com/insert_post.php", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -262,6 +262,9 @@ public class PostActivity extends AppCompatActivity {
                         */
                         Toast.makeText(PostActivity.this,
                                 "Exito: Post creado con id = " + uid, Toast.LENGTH_LONG).show();
+                        descripcion_post.setText("");
+                        imagen.setImageDrawable(null);
+                        imagen.setImageResource(0);
 
                         //generoview.setText(genre);
                     } else {

@@ -100,8 +100,13 @@ public class PostActivity extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //  sendPost(nombre_usuario.getText().toString(),descripcion_post.getText().toString());
-                insert_post();
+
+                String descripcion = descripcion_post.getText().toString();
+                if (descripcion.equalsIgnoreCase("")) {
+                    descripcion_post.setError("Escriba algo, por favor");
+                } else {
+                    insert_post();
+                }
             }
         });
 
@@ -175,11 +180,8 @@ public class PostActivity extends AppCompatActivity {
                         cargando.dismiss();
                         nombre_usuario.setText(name);
 
-                        //generoview.setText(genre);
                     } else {
-                        /*String errorMsg = jsonObject.getString("error_msg");
-                        Toast.makeText(PostActivity.this,
-                                errorMsg, Toast.LENGTH_LONG).show();*/
+
                         cargando.dismiss();
                     }
                 }  catch (JSONException e) {
@@ -245,27 +247,13 @@ public class PostActivity extends AppCompatActivity {
 
                         JSONObject post = jsonObject.getJSONObject("post");
                         String uid = post.getString("id");
-                        /*
-                        uniqueid = uid;
-                       email_user = user.getString("email");
-                        if (!user.getString("avatar").isEmpty()) {
-                            String avatar = getString(R.string.url_global)+"uploads/"+
-                                    uniqueid + "/avatar/" + user.getString("avatar");
-                            Picasso.with(PostActivity.this)
-                                    .load(avatar)
-                                    .resize(50, 50)
-                                    .centerCrop()
-                                    .into(user_image);
-                        }
-                        cargando.dismiss();
-                        nombre_usuario.setText(name);
-                        */
+
                         Toast.makeText(PostActivity.this,
-                                "Exito: Post creado con id = " + uid, Toast.LENGTH_LONG).show();
+                                "Publicacion subida correctamente", Toast.LENGTH_LONG).show();
                         descripcion_post.setText("");
                         imagen.setImageDrawable(null);
                         imagen.setImageResource(0);
-
+                        finish();
 
                         //generoview.setText(genre);
                     } else {
@@ -299,9 +287,9 @@ public class PostActivity extends AppCompatActivity {
                 params.put("user_id", uniqueid);
                 params.put("image", "imagen de prueba");
                 params.put("content", descripcion_post.getText().toString());
-               // params.put("datetime", "fecha de prueba");
-
+                params.put("datetime", "fecha de prueba");
                 return params;
+
             }
 
         };

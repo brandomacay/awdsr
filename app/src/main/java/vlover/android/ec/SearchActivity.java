@@ -243,6 +243,7 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
                         userData.userAvatar = avatar;
                         //fishData.sizeName = json_data.getString("size_name");
                         //fishData.price = json_data.getInt("price");
+
                         data.add(userData);
                     }
 

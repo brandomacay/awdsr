@@ -105,7 +105,8 @@ public class PostActivity extends AppCompatActivity {
                 if (descripcion.equalsIgnoreCase("")) {
                     descripcion_post.setError("Escriba algo, por favor");
                 } else {
-                    insert_post();
+                    insert_post(
+                    );
                 }
             }
         });

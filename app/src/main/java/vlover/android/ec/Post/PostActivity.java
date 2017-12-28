@@ -299,7 +299,7 @@ public class PostActivity extends AppCompatActivity {
                 params.put("user_id", uniqueid);
                 params.put("image", "imagen de prueba");
                 params.put("content", descripcion_post.getText().toString());
-                params.put("datetime", "fecha de prueba");
+                //params.put("datetime", "fecha de prueba");
 
                 return params;
             }

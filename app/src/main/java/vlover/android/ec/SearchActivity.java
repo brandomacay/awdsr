@@ -100,6 +100,7 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
 
     // Every time when you press search button on keypad an Activity is recreated which in turn calls this function
     @Override
+
     protected void onNewIntent(Intent intent) {
         // Get search query and create object of class AsyncFetch
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {

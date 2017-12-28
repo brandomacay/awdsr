@@ -101,6 +101,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                //  sendPost(nombre_usuario.getText().toString(),descripcion_post.getText().toString());
+                insert_post();
             }
         });
 
@@ -222,5 +223,88 @@ public class PostActivity extends AppCompatActivity {
         super.onResume();
         mostrardatodeusuario();
     }
+
+    public void insert_post(){
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Address.URL_GET_USER_PROFILE, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean("error");
+
+                    if (!error) {
+
+                        //String uid = jsonObject.getString("uid");
+
+                        JSONObject post = jsonObject.getJSONObject("post");
+                        String uid = post.getString("id");
+                        /*
+                        uniqueid = uid;
+                       email_user = user.getString("email");
+                        if (!user.getString("avatar").isEmpty()) {
+                            String avatar = getString(R.string.url_global)+"uploads/"+
+                                    uniqueid + "/avatar/" + user.getString("avatar");
+                            Picasso.with(PostActivity.this)
+                                    .load(avatar)
+                                    .resize(50, 50)
+                                    .centerCrop()
+                                    .into(user_image);
+                        }
+                        cargando.dismiss();
+                        nombre_usuario.setText(name);
+                        */
+                        Toast.makeText(PostActivity.this,
+                                "Exito: Post creado con id = " + uid, Toast.LENGTH_LONG).show();
+
+                        //generoview.setText(genre);
+                    } else {
+                        String errorMsg = jsonObject.getString("error_msg");
+                        Toast.makeText(PostActivity.this,
+                                errorMsg, Toast.LENGTH_LONG).show();
+                        cargando.dismiss();
+                    }
+                }  catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(PostActivity.this, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    cargando.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(PostActivity.this,
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                cargando.dismiss();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", uniqueid);
+                params.put("image", "imagen de prueba");
+                params.put("content", descripcion_post.getText().toString());
+                params.put("datetime", "fecha de prueba");
+
+
+                return params;
+            }
+
+        };
+
+        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 
 }

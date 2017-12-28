@@ -8,8 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.Collections;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -45,6 +50,14 @@ public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         myHolder.textUserEmail.setText(current.userEmail);
 
+
+       // myHolder.imageUserAvatar.setpic(current.userAvatar);
+        Picasso.with(this.context)
+                .load(current.userAvatar)
+                .resize(200, 200)
+                .centerCrop()
+                .into(myHolder.imageUserAvatar );
+
         //myHolder.textPrice.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         //poss = position;
 
@@ -65,6 +78,8 @@ public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         TextView textUserEmail;
 
+        CircleImageView imageUserAvatar;
+
 
         // create constructor to get widget reference
         public MyHolder(View itemView) {
@@ -72,6 +87,8 @@ public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHol
             textUserName = (TextView) itemView.findViewById(R.id.search_user_name);
 
             textUserEmail = (TextView) itemView.findViewById(R.id.search_user_email);
+
+            imageUserAvatar = (CircleImageView) itemView.findViewById(R.id.circleImageView_search_user);
 
             itemView.setOnClickListener(this);
         }

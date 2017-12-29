@@ -25,7 +25,7 @@ import vlover.android.ec.Service.SQLite;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView t;
+    TextView t, n_publicaciones;
     private SQLite dbsqlite;
     String unique_id;
     ProgressDialog cargando;
@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         t = (TextView) findViewById(R.id.testtt);
+        n_publicaciones = (TextView) findViewById(R.id.tv_publicaciones);
         unique_id = user.get("uid").toString();
 
         get_all_post();
@@ -75,6 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
                         StringBuilder s = new StringBuilder();
 
                         JSONObject postt = jsonObject.getJSONObject("post");
+                        n_publicaciones.setText("" + postt.length());
 
                         for (int i = 0; i<postt.length(); i++) {
 

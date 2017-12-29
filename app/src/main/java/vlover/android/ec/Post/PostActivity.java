@@ -228,7 +228,6 @@ public class PostActivity extends AppCompatActivity {
     }
 
     public void insert_post(){
-        // Tag used to cancel the request
         String tag_string_req = "req_login";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,

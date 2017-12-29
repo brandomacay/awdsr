@@ -15,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vlover.android.ec.Edition.Account;
 import vlover.android.ec.Login.IniciarSesion;
+import vlover.android.ec.MyProfile.ProfileActivity;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Address;
 import vlover.android.ec.Service.Controller;
@@ -67,6 +69,7 @@ public class   MiCuentaFragment extends Fragment {
     RelativeLayout loading;
     FloatingActionButton fabreload;
     NestedScrollView linear;
+    private CardView micuenta;
 
 
 
@@ -87,6 +90,7 @@ public class   MiCuentaFragment extends Fragment {
         linear = (NestedScrollView) mView.findViewById(R.id.linear);
         nameview = (TextView) mView.findViewById(R.id.nombres);
         user_image = (CircleImageView) mView.findViewById(R.id.myaccount_user_image_iv);
+        micuenta = (CardView) mView.findViewById(R.id.my_profile);
         dbsqlite = new SQLite(getContext());
 
         // session manager
@@ -120,6 +124,14 @@ public class   MiCuentaFragment extends Fragment {
         });
 
         cargando = new ProgressDialog(getActivity());
+
+        micuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         fabreload.setOnClickListener(new View.OnClickListener() {
             @Override

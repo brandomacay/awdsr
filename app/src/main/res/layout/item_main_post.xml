@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4dp"
     app:cardCornerRadius="2dp"
     android:layout_height="wrap_content">
 
@@ -17,17 +16,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_margin="7dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/user"/>
+                android:src="#DDDDDD" />
             <TextView
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@color/negro"
                 android:textStyle="bold"
-                android:text="Usuario Brandon Vlover"/>
+                android:text="User Name" />
             <TextView
+                android:layout_margin="5dp"
                 android:gravity="end"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -36,43 +37,40 @@
         </LinearLayout>
 
         <TextView
+            android:textSize="18dp"
+            android:layout_marginStart="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Madre mia que haces aqui compatriota! xD"/>
+            android:text="Contenido" />
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:maxWidth="500dp"
-            android:maxHeight="600dp"
             android:clickable="true"
-            android:src="@drawable/pp"/>
+            android:minHeight="250dp"
+            android:maxHeight="500dp"
+            android:background="#DDDDDD"
+            android:focusable="true" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatImageButton
-                android:clickable="true"
-                android:src="@drawable/vlover"
+                android:src="@drawable/flag_mexico"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:focusable="true"
-                android:background="@android:color/transparent"/>
+                android:focusable="true" />
             <android.support.v7.widget.AppCompatImageButton
-                android:clickable="true"
-                android:src="@drawable/persona"
+                android:src="@drawable/flag_ecuador"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:focusable="true"
-                android:background="@android:color/transparent"/>
+                android:focusable="true" />
             <android.support.v7.widget.AppCompatImageButton
-                android:clickable="true"
-                android:src="@drawable/inicio"
+                android:src="@drawable/flag_united_states_of_america"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:focusable="true"
-                android:background="@android:color/transparent"/>
+                android:focusable="true" />
 
         </LinearLayout>
     </LinearLayout>

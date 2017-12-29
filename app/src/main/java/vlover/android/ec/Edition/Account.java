@@ -433,7 +433,6 @@ public class Account extends AppCompatActivity {
 
                         //String email = user.getString("email");
                         String phone = user.getString("phone");
-                        String genre = user.getString("genre");
                         String country = user.getString("country");
                         String created_at = user.getString("created_at");
                         //dbsqlite.updateUser(name);

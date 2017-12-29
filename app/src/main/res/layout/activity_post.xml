@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,71 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/colorPrimary"
-                android:elevation="5dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/back"
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="-10dp"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/back"
-                            android:tint="@color/negro"
-                            tools:ignore="RtlSymmetry" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/img_avatar"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="7.5dp"
-                            android:src="#DDDDDD"
-                            app:civ_border_overlay="true" />
-
-                        <TextView
-                            android:id="@+id/name_user"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="4dp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/negro"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/send"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="4dp"
-                        android:background="@drawable/vlover"
-                        android:gravity="center_vertical" />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-
-
-        </android.support.design.widget.AppBarLayout>
 
         <View
             android:layout_width="match_parent"
@@ -84,74 +19,48 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:background="#F5F5F5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="75dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26">
 
-        <android.support.v4.widget.NestedScrollView
+
+
+    <ScrollView
+        android:layout_width="344dp"
+        android:layout_height="383dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="73dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F5F5F5"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="7dp"
-                tools:targetApi="o">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="0dp"
-                        android:visibility="gone"
-                        tools:ignore="MissingConstraints"
-                        tools:layout_editor_absoluteX="151dp"
-                        tools:layout_editor_absoluteY="400dp" />
-
-                    <EditText
-                        android:id="@+id/descripcion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Describe como fue tu dia" />
-
-                    <ImageView
-                        android:id="@+id/post_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:maxHeight="650dp"
-                        android:minWidth="300dp" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </android.support.v4.widget.NestedScrollView>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="75dp"
+            android:background="#F5F5F5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.26">
 
 
-    </RelativeLayout>
 
 
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity.MainActivity">
     <HorizontalScrollView
-        android:layout_width="match_parent"
+        android:id="@+id/navegacion"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:foregroundGravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -252,4 +161,160 @@
 
     </HorizontalScrollView>
 
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:id="@+id/coor"
+        android:layout_above="@id/navegacion"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/progreso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#F4F4F4"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/pagina"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <View
+                        android:background="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#DDDDDD"
+                        app:cardElevation="7dp"
+                        tools:targetApi="o">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TextView"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="0dp"
+                                android:visibility="gone"
+                                tools:ignore="MissingConstraints"
+                                tools:layout_editor_absoluteX="151dp"
+                                tools:layout_editor_absoluteY="400dp" />
+
+                            <EditText
+                                android:id="@+id/descripcion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Describe como fue tu dia" />
+
+                            <ImageView
+                                android:id="@+id/post_photo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:maxHeight="700dp" />
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </RelativeLayout>
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/colorPrimary"
+                android:elevation="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/back"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="-10dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/back"
+                            android:tint="@color/negro"
+                            tools:ignore="RtlSymmetry" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_avatar"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="7.5dp"
+                            android:src="#DDDDDD"
+                            app:civ_border_overlay="true" />
+
+                        <TextView
+                            android:id="@+id/name_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/negro"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/send"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/vlover"
+                        android:gravity="center_vertical" />
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</RelativeLayout>

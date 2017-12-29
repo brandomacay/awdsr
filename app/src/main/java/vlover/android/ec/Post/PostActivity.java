@@ -267,8 +267,8 @@ public class PostActivity extends AppCompatActivity {
                         Toast.makeText(PostActivity.this,
                                 "Publicacion subida correctamente", Toast.LENGTH_LONG).show();
                         descripcion_post.setText("");
-                        imagen.setImageDrawable(null);
-                        imagen.setImageResource(0);
+                      //  imagen.setImageDrawable(null);
+                        //imagen.setImageResource(0);
                         finish();
 
                         //generoview.setText(genre);
@@ -337,7 +337,9 @@ public class PostActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), obj.getString("message") , Toast.LENGTH_SHORT).show();
                             if (obj.getString("error").equals("false")){
                                 cargando.dismiss();
-                                // Toast.makeText(getApplicationContext(), "....guardando en bd", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(getApplicationContext(), obj.getString("url"), Toast.LENGTH_SHORT).show();
+                                 url_image = obj.getString("url");
+                                 insert_post();
 
                             }
 

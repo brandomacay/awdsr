@@ -74,14 +74,16 @@ public class ProfileActivity extends AppCompatActivity {
                         //Toast.makeText(ProfileActivity.this,
                           //      "No hubo error :)", Toast.LENGTH_LONG).show();
                         StringBuilder s = new StringBuilder();
+                        s.append("");
 
                         JSONObject postt = jsonObject.getJSONObject("post");
                         n_publicaciones.setText("" + postt.length());
 
                         for (int i = 0; i<postt.length(); i++) {
+
                             JSONArray objcontent = postt.getJSONArray("content");
                             String content = objcontent.getString(i);
-                            s.append(content);
+                            s.append(content + "\n");
 
                         JSONArray objimg = postt.getJSONArray("image");
                          String image = objimg.getString(i);

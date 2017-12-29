@@ -79,15 +79,19 @@ public class ProfileActivity extends AppCompatActivity {
                         n_publicaciones.setText("" + postt.length());
 
                         for (int i = 0; i<postt.length(); i++) {
+                            JSONArray objcontent = postt.getJSONArray("content");
+                            String content = objcontent.getString(i);
+                            s.append(content + "\n");
 
-                        JSONArray obj = postt.getJSONArray("content");
-                         String content = obj.getString(i);
-                         s.append(content+"\n");
+                        JSONArray objimg = postt.getJSONArray("image");
+                         String image = objimg.getString(i);
+                         s.append(image+"\n");
                         //Toast.makeText(ProfileActivity.this,
                           //    s, Toast.LENGTH_LONG).show();
-                            t.setText(s);
+
 
                          }
+                        t.setText(s);
 
 
 

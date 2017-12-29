@@ -77,9 +77,13 @@ public class ProfileActivity extends AppCompatActivity {
                         s.append("");
 
                         JSONObject postt = jsonObject.getJSONObject("post");
-                        n_publicaciones.setText("" + postt.length());
 
-                        for (int i = 0; i<postt.length(); i++) {
+                        JSONArray pray = postt.getJSONArray("pid");
+                        n_publicaciones.setText("" + pray.length());
+
+
+
+                        for (int i = 0; i<pray.length(); i++) {
 
                             JSONArray objcontent = postt.getJSONArray("content");
                             String content = objcontent.getString(i);
@@ -94,6 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                          }
                         t.setText(s);
+
 
 
 

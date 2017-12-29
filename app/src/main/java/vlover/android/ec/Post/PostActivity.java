@@ -340,6 +340,7 @@ public class PostActivity extends AppCompatActivity {
                                 // Toast.makeText(getApplicationContext(), obj.getString("url"), Toast.LENGTH_SHORT).show();
                                  url_image = obj.getString("url");
                                  insert_post();
+
                             }
 
                         } catch (JSONException e) {

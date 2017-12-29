@@ -61,6 +61,10 @@ public class PostActivity extends AppCompatActivity {
     Button enviar;
     private SQLite dbsqlite;
     private Session session;
+    boolean imageIsSet = false;
+    String url_image = "";
+    Bitmap bitmappost;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,11 +106,17 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String descripcion = descripcion_post.getText().toString();
-                if (descripcion.equalsIgnoreCase("")) {
+                if (descripcion.equalsIgnoreCase("") && imageIsSet == false) {
                     descripcion_post.setError("Escriba algo, por favor");
                 } else {
-                    insert_post(
-                    );
+
+                    if (imageIsSet == true) {
+                    //insert_post();
+                        upload_image_first();
+                     }
+                     else {
+                      insert_post();
+                    }
                 }
             }
         });
@@ -132,15 +142,21 @@ public class PostActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-                imagen.setImageURI(resultUri);
+                //Desde aqui ya lo cargas, pero hagamoslo en el try para capturar error por si fallo algo
+               // imagen.setImageURI(resultUri);
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                    bitmappost = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                    imagen.setImageBitmap(bitmappost);
+                    descripcion_post.setError(null);
+                    imageIsSet = true;
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                    imageIsSet = false;
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
+                imageIsSet = false;
             }
         }
 
@@ -285,9 +301,9 @@ public class PostActivity extends AppCompatActivity {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user_id", uniqueid);
-                params.put("image", "imagen de prueba");
+                params.put("image", url_image);
                 params.put("content", descripcion_post.getText().toString());
-                params.put("datetime", "fecha de prueba");
+                //params.put("datetime", "fecha de prueba");
                 return params;
 
             }
@@ -297,5 +313,76 @@ public class PostActivity extends AppCompatActivity {
         Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private void upload_image_first() {
+
+        //getting the tag from the edittext
+        // final String tags = editTextTags.getText().toString().trim();
+        //final String tags = previous_avatar;
+        //Toast.makeText(getApplicationContext(), previous_avatar , Toast.LENGTH_SHORT).show();
+
+        //our custom volley request
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Address.UPLOAD_URLPOST,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        try {
+                            JSONObject obj = new JSONObject(new String(response.data));
+                            Toast.makeText(getApplicationContext(), obj.getString("message") , Toast.LENGTH_SHORT).show();
+                            if (obj.getString("error").equals("false")){
+                                cargando.dismiss();
+                                // Toast.makeText(getApplicationContext(), "....guardando en bd", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        } catch (JSONException e) {
+                            cargando.dismiss();
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        cargando.dismiss();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /*
+            * If you want to add more parameters with the image
+            * you can do it here
+            * here we have only one parameter with the image
+            * which is tags
+            * */
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("userid", uniqueid);
+               // params.put("tags", tags);
+                return params;
+            }
+
+            /*
+            * Here we are passing image by renaming it with a unique name
+            * */
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("fileToUpload", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmappost)));
+                return params;
+            }
+        };
+
+        //adding the request to volley
+        Volley.newRequestQueue(this).add(volleyMultipartRequest);
+    }
 
 }

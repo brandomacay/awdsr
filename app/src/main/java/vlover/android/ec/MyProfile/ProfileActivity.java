@@ -70,28 +70,43 @@ public class ProfileActivity extends AppCompatActivity {
 
                     if (!error) {
 
-                       // Toast.makeText(ProfileActivity.this,
-                         //       "No hubo error :)", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(ProfileActivity.this,
+                          //      "No hubo error :)", Toast.LENGTH_LONG).show();
+                        StringBuilder s = new StringBuilder();
 
-                       // JSONObject postt = jsonObject.getJSONObject("post");
+                        JSONObject postt = jsonObject.getJSONObject("post");
+
+                        for (int i = 0; i<postt.length(); i++) {
+
+                        JSONArray obj = postt.getJSONArray("content");
+                         String content = obj.getString(i);
+                         s.append(content+"\n");
+                        //Toast.makeText(ProfileActivity.this,
+                          //    s, Toast.LENGTH_LONG).show();
+                            t.setText(s);
+
+                         }
 
 
-                        //String contentt = postt.getString("content");
-                        //7Toast.makeText(ProfileActivity.this,
-                           //     contentt, Toast.LENGTH_LONG).show();
 
-                        JSONArray post = jsonObject.getJSONArray("post");
+                       // String contentt = postt.getString("content");
+                        //t.setText(contentt);
+                        //Toast.makeText(ProfileActivity.this,
+                          //      contentt, Toast.LENGTH_LONG).show();
+                        //JSONArray post = postt.getJSONArray("pid");
+
+
                        // String uid = post.getString("pid");
 
 
 
-                        for (int i = 0; i<post.length(); i++) {
-                            JSONObject obj = post.getJSONObject(i);
-                            String content = obj.getString("content");
-                            Toast.makeText(ProfileActivity.this,
-                                    content, Toast.LENGTH_LONG).show();
+                        //for (int i = 0; i<post.length(); i++) {
+                            //JSONObject obj = post.getJSONObject(i);
+                           // String content = obj.getString("pid");
+                            //Toast.makeText(ProfileActivity.this,
+                              //      content, Toast.LENGTH_LONG).show();
 
-                        }
+                       // }
 
                         //t.setText(post.getString("content"));
                         //  imagen.setImageDrawable(null);

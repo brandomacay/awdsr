@@ -39,13 +39,13 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
         getPostAdapter getDataAdapter1 =  getDataAdapter.get(position);
 
-        holder.NameTextView.setText(getDataAdapter1.getName());
+        holder.unique_idTextView.setText(getDataAdapter1.getUnique_id());
 
         holder.IdTextView.setText(String.valueOf(getDataAdapter1.getId()));
 
-        holder.PhoneNumberTextView.setText(getDataAdapter1.getPhone_number());
+        holder.imageTextView.setText(getDataAdapter1.getImage());
 
-        holder.SubjectTextView.setText(getDataAdapter1.getSubject());
+        holder.contentTextView.setText(getDataAdapter1.getContent());
 
     }
 
@@ -58,9 +58,9 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
     class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView IdTextView;
-        public TextView NameTextView;
-        public TextView PhoneNumberTextView;
-        public TextView SubjectTextView;
+        public TextView unique_idTextView;
+        public TextView imageTextView;
+        public TextView contentTextView;
 
 
         public ViewHolder(View itemView) {
@@ -68,9 +68,9 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
             super(itemView);
 
             IdTextView = (TextView) itemView.findViewById(R.id.textView2) ;
-            NameTextView = (TextView) itemView.findViewById(R.id.textView4) ;
-            PhoneNumberTextView = (TextView) itemView.findViewById(R.id.textView6) ;
-            SubjectTextView = (TextView) itemView.findViewById(R.id.textView8) ;
+            unique_idTextView = (TextView) itemView.findViewById(R.id.textView4) ;
+            imageTextView = (TextView) itemView.findViewById(R.id.textView6) ;
+            contentTextView = (TextView) itemView.findViewById(R.id.textView8) ;
 
 
         }

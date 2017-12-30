@@ -148,11 +148,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                             GetDataAdapter2.setId(Integer.parseInt(pid));
 
-                            GetDataAdapter2.setName("" + unique_id);
+                            GetDataAdapter2.setUnique_id("" + unique_id);
 
-                            GetDataAdapter2.setSubject(content);
+                            GetDataAdapter2.setContent(content);
 
-                            GetDataAdapter2.setPhone_number(image);
+                            GetDataAdapter2.setImage(image);
 
                             GetDataAdapter1.add(GetDataAdapter2);
 
@@ -287,11 +287,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                 GetDataAdapter2.setId(json.getInt(JSON_ID));
 
-                GetDataAdapter2.setName(json.getString(JSON_NAME));
+                GetDataAdapter2.setUnique_id(json.getString(JSON_NAME));
 
-                GetDataAdapter2.setSubject(json.getString(JSON_SUBJECT));
+                GetDataAdapter2.setContent(json.getString(JSON_SUBJECT));
 
-                GetDataAdapter2.setPhone_number(json.getString(JSON_PHONE_NUMBER));
+                GetDataAdapter2.setImage(json.getString(JSON_PHONE_NUMBER));
 
             } catch (JSONException e) {
 

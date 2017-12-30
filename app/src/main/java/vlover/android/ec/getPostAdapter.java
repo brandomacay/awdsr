@@ -8,19 +8,19 @@ import java.util.ArrayList;
 public class getPostAdapter {
 
     int Id;
-    String name;
-    String phone_number;
-    String subject;
+    String unique_id;
+    String imagen;
+    String content;
 
 
-    public String getName() {
+    public String getUnique_id() {
 
-        return name;
+        return unique_id;
     }
 
-    public void setName(String name) {
+    public void setUnique_id(String unique_id) {
 
-        this.name = name;
+        this.unique_id = unique_id;
     }
 
     public int getId() {
@@ -34,24 +34,24 @@ public class getPostAdapter {
     }
 
 
-    public String getPhone_number() {
+    public String getImage() {
 
-        return phone_number;
+        return imagen;
     }
 
-    public void setPhone_number(String phone_number1) {
+    public void setImage(String imagen1) {
 
-        this.phone_number = phone_number1;
+        this.imagen = imagen1;
     }
 
-    public String getSubject() {
+    public String getContent() {
 
-        return subject;
+        return content;
     }
 
-    public void setSubject(String subject1) {
+    public void setContent(String content1) {
 
-        this.subject = subject1;
+        this.content = content1;
     }
 
 }

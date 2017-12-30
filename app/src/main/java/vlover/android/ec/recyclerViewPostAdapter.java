@@ -58,6 +58,9 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                     .centerCrop()
                     .into(holder.imageTextView);
         }
+        else {
+            holder.imageTextView.setVisibility(View.GONE);
+        }
 
 
         //holder.imageTextView.setText(getDataAdapter1.getImage());

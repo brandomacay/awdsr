@@ -304,4 +304,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(recyclerViewadapter);
     }
+
+    public void delete_post () {
+        Toast.makeText(ProfileActivity.this, "Eliminando", Toast.LENGTH_LONG).show();
+
+
+    }
 }

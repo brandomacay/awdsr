@@ -4,12 +4,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import vlover.android.ec.MyProfile.ProfileActivity;
 
 
 /**
@@ -17,7 +21,7 @@ import java.util.List;
  */
 public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPostAdapter.ViewHolder> {
 
-    Context context;
+    private Context context;
 
     List<getPostAdapter> getDataAdapter;
 
@@ -35,6 +39,9 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_post_items, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(v);
+
+
+
 
         return viewHolder;
     }
@@ -70,10 +77,14 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
         holder.dateTextView.setText(getDataAdapter1.getDate());
 
+       // holder.deletePost.setOnClickListener(context);
+
+
 
 
 
     }
+
 
     @Override
     public int getItemCount() {
@@ -81,13 +92,14 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
         return getDataAdapter.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView IdTextView;
         public TextView unique_idTextView;
         public ImageView imageTextView;
         public TextView contentTextView;
         public TextView dateTextView;
+        public Button deletePost;
 
 
         public ViewHolder(View itemView) {
@@ -99,8 +111,31 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
             imageTextView = (ImageView) itemView.findViewById(R.id.textView6);
             contentTextView = (TextView) itemView.findViewById(R.id.textView8);
             dateTextView = (TextView) itemView.findViewById(R.id.textView10);
+            deletePost = (Button) itemView.findViewById(R.id.deletePost);
+
+            deletePost.setOnClickListener(this);
+
+
+
+        }
+        // Click event for all items
+        @Override
+        public void onClick(View v) {
+            //String s;
+
+            //s = textUserEmail.getText().toString();
+
+            Toast.makeText(context, "eliminando...", Toast.LENGTH_SHORT).show();
+            //data.clear();
+
+
+            // MainActivity.clean_results();
+            // data.notifyAll();
+
+
 
 
         }
     }
+
 }

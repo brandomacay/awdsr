@@ -51,6 +51,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
         String _img = getDataAdapter1.getImage();
 
         if (!_img.isEmpty()) {
+            holder.imageTextView.setVisibility(View.VISIBLE);
 
             Picasso.with(context)
                     .load(_img)

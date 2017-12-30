@@ -63,12 +63,12 @@
                 android:text="Imagen : "
                 />
 
-            <TextView
+            <ImageView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Imagen Show"
+
                 />
         </TableRow>
 
@@ -92,7 +92,31 @@
 
         </TableRow>
 
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Fecha : "
+                />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Fecha Show Here"
+                />
+
+        </TableRow>
+
     </TableLayout>
+
+    <View android:layout_width="10dp"
+        android:layout_height="25dp"
+        ></View>
 
 </android.support.v7.widget.CardView>
 

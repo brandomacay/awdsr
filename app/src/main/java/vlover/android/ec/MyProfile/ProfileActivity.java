@@ -145,6 +145,8 @@ public class ProfileActivity extends AppCompatActivity {
                             String content = objcontent.getString(i);
                             JSONArray objimg = postt.getJSONArray("image");
                             String image = objimg.getString(i);
+                            JSONArray objdate = postt.getJSONArray("datetime");
+                            String date = objdate.getString(i);
 
                             GetDataAdapter2.setId(Integer.parseInt(pid));
 
@@ -153,6 +155,8 @@ public class ProfileActivity extends AppCompatActivity {
                             GetDataAdapter2.setContent(content);
 
                             GetDataAdapter2.setImage(image);
+
+                            GetDataAdapter2.setDate(date);
 
                             GetDataAdapter1.add(GetDataAdapter2);
 

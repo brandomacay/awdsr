@@ -4,8 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 
 /**
  * Created by JUNED on 6/16/2016.
@@ -43,9 +48,26 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
         holder.IdTextView.setText(String.valueOf(getDataAdapter1.getId()));
 
-        holder.imageTextView.setText(getDataAdapter1.getImage());
+        String _img = getDataAdapter1.getImage();
+
+        if (!_img.isEmpty()) {
+
+            Picasso.with(context)
+                    .load(_img)
+                    .resize(250, 200)
+                    .centerCrop()
+                    .into(holder.imageTextView);
+        }
+
+
+        //holder.imageTextView.setText(getDataAdapter1.getImage());
 
         holder.contentTextView.setText(getDataAdapter1.getContent());
+
+        holder.dateTextView.setText(getDataAdapter1.getDate());
+
+
+
 
     }
 
@@ -59,18 +81,20 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
         public TextView IdTextView;
         public TextView unique_idTextView;
-        public TextView imageTextView;
+        public ImageView imageTextView;
         public TextView contentTextView;
+        public TextView dateTextView;
 
 
         public ViewHolder(View itemView) {
 
             super(itemView);
 
-            IdTextView = (TextView) itemView.findViewById(R.id.textView2) ;
-            unique_idTextView = (TextView) itemView.findViewById(R.id.textView4) ;
-            imageTextView = (TextView) itemView.findViewById(R.id.textView6) ;
-            contentTextView = (TextView) itemView.findViewById(R.id.textView8) ;
+            IdTextView = (TextView) itemView.findViewById(R.id.textView2);
+            unique_idTextView = (TextView) itemView.findViewById(R.id.textView4);
+            imageTextView = (ImageView) itemView.findViewById(R.id.textView6);
+            contentTextView = (TextView) itemView.findViewById(R.id.textView8);
+            dateTextView = (TextView) itemView.findViewById(R.id.textView10);
 
 
         }

@@ -11,6 +11,7 @@ public class getPostAdapter {
     String unique_id;
     String imagen;
     String content;
+    String date;
 
 
     public String getUnique_id() {
@@ -18,9 +19,9 @@ public class getPostAdapter {
         return unique_id;
     }
 
-    public void setUnique_id(String unique_id) {
+    public void setUnique_id(String unique_id1) {
 
-        this.unique_id = unique_id;
+        this.unique_id = unique_id1;
     }
 
     public int getId() {
@@ -52,6 +53,16 @@ public class getPostAdapter {
     public void setContent(String content1) {
 
         this.content = content1;
+    }
+
+    public String getDate() {
+
+        return date;
+    }
+
+    public void setDate(String date1) {
+
+        this.date = date1;
     }
 
 }

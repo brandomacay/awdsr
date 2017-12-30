@@ -1,5 +1,7 @@
 package vlover.android.ec;
 
+import android.widget.Button;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +9,7 @@ import java.util.ArrayList;
  */
 public class getPostAdapter {
 
+    Button deletep;
     int Id;
     String unique_id;
     String imagen;
@@ -14,6 +17,13 @@ public class getPostAdapter {
     String date;
 
 
+    public Button getDeletep() {
+        return deletep;
+    }
+
+    public void setDeletep(Button deletep1) {
+        this.deletep = deletep1;
+    }
     public String getUnique_id() {
 
         return unique_id;

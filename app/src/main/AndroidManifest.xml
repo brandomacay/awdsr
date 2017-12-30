@@ -26,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity.MainActivity"></activity>
+        <activity android:name=".MainActivity.MainActivity" />
         <activity android:name=".Login.CambiarClave" />
         <activity
             android:name=".Login.Registro"
@@ -58,7 +58,8 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".MyProfile.ProfileActivity"></activity>
+        <activity android:name=".MyProfile.ProfileActivity" />
+        <activity android:name=".Pruebas.MyProfile"></activity>
     </application>
 
 </manifest>

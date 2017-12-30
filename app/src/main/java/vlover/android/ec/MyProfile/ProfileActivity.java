@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
     String JSON_SUBJECT = "subject";
     String JSON_PHONE_NUMBER = "phone_number";
 
-   // Button button;
+    // Button button;
 
     JsonArrayRequest jsonArrayRequest ;
 
@@ -85,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.activity_profile_recyclerview);
 
-       // progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+        // progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
         //button = (Button)findViewById(R.id.button) ;
 
@@ -123,8 +123,8 @@ public class ProfileActivity extends AppCompatActivity {
                     if (!error) {
 
                         //Toast.makeText(ProfileActivity.this,
-                          //      "No hubo error :)", Toast.LENGTH_LONG).show();
-                       // StringBuilder s = new StringBuilder();
+                        //      "No hubo error :)", Toast.LENGTH_LONG).show();
+                        // StringBuilder s = new StringBuilder();
                         //s.append("");
 
                         JSONObject postt = jsonObject.getJSONObject("post");
@@ -161,20 +161,18 @@ public class ProfileActivity extends AppCompatActivity {
                             GetDataAdapter1.add(GetDataAdapter2);
 
 
+                            // JSONArray objcontent = postt.getJSONArray("content");
+                            // String content = objcontent.getString(i);
+                            //  s.append(content + "\n");
+
+                            //JSONArray objimg = postt.getJSONArray("image");
+                            //String image = objimg.getString(i);
+                            // s.append(image+"\n\n");
+                            //Toast.makeText(ProfileActivity.this,
+                            //    s, Toast.LENGTH_LONG).show();
 
 
-                           // JSONArray objcontent = postt.getJSONArray("content");
-                           // String content = objcontent.getString(i);
-                          //  s.append(content + "\n");
-
-                        //JSONArray objimg = postt.getJSONArray("image");
-                         //String image = objimg.getString(i);
-                        // s.append(image+"\n\n");
-                        //Toast.makeText(ProfileActivity.this,
-                          //    s, Toast.LENGTH_LONG).show();
-
-
-                         }
+                        }
 
 
                         recyclerViewadapter = new recyclerViewPostAdapter(GetDataAdapter1, ProfileActivity.this);
@@ -182,34 +180,32 @@ public class ProfileActivity extends AppCompatActivity {
                         recyclerView.setAdapter(recyclerViewadapter);
 
 
-                       // t.setText(s);
+                        // t.setText(s);
 
 
-
-
-                       // String contentt = postt.getString("content");
+                        // String contentt = postt.getString("content");
                         //t.setText(contentt);
                         //Toast.makeText(ProfileActivity.this,
-                          //      contentt, Toast.LENGTH_LONG).show();
+                        //      contentt, Toast.LENGTH_LONG).show();
                         //JSONArray post = postt.getJSONArray("pid");
 
 
-                       // String uid = post.getString("pid");
+                        // String uid = post.getString("pid");
 
 
 
                         //for (int i = 0; i<post.length(); i++) {
-                            //JSONObject obj = post.getJSONObject(i);
-                           // String content = obj.getString("pid");
-                            //Toast.makeText(ProfileActivity.this,
-                              //      content, Toast.LENGTH_LONG).show();
+                        //JSONObject obj = post.getJSONObject(i);
+                        // String content = obj.getString("pid");
+                        //Toast.makeText(ProfileActivity.this,
+                        //      content, Toast.LENGTH_LONG).show();
 
-                       // }
+                        // }
 
                         //t.setText(post.getString("content"));
                         //  imagen.setImageDrawable(null);
                         //imagen.setImageResource(0);
-                      //  finish();
+                        //  finish();
 
                         //generoview.setText(genre);
                     } else {
@@ -309,4 +305,3 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewadapter);
     }
 }
-

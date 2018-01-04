@@ -118,7 +118,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
         } else {
             holder.contentTextView.setVisibility(View.GONE);
         }
-       // holder.deletePost.setOnClickListener(context);
+        // holder.deletePost.setOnClickListener(context);
     }
 
 
@@ -173,7 +173,10 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                             } else if (which == 1) {
                             } else if (which == 2) {
                                 Toast.makeText(context, "Descargando", Toast.LENGTH_SHORT).show();
-                                file_download("http://vlover.ruvnot.com/uploads/5a42d351415af7.35626162/post/19463771391514520432292.png");
+                                getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
+                                String IMG = getDataAdapter1.getImage();
+
+                                file_download(IMG);
 
                             }
                             else if (which == 3) {

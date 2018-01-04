@@ -1,16 +1,23 @@
 package vlover.android.ec.Adapters;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +45,12 @@ import java.util.List;
 import java.util.Map;
 
 import vlover.android.ec.MainActivity.MainActivity;
+import vlover.android.ec.MyProfile.ProfileActivity;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Controller;
+
+import static android.content.ContentValues.TAG;
+//import static java.security.AccessController.getContext;
 
 public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPostAdapter.ViewHolder> {
 
@@ -172,11 +183,14 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                                 //getDataAdapter.notify();
                             } else if (which == 1) {
                             } else if (which == 2) {
-                                Toast.makeText(context, "Descargando", Toast.LENGTH_SHORT).show();
-                                getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
-                                String IMG = getDataAdapter1.getImage();
 
-                                file_download(IMG);
+                                if (isStoragePermissionGranted()) {
+                                    Toast.makeText(context, "Descargando", Toast.LENGTH_SHORT).show();
+                                    getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
+                                    String IMG = getDataAdapter1.getImage();
+
+                                    file_download(IMG);
+                                }
 
                             }
                             else if (which == 3) {
@@ -294,6 +308,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
     public void file_download(String uRl) {
 
+
         File direct = new File(Environment.getExternalStorageDirectory()
                 + "/vlover");
 
@@ -318,5 +333,39 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
     }
 
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+
+                Log.v(TAG,"Permission is revoked");
+               // context.startActivity(new Intent(context, ProfileActivity.class));
+
+                ActivityCompat.requestPermissions((Activity)context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
+
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+            //resume tasks needing this permission
+            Toast.makeText(context, "Ya puedes alamacenar imagenes, intenta de nuevo", Toast.LENGTH_SHORT).show();
+            //getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
+            //String IMG = getDataAdapter1.getImage();
+
+            //file_download(IMG);
+        }
+    }
 
 }

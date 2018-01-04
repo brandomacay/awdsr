@@ -220,7 +220,8 @@ public class InicioFragment extends Fragment {
                             JSONArray objcontent = postt.getJSONArray("content");
                             String content = objcontent.getString(i);
                             JSONArray objimg = postt.getJSONArray("image");
-                            String image = objimg.getString(i);
+                            String image = getString(R.string.url_global) + "uploads/" +
+                                    unique_id + "/post/"  + objimg.getString(i);
                             JSONArray objdate = postt.getJSONArray("datetime");
                             String date = objdate.getString(i);
 

@@ -546,6 +546,7 @@ public class Account extends AppCompatActivity {
                             if (obj.getString("error").equals("false")){
                                 cargando.dismiss();
                                // Toast.makeText(getApplicationContext(), "....guardando en bd", Toast.LENGTH_SHORT).show();
+                                previous_avatar = obj.getString("image");
 
                             }
 
@@ -584,7 +585,7 @@ public class Account extends AppCompatActivity {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put("pic", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                params.put("pic", new DataPart(imagename + ".jpeg", getFileDataFromDrawable(bitmap)));
                 return params;
             }
         };

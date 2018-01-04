@@ -225,6 +225,8 @@ public class InicioFragment extends Fragment {
                             JSONArray objdate = postt.getJSONArray("datetime");
                             String date = objdate.getString(i);
 
+                            GetDataAdapter2.setUserImage("");
+
                             GetDataAdapter2.setId(Integer.parseInt(pid));
 
                             GetDataAdapter2.setUnique_id("" + unique_id);

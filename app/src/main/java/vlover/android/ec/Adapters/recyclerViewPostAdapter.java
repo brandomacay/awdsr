@@ -99,6 +99,26 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
         holder.IdTextView.setText(String.valueOf(getDataAdapter1.getId()));
 
+        String _userimg = getDataAdapter1.getUserImage();
+
+        if (!_userimg.isEmpty()) {
+          //  holder.userimageTextView.setVisibility(View.VISIBLE);
+
+            Picasso.with(context)
+                    .load(_userimg)
+                    .fit()
+                    //.resize(600,6000)
+                    .centerInside()
+                    //.placeholder(R.drawable.agregar_imagen)
+                    //.error(R.drawable.vlover)
+                    //.networkPolicy(NetworkPolicy.NO_STORE)
+                    //.memoryPolicy(MemoryPolicy.NO_STORE)
+                    .into(holder.userimageTextView);
+        }
+        else {
+          //  holder.imageTextView.setVisibility(View.GONE);
+        }
+
         String _img = getDataAdapter1.getImage();
 
         if (!_img.isEmpty()) {
@@ -143,6 +163,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
         public TextView IdTextView;
         public TextView unique_idTextView;
+        public ImageView userimageTextView;
         public ImageView imageTextView;
         public TextView contentTextView;
         public TextView dateTextView;
@@ -155,6 +176,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
             IdTextView = (TextView) itemView.findViewById(R.id.textView2);
             unique_idTextView = (TextView) itemView.findViewById(R.id.textView4);
+            userimageTextView = (ImageView) itemView.findViewById(R.id.post_user_image);
             imageTextView = (ImageView) itemView.findViewById(R.id.textView6);
             imageTextView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

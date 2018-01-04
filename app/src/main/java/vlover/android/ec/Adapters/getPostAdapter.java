@@ -14,6 +14,7 @@ public class getPostAdapter {
     Button deletep;
     int Id;
     String unique_id;
+    String user_image;
     String imagen;
     String content;
     String date;
@@ -44,6 +45,17 @@ public class getPostAdapter {
     public void setId(int Id1) {
 
         this.Id = Id1;
+    }
+
+
+    public String getUserImage() {
+
+        return user_image;
+    }
+
+    public void setUserImage(String uimagen1) {
+
+        this.user_image = uimagen1;
     }
 
 

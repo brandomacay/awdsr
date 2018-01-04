@@ -208,7 +208,7 @@ public class   MiCuentaFragment extends Fragment {
 
                         if (!user.getString("avatar").isEmpty()) {
                             String avatar = getString(R.string.url_global)+"uploads/"+
-                                    uniqueid + "/avatar/" + user.getString("avatar");
+                                    uniqueid + "/avatar/" + "small_" + user.getString("avatar");
                                 Picasso.with(getActivity())
                                         .load(avatar)
                                         .resize(200, 200)

@@ -167,8 +167,17 @@ public class ProfileActivity extends AppCompatActivity {
 
                             JSONArray objPid = postt.getJSONArray("pid");
                             final String pid = objPid.getString(i);
+
+                            JSONArray objname = postt.getJSONArray("name");
+                            String name = objname.getString(i);
+
+                            JSONArray objuserimage = postt.getJSONArray("avatar");
+                            String userimage = getString(R.string.url_global)+"uploads/"+
+                                    unique_id + "/avatar/" + "small_" + objuserimage.getString(i);
+
                             JSONArray objcontent = postt.getJSONArray("content");
                             String content = objcontent.getString(i);
+
                             JSONArray objimg = postt.getJSONArray("image");
                             String image = getString(R.string.url_global) + "uploads/" +
                                     unique_id + "/post/"  + objimg.getString(i);
@@ -177,7 +186,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                             GetDataAdapter2.setId(Integer.parseInt(pid));
 
-                            GetDataAdapter2.setUnique_id("" + unique_id);
+                            GetDataAdapter2.setUnique_id(name);
+
+                            GetDataAdapter2.setUserImage(userimage);
 
                             GetDataAdapter2.setContent(content);
 

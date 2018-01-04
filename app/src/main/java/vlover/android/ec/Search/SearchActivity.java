@@ -249,7 +249,7 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
                         userData.userName = json_data.getString("name");
                         userData.userEmail = json_data.getString("email");
                         String avatar  = getString(R.string.url_global)+"uploads/"+
-                                json_data.getString("unique_id") + "/avatar/" +
+                                json_data.getString("unique_id") + "/avatar/" + "small_" +
                                       json_data.getString("avatar");
                         userData.userAvatar = avatar;
                         //fishData.sizeName = json_data.getString("size_name");

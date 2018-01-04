@@ -38,6 +38,8 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.datatype.Duration;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import vlover.android.ec.Edition.Account;
 import vlover.android.ec.Fragmentos.MiCuentaFragment;
@@ -113,9 +115,13 @@ public class PostActivity extends AppCompatActivity {
                     if (imageIsSet == true) {
                     //insert_post();
                         upload_image_first();
+                        finish();
+                        Toast.makeText(PostActivity.this, "Publicando...", Toast.LENGTH_LONG).show();
                      }
                      else {
                       insert_post();
+                        finish();
+                        Toast.makeText(PostActivity.this, "Publicando...", Toast.LENGTH_LONG).show();
                     }
                 }
             }

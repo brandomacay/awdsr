@@ -1,13 +1,9 @@
 package vlover.android.ec.MainActivity;
 
-import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -15,9 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,26 +22,7 @@ import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import vlover.android.ec.AdapterSearchUser;
 import vlover.android.ec.Adapters.ViewPagerAdapter;
-import vlover.android.ec.DataSearchUser;
 import vlover.android.ec.Fragmentos.AvisosFragment;
 import vlover.android.ec.Fragmentos.InicioFragment;
 import vlover.android.ec.Fragmentos.MapaFragment;
@@ -56,7 +31,7 @@ import vlover.android.ec.Fragmentos.NotificacionesFragment;
 import vlover.android.ec.Mensajes.MensajesActivity;
 import vlover.android.ec.MyWork.MyWorkActivity;
 import vlover.android.ec.R;
-import vlover.android.ec.SearchActivity;
+import vlover.android.ec.Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity {
 

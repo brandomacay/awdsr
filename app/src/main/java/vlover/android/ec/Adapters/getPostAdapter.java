@@ -1,8 +1,10 @@
-package vlover.android.ec;
+package vlover.android.ec.Adapters;
 
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 
 /**
  * Created by JUNED on 6/16/2016.

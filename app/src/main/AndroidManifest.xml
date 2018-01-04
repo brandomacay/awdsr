@@ -47,8 +47,9 @@
         <activity android:name=".MyWork.MyWorkActivity" />
         <activity android:name=".User.UserActivity" />
         <activity
-            android:name=".SearchActivity"
-            android:launchMode="singleTop">
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTop"
+            android:name=".Search.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
                 <action android:name="android.intent.action.VIEW" />
@@ -59,7 +60,6 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".MyProfile.ProfileActivity" />
-        <activity android:name=".Pruebas.MyProfile"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package vlover.android.ec;
+package vlover.android.ec.Search;
 
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -34,6 +34,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import vlover.android.ec.AdapterSearchUser;
+import vlover.android.ec.DataSearchUser;
+import vlover.android.ec.R;
+
 public class SearchActivity extends AppCompatActivity implements  SearchView.OnQueryTextListener{
     private Toolbar toolbar;
     private SearchView searchView = null;
@@ -65,11 +69,13 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
             searchView = (SearchView) searchItem.getActionView();
         }
         if (searchView != null) {
+            assert searchManager != null;
             searchView.setSearchableInfo(searchManager.getSearchableInfo(SearchActivity.this.getComponentName()));
             searchView.setIconified(false);
         }
 
 
+        // assert searchView != null;
         searchView.setSubmitButtonEnabled(true);
 
         // searchView.seton
@@ -114,7 +120,10 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
             }
             data.clear();
             new AsyncFetch(query).execute();
-
+            if (mRVFish != null) {
+            } else {
+                finish();
+            }
         }
     }
 

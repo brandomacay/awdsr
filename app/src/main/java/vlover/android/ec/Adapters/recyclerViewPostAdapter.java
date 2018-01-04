@@ -248,6 +248,40 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
             notifyItemChanged(getAdapterPosition());
         }
 
+        public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+            onRequestPermissionsResult(requestCode, permissions, grantResults);
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+                //resume tasks needing this permission
+                Toast.makeText(context, "Ya puedes alamacenar imagenes, intenta de nuevo", Toast.LENGTH_SHORT).show();
+                getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
+                String IMG = getDataAdapter1.getImage();
+
+                file_download(IMG);
+            }
+        }
+
+        public boolean isStoragePermissionGranted() {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    Log.v(TAG, "Permission is granted");
+                    return true;
+                } else {
+
+                    Log.v(TAG, "Permission is revoked");
+                    // context.startActivity(new Intent(context, ProfileActivity.class));
+
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    return false;
+                }
+            } else { //permission is automatically granted on sdk<23 upon installation
+                Log.v(TAG, "Permission is granted");
+                return true;
+            }
+        }
+
+
     }
 
 
@@ -333,39 +367,8 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
     }
 
-    public  boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG,"Permission is granted");
-                return true;
-            } else {
-
-                Log.v(TAG,"Permission is revoked");
-               // context.startActivity(new Intent(context, ProfileActivity.class));
-
-                ActivityCompat.requestPermissions((Activity)context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG,"Permission is granted");
-            return true;
-        }
-    }
 
 
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
-            //resume tasks needing this permission
-            Toast.makeText(context, "Ya puedes alamacenar imagenes, intenta de nuevo", Toast.LENGTH_SHORT).show();
-            //getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
-            //String IMG = getDataAdapter1.getImage();
 
-            //file_download(IMG);
-        }
-    }
 
 }

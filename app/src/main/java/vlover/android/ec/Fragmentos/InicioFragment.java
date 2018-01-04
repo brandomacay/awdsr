@@ -170,6 +170,7 @@ public class InicioFragment extends Fragment {
                 }
             }
         });
+
         get_all_post();
 
         return mView;

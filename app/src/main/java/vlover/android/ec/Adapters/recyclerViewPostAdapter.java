@@ -1,11 +1,14 @@
 package vlover.android.ec.Adapters;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +32,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,7 +148,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
             imageTextView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    final String[] option = new String[]{"Eliminar", "Editar", "Reportar",
+                    final String[] option = new String[]{"Eliminar", "Editar", "Descargar", "Reportar",
                     };
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
                             android.R.layout.select_dialog_item, option);
@@ -168,6 +172,11 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                                 //getDataAdapter.notify();
                             } else if (which == 1) {
                             } else if (which == 2) {
+                                Toast.makeText(context, "Descargando", Toast.LENGTH_SHORT).show();
+                                file_download("http://vlover.ruvnot.com/uploads/5a42d351415af7.35626162/post/19463771391514520432292.png");
+
+                            }
+                            else if (which == 3) {
                             }
                         }
                     });
@@ -280,6 +289,31 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
         Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+    public void file_download(String uRl) {
+
+        File direct = new File(Environment.getExternalStorageDirectory()
+                + "/vlover");
+
+        if (!direct.exists()) {
+            direct.mkdirs();
+        }
+
+        DownloadManager mgr = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+
+        Uri downloadUri = Uri.parse(uRl);
+        DownloadManager.Request request = new DownloadManager.Request(
+                downloadUri);
+
+        request.setAllowedNetworkTypes(
+                DownloadManager.Request.NETWORK_WIFI
+                        | DownloadManager.Request.NETWORK_MOBILE)
+                .setAllowedOverRoaming(false).setTitle("Demo")
+                .setDescription("Descargando imagen...")
+                .setDestinationInExternalPublicDir("/vlover", "test.jpg");
+
+        mgr.enqueue(request);
+
+    }
 
 
 }

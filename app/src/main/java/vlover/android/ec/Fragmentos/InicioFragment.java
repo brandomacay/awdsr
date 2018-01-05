@@ -247,6 +247,7 @@ public class InicioFragment extends Fragment {
                             GetDataAdapter1.add(GetDataAdapter2);
 
 
+
                             // JSONArray objcontent = postt.getJSONArray("content");
                             // String content = objcontent.getString(i);
                             //  s.append(content + "\n");

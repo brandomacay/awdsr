@@ -52,13 +52,13 @@ import vlover.android.ec.Service.Controller;
 import static android.content.ContentValues.TAG;
 //import static java.security.AccessController.getContext;
 
-public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPostAdapter.ViewHolder> {
+public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyclerViewNotificationsAdapter.ViewHolder> {
 
     private Context context;
 
     List<getPostAdapter> getDataAdapter;
 
-    public recyclerViewPostAdapter(List<getPostAdapter> getDataAdapter, Context context){
+    public recyclerViewNotificationsAdapter(List<getPostAdapter> getDataAdapter, Context context){
 
         super();
 
@@ -102,7 +102,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
         String _userimg = getDataAdapter1.getUserImage();
 
         if (!_userimg.isEmpty()) {
-          //  holder.userimageTextView.setVisibility(View.VISIBLE);
+            //  holder.userimageTextView.setVisibility(View.VISIBLE);
 
             Picasso.with(context)
                     .load(_userimg)
@@ -116,7 +116,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                     .into(holder.userimageTextView);
         }
         else {
-          //  holder.imageTextView.setVisibility(View.GONE);
+            //  holder.imageTextView.setVisibility(View.GONE);
         }
 
         String _img = getDataAdapter1.getImage();

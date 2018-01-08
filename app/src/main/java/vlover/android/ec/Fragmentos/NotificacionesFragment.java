@@ -56,8 +56,6 @@ public class NotificacionesFragment extends Fragment {
         return nfView;
 
 
-
-
     }
 
 }

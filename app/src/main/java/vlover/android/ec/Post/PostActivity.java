@@ -57,7 +57,7 @@ public class PostActivity extends AppCompatActivity {
     TextView nombre_usuario,user_email;
     String uniqueid = "", email_user = "",postid = "";
     ImageView imagen,regresar;
-    FloatingActionButton seleccionar_imagen;
+    FloatingActionButton seleccionar_imagen, aggvideo;
     EditText descripcion_post;
     int likes = 0,comentarios =0;
     Button enviar;
@@ -79,6 +79,7 @@ public class PostActivity extends AppCompatActivity {
         descripcion_post =(EditText) findViewById(R.id.descripcion);
         user_image = (CircleImageView) findViewById(R.id.img_avatar);
         seleccionar_imagen = (FloatingActionButton) findViewById(R.id.select_image);
+        aggvideo = (FloatingActionButton) findViewById(R.id.add_video);
         nombre_usuario = (TextView) findViewById(R.id.name_user);
         regresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +101,13 @@ public class PostActivity extends AppCompatActivity {
                         .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
                         .setOutputCompressQuality(75)
                         .start(PostActivity.this);
+            }
+        });
+
+        aggvideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadvideo(view);
             }
         });
 
@@ -131,7 +139,12 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
-
+    public void uploadvideo(View v) {
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, RECEIVER_VISIBLE_TO_INSTANT_APPS);
+        }
+    }
 
     private void  mostrardatodeusuario() {
 

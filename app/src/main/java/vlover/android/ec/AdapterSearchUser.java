@@ -1,6 +1,7 @@
 package vlover.android.ec;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import vlover.android.ec.User.UserActivity;
 
 public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -70,8 +72,6 @@ public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-
-
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView textUserName;
@@ -93,6 +93,7 @@ public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHol
             itemView.setOnClickListener(this);
         }
 
+
         // Click event for all items
         @Override
         public void onClick(View v) {
@@ -100,21 +101,22 @@ public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             s = textUserEmail.getText().toString();
 
-            Toast.makeText(context, "email: " + s , Toast.LENGTH_SHORT).show();
+            // Toast.makeText(context, "email: " + s , Toast.LENGTH_SHORT).show();
             data.clear();
-
-
+            Intent intent;
+            intent = new Intent(context, UserActivity.class);
+            intent.putExtra("Email", s);
 
           //  MainActivity mActivity= new MainActivity();
            // mActivity.clean_response();
 
            // MainActivity.clean_results();
            // data.notifyAll();
-
-
+            context.startActivity(intent);
 
 
         }
+
 
     }
 

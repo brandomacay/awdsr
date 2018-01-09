@@ -19,18 +19,19 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/post_user_image"
-                android:layout_width="wrap_content"
+                android:layout_width="49dp"
+                android:layout_marginStart="-5dp"
                 android:layout_height="40dp"
                 android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:src="#DDDDDD" />
+
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:layout_width="186dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="User Name"
                 android:textColor="@color/negro"
                 android:textStyle="bold"
                 android:typeface="sans" />

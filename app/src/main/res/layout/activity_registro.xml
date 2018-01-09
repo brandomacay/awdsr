@@ -51,18 +51,39 @@
 
         </LinearLayout>
 
-        <EditText
-            android:layout_marginVertical="5dp"
-            android:id="@+id/signup_text_name"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:foregroundTint="@color/negro"
-            android:background="@color/colorPrimary"
-            android:drawableStart="@drawable/persona"
-            android:ems="10"
-            android:hint="Nombres"
-            android:inputType="textEmailAddress"
-            android:textSize="16dp" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/signup_text_name"
+                android:layout_width="169dp"
+                android:layout_height="40dp"
+                android:layout_marginVertical="5dp"
+                android:background="@color/colorPrimary"
+                android:drawableStart="@drawable/persona"
+                android:ems="10"
+                android:foregroundTint="@color/negro"
+                android:hint="Primer Nombre"
+                android:inputType="textPersonName"
+                android:textSize="16dp" />
+
+            <EditText
+                android:layout_marginVertical="5dp"
+                android:id="@+id/signup_text_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:foregroundTint="@color/negro"
+                android:background="@color/colorPrimary"
+                android:drawableStart="@drawable/persona"
+                android:ems="10"
+                android:hint="Primer apellido"
+                android:inputType="textPersonName"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
 
         <EditText
             android:layout_marginVertical="5dp"

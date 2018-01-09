@@ -97,6 +97,34 @@
                 android:layout_height="match_parent"
                 android:layout_margin="1mm"
                 android:background="#DDDDDD" />
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/add_video"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:clickable="true"
+                    android:tint="@color/colorAccent"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:fabSize="auto"
+                    app:srcCompat="@drawable/subir_video" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Subir video" />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1mm"
+                android:background="#DDDDDD" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -127,28 +155,6 @@
                 android:layout_margin="1mm"
                 android:background="#DDDDDD" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/invitar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:clickable="true"
-                    android:tint="@color/colorAccent"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:fabSize="auto"
-                    app:srcCompat="@drawable/invitar" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Invitar" />
-            </LinearLayout>
 
             <View
                 android:layout_width="1dp"

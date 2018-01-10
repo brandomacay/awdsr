@@ -28,7 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vlover.android.ec.Adapters.getNotificationsAdapter;
 import vlover.android.ec.Adapters.getPostAdapter;
+import vlover.android.ec.Adapters.recyclerViewNotificationsAdapter;
 import vlover.android.ec.Adapters.recyclerViewPostAdapter;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Controller;
@@ -46,7 +48,7 @@ public class NotificacionesFragment extends Fragment {
 
     ProgressDialog cargando;
 
-    List<getPostAdapter> GetDataAdapter1;
+    List<getNotificationsAdapter> GetDataAdapter1;
 
     RecyclerView recyclerView;
 
@@ -54,6 +56,11 @@ public class NotificacionesFragment extends Fragment {
 
     RecyclerView.Adapter recyclerViewadapter;
 
+    String GET_JSON_DATA_HTTP_URL = "http://vlover.ruvnot.com/get_post_byuser.php";
+    String JSON_ID = "id";
+    String JSON_NAME = "name";
+    String JSON_send = "user_send";
+    String JSON_get = "user_get";
 
     public NotificacionesFragment() {
         // Required empty public constructor
@@ -71,8 +78,8 @@ public class NotificacionesFragment extends Fragment {
         cargando = new ProgressDialog(getContext());
         HashMap<String, String> user = dbsqlite.getUserDetails();
 
-        email = user.get("email").toString();
-        unique_id = user.get("uid").toString();
+        email = user.get("email");
+        unique_id = user.get("uid");
 
 
         GetDataAdapter1 = new ArrayList<>();
@@ -135,7 +142,7 @@ public class NotificacionesFragment extends Fragment {
                         for (int i = 0; i < pray.length(); i++) {
 
 
-                            getPostAdapter GetDataAdapter2 = new getPostAdapter();
+                            getNotificationsAdapter GetDataAdapter2 = new getNotificationsAdapter();
 
                             //JSONArray objPid = postt.getJSONArray("pid");
                             //final String pid = objPid.getString(i);
@@ -168,7 +175,6 @@ public class NotificacionesFragment extends Fragment {
 
                             GetDataAdapter2.setImage("");
 
-                            GetDataAdapter2.setDate(date);
 
                             GetDataAdapter1.add(GetDataAdapter2);
 
@@ -189,7 +195,7 @@ public class NotificacionesFragment extends Fragment {
 
                        // reload.setRefreshing(false);
 
-                        recyclerViewadapter = new recyclerViewPostAdapter(GetDataAdapter1, getContext());
+                        recyclerViewadapter = new recyclerViewNotificationsAdapter(GetDataAdapter1, getContext());
 
                         recyclerView.setAdapter(recyclerViewadapter);
 

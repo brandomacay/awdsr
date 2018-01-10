@@ -56,9 +56,9 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
 
     private Context context;
 
-    List<getPostAdapter> getDataAdapter;
+    List<getNotificationsAdapter> getDataAdapter;
 
-    public recyclerViewNotificationsAdapter(List<getPostAdapter> getDataAdapter, Context context){
+    public recyclerViewNotificationsAdapter(List<getNotificationsAdapter> getDataAdapter, Context context) {
 
         super();
 
@@ -75,7 +75,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
         return viewHolder;
     }
 
-    public void addAll(List<getPostAdapter> post) {
+    public void addAll(List<getNotificationsAdapter> post) {
         getDataAdapter.addAll(post);
         notifyDataSetChanged();
     }
@@ -93,7 +93,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        getPostAdapter getDataAdapter1 =  getDataAdapter.get(position);
+        getNotificationsAdapter getDataAdapter1 = getDataAdapter.get(position);
 
         holder.unique_idTextView.setText(getDataAdapter1.getUnique_id());
 
@@ -141,7 +141,6 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
 
         //holder.imageTextView.setText(getDataAdapter1.getImage());
         holder.contentTextView.setText(getDataAdapter1.getContent());
-        holder.dateTextView.setText(getDataAdapter1.getDate());
         String descripcion = getDataAdapter1.getContent();
         if (!descripcion.isEmpty()) {
             holder.contentTextView.setVisibility(View.VISIBLE);
@@ -166,10 +165,6 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
         public ImageView userimageTextView;
         public ImageView imageTextView;
         public TextView contentTextView;
-        public Button dateTextView;
-        public ImageButton opciones;
-        public SwipeRefreshLayout refreshLayout;
-
         public ViewHolder(View itemView) {
 
             super(itemView);
@@ -182,42 +177,6 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
             userimageTextView = (ImageView) itemView.findViewById(R.id.post_user_image);
             imageTextView = (ImageView) itemView.findViewById(R.id.textView6);
             contentTextView = (TextView) itemView.findViewById(R.id.textView8);
-            dateTextView = (Button) itemView.findViewById(R.id.textView10);
-            opciones = (ImageButton) itemView.findViewById(R.id.options);
-            opciones.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    final String[] option = new String[]{"Eliminar", "Editar", "Reportar",
-                    };
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                            android.R.layout.select_dialog_item, option);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-                    //  builder.setTitle("Selecciona una Opcion");
-                    builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
-                            if (which == 0) {
-                                String ide = IdTextView.getText().toString();
-                                borrarPost(ide);
-                                getDataAdapter.remove(getAdapterPosition());
-                                notifyDataSetChanged();
-                                notifyItemChanged(getAdapterPosition());
-                                dialog.dismiss();
-                                Toast.makeText(context, "Borrando...", Toast.LENGTH_SHORT).show();
-
-                            } else if (which == 1) {
-                            } else if (which == 2) {
-                            }
-                        }
-                    });
-                    final AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            });
-
 
         }
 
@@ -227,38 +186,6 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
             notifyItemChanged(getAdapterPosition());
         }
 
-        public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-            onRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
-                //resume tasks needing this permission
-                Toast.makeText(context, "Ya puedes alamacenar imagenes, intenta de nuevo", Toast.LENGTH_SHORT).show();
-                getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
-                String IMG = getDataAdapter1.getImage();
-
-                file_download(IMG);
-            }
-        }
-
-        public boolean isStoragePermissionGranted() {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED) {
-                    Log.v(TAG, "Permission is granted");
-                    return true;
-                } else {
-
-                    Log.v(TAG, "Permission is revoked");
-                    // context.startActivity(new Intent(context, ProfileActivity.class));
-
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                    return false;
-                }
-            } else { //permission is automatically granted on sdk<23 upon installation
-                Log.v(TAG, "Permission is granted");
-                return true;
-            }
-        }
 
 
     }
@@ -267,87 +194,4 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
     public void editPost() {
 
     }
-
-    private void borrarPost(final String id) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                "http://vlover.ruvnot.com/delete_post.php", new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean("error");
-
-
-                    if (!error) {
-                        Toast.makeText(context, "Post borrado! exitosamente", Toast.LENGTH_LONG).show();
-                    } else {
-
-                        String errorMsg = jsonObject.getString("error_msg");
-
-                    }
-                } catch (JSONException e) {
-
-                    e.printStackTrace();
-                    Toast.makeText(context, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-
-
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("_id", id);
-                return params;
-            }
-
-        };
-
-        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-    public void file_download(String uRl) {
-
-
-        File direct = new File(Environment.getExternalStorageDirectory()
-                + "/vlover");
-
-        if (!direct.exists()) {
-            direct.mkdirs();
-        }
-
-        DownloadManager mgr = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-
-        Uri downloadUri = Uri.parse(uRl);
-        DownloadManager.Request request = new DownloadManager.Request(
-                downloadUri);
-
-        request.setAllowedNetworkTypes(
-                DownloadManager.Request.NETWORK_WIFI
-                        | DownloadManager.Request.NETWORK_MOBILE)
-                .setAllowedOverRoaming(false).setTitle("Demo")
-                .setDescription("Descargando imagen...")
-                .setDestinationInExternalPublicDir("/vlover", "test.jpg");
-
-        mgr.enqueue(request);
-
-    }
-
-
-
-
-
 }

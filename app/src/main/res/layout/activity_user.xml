@@ -51,6 +51,7 @@
                 android:src="#F4F4F4" />
 
             <android.support.design.widget.FloatingActionButton
+                android:id="@+id/enviarsolicitud"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/add"

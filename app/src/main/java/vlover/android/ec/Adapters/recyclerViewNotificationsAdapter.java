@@ -56,9 +56,9 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
 
     private Context context;
 
-    List<getPostAdapter> getDataAdapter;
+    List<getNotificationsAdapter> getDataAdapter;
 
-    public recyclerViewNotificationsAdapter(List<getPostAdapter> getDataAdapter, Context context) {
+    public recyclerViewNotificationsAdapter(List<getNotificationsAdapter> getDataAdapter, Context context) {
 
         super();
 
@@ -75,7 +75,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
         return viewHolder;
     }
 
-    public void addAll(List<getPostAdapter> post) {
+    public void addAll(List<getNotificationsAdapter> post) {
         getDataAdapter.addAll(post);
         notifyDataSetChanged();
     }
@@ -93,7 +93,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        getPostAdapter getDataAdapter1 = getDataAdapter.get(position);
+        getNotificationsAdapter getDataAdapter1 = getDataAdapter.get(position);
 
         holder.unique_idTextView.setText(getDataAdapter1.getUnique_id());
 
@@ -119,35 +119,9 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
             //  holder.imageTextView.setVisibility(View.GONE);
         }
 
-        String _img = getDataAdapter1.getImage();
 
-        if (!_img.isEmpty()) {
-            holder.imageTextView.setVisibility(View.VISIBLE);
 
-            Picasso.with(context)
-                    .load(_img)
-                    .fit()
-                    //.resize(600,6000)
-                    .centerInside()
-                    //.placeholder(R.drawable.agregar_imagen)
-                    //.error(R.drawable.vlover)
-                    //.networkPolicy(NetworkPolicy.NO_STORE)
-                    //.memoryPolicy(MemoryPolicy.NO_STORE)
-                    .into(holder.imageTextView);
-        }
-        else {
-            holder.imageTextView.setVisibility(View.GONE);
-        }
 
-        //holder.imageTextView.setText(getDataAdapter1.getImage());
-        holder.contentTextView.setText(getDataAdapter1.getContent());
-        String descripcion = getDataAdapter1.getContent();
-        if (!descripcion.isEmpty()) {
-            holder.contentTextView.setVisibility(View.VISIBLE);
-
-        } else {
-            holder.contentTextView.setVisibility(View.GONE);
-        }
         // holder.deletePost.setOnClickListener(context);
     }
 
@@ -163,9 +137,9 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
         public TextView IdTextView;
         public TextView unique_idTextView;
         public ImageView userimageTextView;
-        public ImageView imageTextView;
-        public TextView contentTextView;
-        public ImageButton opciones;
+        public TextView imageTextView;
+
+        public TextView opciones;
         public SwipeRefreshLayout refreshLayout;
 
         public ViewHolder(View itemView) {
@@ -173,90 +147,37 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
             super(itemView);
 
             IdTextView = (TextView) itemView.findViewById(R.id.textView2);
-
             IdTextView.setVisibility(View.GONE);
+
             unique_idTextView = (TextView) itemView.findViewById(R.id.textView4);
 
+
             userimageTextView = (ImageView) itemView.findViewById(R.id.post_user_image);
-            imageTextView = (ImageView) itemView.findViewById(R.id.textView6);
-            imageTextView.setOnLongClickListener(new View.OnLongClickListener() {
+            imageTextView = (TextView) itemView.findViewById(R.id.textView6);
+            imageTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View view) {
-                    final String[] option = new String[]{"Eliminar", "Editar", "Descargar", "Reportar",
-                    };
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                            android.R.layout.select_dialog_item, option);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                public void onClick(View view) {
 
-                    //  builder.setTitle("Selecciona una Opcion");
-                    builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+                    Toast.makeText(context, "Aceptando...", Toast.LENGTH_SHORT).show();
 
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
-                            if (which == 0) {
-                                String ide = IdTextView.getText().toString();
-                                borrarPost(ide);
-                                dialog.dismiss();
-                                getDataAdapter.remove(getAdapterPosition());
-                                notifyDataSetChanged();
-                                notifyItemChanged(getAdapterPosition());
-                                dialog.dismiss();
-                                Toast.makeText(context, "Borrando...", Toast.LENGTH_SHORT).show();
 
-                                //getDataAdapter.notify();
-                            } else if (which == 1) {
-                            } else if (which == 2) {
 
-                                if (isStoragePermissionGranted()) {
-                                    Toast.makeText(context, "Descargando", Toast.LENGTH_SHORT).show();
-                                    getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
-                                    String IMG = getDataAdapter1.getImage();
 
-                                    file_download(IMG);
-                                }
 
-                            } else if (which == 3) {
-                            }
-                        }
-                    });
-                    final AlertDialog dialog = builder.create();
-                    dialog.show();
-                    return true;
                 }
             });
-            contentTextView = (TextView) itemView.findViewById(R.id.textView8);
-            opciones = (ImageButton) itemView.findViewById(R.id.options);
+
+            opciones = (TextView) itemView.findViewById(R.id.options);
             opciones.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    final String[] option = new String[]{"Eliminar", "Editar", "Reportar",
-                    };
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                            android.R.layout.select_dialog_item, option);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    Toast.makeText(context, "Rechazando...", Toast.LENGTH_SHORT).show();
 
-                    //  builder.setTitle("Selecciona una Opcion");
-                    builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
 
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
-                            if (which == 0) {
-                                String ide = IdTextView.getText().toString();
-                                borrarPost(ide);
-                                getDataAdapter.remove(getAdapterPosition());
-                                notifyDataSetChanged();
-                                notifyItemChanged(getAdapterPosition());
-                                dialog.dismiss();
-                                Toast.makeText(context, "Borrando...", Toast.LENGTH_SHORT).show();
 
-                            } else if (which == 1) {
-                            } else if (which == 2) {
-                            }
-                        }
-                    });
-                    final AlertDialog dialog = builder.create();
-                    dialog.show();
+
+
                 }
             });
 
@@ -275,7 +196,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
                 //resume tasks needing this permission
                 Toast.makeText(context, "Ya puedes alamacenar imagenes, intenta de nuevo", Toast.LENGTH_SHORT).show();
-                getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
+                getNotificationsAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
                 String IMG = getDataAdapter1.getImage();
 
                 file_download(IMG);

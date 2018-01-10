@@ -28,7 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vlover.android.ec.Adapters.getNotificationsAdapter;
 import vlover.android.ec.Adapters.getPostAdapter;
+import vlover.android.ec.Adapters.recyclerViewNotificationsAdapter;
 import vlover.android.ec.Adapters.recyclerViewPostAdapter;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Controller;
@@ -46,7 +48,7 @@ public class NotificacionesFragment extends Fragment {
 
     ProgressDialog cargando;
 
-    List<getPostAdapter> GetDataAdapter1;
+    List<getNotificationsAdapter> GetDataAdapter1;
 
     RecyclerView recyclerView;
 
@@ -135,7 +137,7 @@ public class NotificacionesFragment extends Fragment {
                         for (int i = 0; i < pray.length(); i++) {
 
 
-                            getPostAdapter GetDataAdapter2 = new getPostAdapter();
+                            getNotificationsAdapter GetDataAdapter2 = new getNotificationsAdapter();
 
                             //JSONArray objPid = postt.getJSONArray("pid");
                             //final String pid = objPid.getString(i);
@@ -187,7 +189,7 @@ public class NotificacionesFragment extends Fragment {
 
                        // reload.setRefreshing(false);
 
-                        recyclerViewadapter = new recyclerViewPostAdapter(GetDataAdapter1, getContext());
+                        recyclerViewadapter = new recyclerViewNotificationsAdapter(GetDataAdapter1, getContext());
 
                         recyclerView.setAdapter(recyclerViewadapter);
 

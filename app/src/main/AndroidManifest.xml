@@ -22,11 +22,7 @@
             android:name="android.app.default_searchable"
             android:value=".MainActivity" />
 
-        <activity android:name=".Login.IniciarSesion" />
-        <activity
-            android:name=".Splash"
-            android:theme="@style/SplashTheme">
-
+        <activity android:name=".Login.IniciarSesion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

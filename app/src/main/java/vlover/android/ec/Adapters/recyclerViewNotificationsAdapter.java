@@ -181,52 +181,6 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
 
             userimageTextView = (ImageView) itemView.findViewById(R.id.post_user_image);
             imageTextView = (ImageView) itemView.findViewById(R.id.textView6);
-            imageTextView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    final String[] option = new String[]{"Eliminar", "Editar", "Descargar", "Reportar",
-                    };
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                            android.R.layout.select_dialog_item, option);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-                    //  builder.setTitle("Selecciona una Opcion");
-                    builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
-                            if (which == 0) {
-                                String ide = IdTextView.getText().toString();
-                                borrarPost(ide);
-                                dialog.dismiss();
-                                getDataAdapter.remove(getAdapterPosition());
-                                notifyDataSetChanged();
-                                notifyItemChanged(getAdapterPosition());
-                                dialog.dismiss();
-                                Toast.makeText(context, "Borrando...", Toast.LENGTH_SHORT).show();
-
-                                //getDataAdapter.notify();
-                            } else if (which == 1) {
-                            } else if (which == 2) {
-
-                                if (isStoragePermissionGranted()) {
-                                    Toast.makeText(context, "Descargando", Toast.LENGTH_SHORT).show();
-                                    getPostAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
-                                    String IMG = getDataAdapter1.getImage();
-
-                                    file_download(IMG);
-                                }
-
-                            }
-                            else if (which == 3) {
-                            }
-                        }
-                    });
-                    final AlertDialog dialog = builder.create();
-                    dialog.show();
-                    return true;
-                }
-            });
             contentTextView = (TextView) itemView.findViewById(R.id.textView8);
             dateTextView = (Button) itemView.findViewById(R.id.textView10);
             opciones = (ImageButton) itemView.findViewById(R.id.options);

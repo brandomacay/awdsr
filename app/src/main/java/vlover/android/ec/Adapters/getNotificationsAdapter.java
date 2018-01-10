@@ -17,7 +17,6 @@ public class getNotificationsAdapter {
     String user_image;
     String imagen;
     String content;
-    String date;
 
 
     public Button getDeletep() {
@@ -79,14 +78,5 @@ public class getNotificationsAdapter {
         this.content = content1;
     }
 
-    public String getDate() {
-
-        return date;
-    }
-
-    public void setDate(String date1) {
-
-        this.date = date1;
-    }
 
 }

@@ -28,9 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vlover.android.ec.Adapters.getNotificationsAdapter;
 import vlover.android.ec.Adapters.getPostAdapter;
-import vlover.android.ec.Adapters.recyclerViewNotificationsAdapter;
 import vlover.android.ec.Adapters.recyclerViewPostAdapter;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Controller;
@@ -48,7 +46,7 @@ public class NotificacionesFragment extends Fragment {
 
     ProgressDialog cargando;
 
-    List<getNotificationsAdapter> GetDataAdapter1;
+    List<getPostAdapter> GetDataAdapter1;
 
     RecyclerView recyclerView;
 
@@ -56,11 +54,6 @@ public class NotificacionesFragment extends Fragment {
 
     RecyclerView.Adapter recyclerViewadapter;
 
-    String GET_JSON_DATA_HTTP_URL = "http://vlover.ruvnot.com/get_post_byuser.php";
-    String JSON_ID = "id";
-    String JSON_NAME = "name";
-    String JSON_send = "user_send";
-    String JSON_get = "user_get";
 
     public NotificacionesFragment() {
         // Required empty public constructor
@@ -78,8 +71,8 @@ public class NotificacionesFragment extends Fragment {
         cargando = new ProgressDialog(getContext());
         HashMap<String, String> user = dbsqlite.getUserDetails();
 
-        email = user.get("email");
-        unique_id = user.get("uid");
+        email = user.get("email").toString();
+        unique_id = user.get("uid").toString();
 
 
         GetDataAdapter1 = new ArrayList<>();
@@ -142,7 +135,7 @@ public class NotificacionesFragment extends Fragment {
                         for (int i = 0; i < pray.length(); i++) {
 
 
-                            getNotificationsAdapter GetDataAdapter2 = new getNotificationsAdapter();
+                            getPostAdapter GetDataAdapter2 = new getPostAdapter();
 
                             //JSONArray objPid = postt.getJSONArray("pid");
                             //final String pid = objPid.getString(i);
@@ -163,7 +156,6 @@ public class NotificacionesFragment extends Fragment {
 
 
                             JSONArray objdate = postt.getJSONArray("accepted");
-                            String date = objdate.getString(i);
 
                             GetDataAdapter2.setId('0');
 
@@ -195,7 +187,7 @@ public class NotificacionesFragment extends Fragment {
 
                        // reload.setRefreshing(false);
 
-                        recyclerViewadapter = new recyclerViewNotificationsAdapter(GetDataAdapter1, getContext());
+                        recyclerViewadapter = new recyclerViewPostAdapter(GetDataAdapter1, getContext());
 
                         recyclerView.setAdapter(recyclerViewadapter);
 

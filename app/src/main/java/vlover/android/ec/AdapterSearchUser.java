@@ -98,14 +98,17 @@ public class AdapterSearchUser extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Override
         public void onClick(View v) {
             String s;
+            String d;
 
             s = textUserEmail.getText().toString();
+            d = textUserName.getText().toString();
 
             // Toast.makeText(context, "email: " + s , Toast.LENGTH_SHORT).show();
             data.clear();
             Intent intent;
             intent = new Intent(context, UserActivity.class);
             intent.putExtra("Email", s);
+            intent.putExtra("Name", d);
 
           //  MainActivity mActivity= new MainActivity();
            // mActivity.clean_response();

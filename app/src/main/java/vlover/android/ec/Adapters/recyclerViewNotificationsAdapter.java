@@ -69,7 +69,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_post_items, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_notifications_items, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
@@ -166,7 +166,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
         public ImageView userimageTextView;
         public ImageView imageTextView;
         public TextView contentTextView;
-        public TextView dateTextView;
+        public Button dateTextView;
         public ImageButton opciones;
         public SwipeRefreshLayout refreshLayout;
 
@@ -228,7 +228,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 }
             });
             contentTextView = (TextView) itemView.findViewById(R.id.textView8);
-            dateTextView = (TextView) itemView.findViewById(R.id.textView10);
+            dateTextView = (Button) itemView.findViewById(R.id.textView10);
             opciones = (ImageButton) itemView.findViewById(R.id.options);
             opciones.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -40,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,9 +139,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
         public TextView IdTextView;
         public TextView unique_idTextView;
         public ImageView userimageTextView;
-        public TextView imageTextView;
-
-        public TextView opciones;
+        public FloatingActionButton imageTextView, opciones;
         public SwipeRefreshLayout refreshLayout;
 
         public ViewHolder(View itemView) {
@@ -153,7 +153,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
 
 
             userimageTextView = (ImageView) itemView.findViewById(R.id.post_user_image);
-            imageTextView = (TextView) itemView.findViewById(R.id.textView6);
+            imageTextView = (FloatingActionButton) itemView.findViewById(R.id.textView6);
             imageTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -167,7 +167,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 }
             });
 
-            opciones = (TextView) itemView.findViewById(R.id.options);
+            opciones = (FloatingActionButton) itemView.findViewById(R.id.options);
             opciones.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -236,7 +236,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
         String tag_string_req = "req_login";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                "http://vlover.ruvnot.com/delete_post.php", new Response.Listener<String>() {
+                "URLEMISOR", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {

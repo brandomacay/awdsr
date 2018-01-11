@@ -92,13 +92,11 @@ public class NotificacionesFragment extends Fragment {
 
         recyclerView.setLayoutManager(recyclerViewlayoutManager);
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         //recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         recyclerView.setItemViewCacheSize(50);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_AUTO);
-
         get_all_frienship_request();
         // Inflate the layout for this fragment
         return nfView;

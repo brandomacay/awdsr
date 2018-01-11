@@ -57,7 +57,7 @@ import static android.content.ContentValues.TAG;
 public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyclerViewNotificationsAdapter.ViewHolder> {
 
     private Context context;
-
+    String estado = "1";
     List<getNotificationsAdapter> getDataAdapter;
 
     public recyclerViewNotificationsAdapter(List<getNotificationsAdapter> getDataAdapter, Context context) {
@@ -159,10 +159,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 public void onClick(View view) {
 
                     Toast.makeText(context, "Aceptando...", Toast.LENGTH_SHORT).show();
-
-
-
-
+                    aceptar_solicitud();
 
                 }
             });
@@ -173,9 +170,6 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 public void onClick(View view) {
 
                     Toast.makeText(context, "Rechazando...", Toast.LENGTH_SHORT).show();
-
-
-
 
 
                 }
@@ -190,127 +184,68 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
             notifyItemChanged(getAdapterPosition());
         }
 
-        public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-            onRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
-                //resume tasks needing this permission
-                Toast.makeText(context, "Ya puedes alamacenar imagenes, intenta de nuevo", Toast.LENGTH_SHORT).show();
-                getNotificationsAdapter getDataAdapter1 = getDataAdapter.get(getAdapterPosition());
-                String IMG = getDataAdapter1.getImage();
 
-                file_download(IMG);
-            }
-        }
+        public void aceptar_solicitud() {
+            // Tag used to cancel the request
+            String tag_string_req = "req_login";
 
-        public boolean isStoragePermissionGranted() {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED) {
-                    Log.v(TAG, "Permission is granted");
-                    return true;
-                } else {
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    "http://vlover.ruvnot.com/" + "friendship_request.php", new Response.Listener<String>() {
 
-                    Log.v(TAG, "Permission is revoked");
-                    // context.startActivity(new Intent(context, ProfileActivity.class));
+                @Override
+                public void onResponse(String response) {
+                    //Log.d(TAG, "Login Response: " + response.toString());
 
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                    return false;
-                }
-            } else { //permission is automatically granted on sdk<23 upon installation
-                Log.v(TAG, "Permission is granted");
-                return true;
-            }
-        }
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean error = jsonObject.getBoolean("error");
 
-
-    }
-
-
-    public void editPost() {
-
-    }
-
-    private void borrarPost(final String id) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                "URLEMISOR", new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean("error");
-
-
-                    if (!error) {
-                        Toast.makeText(context, "Post borrado! exitosamente", Toast.LENGTH_LONG).show();
-                    } else {
-
-                        String errorMsg = jsonObject.getString("error_msg");
-
+                        // Check for error node in json
+                        // jika tidak ada eror, mulai mengeksekusi proses mengam data
+                        if (!error) {
+                            //exito
+                        } else {
+                            // Error in login. Get the error message
+                            // Jika terjadi error dalam pengambilan data
+                            String errorMsg = jsonObject.getString("error_msg");
+                            Toast.makeText(context,
+                                    errorMsg, Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        // JSON error
+                        // Jika terjadi eror pada proses json
+                        e.printStackTrace();
+                        Toast.makeText(context, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                } catch (JSONException e) {
-
-                    e.printStackTrace();
-                    Toast.makeText(context, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-
-
                 }
-            }
-        }, new Response.ErrorListener() {
+            }, new Response.ErrorListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // terjadi ketidak sesuain data user pada saat login
+                    //Log.e(TAG, "Login Error: " + error.getMessage());
+                    Toast.makeText(context,
+                            error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
 
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("_id", id);
-                return params;
-            }
-
-        };
-
-        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-    public void file_download(String uRl) {
+                @Override
+                protected Map<String, String> getParams() {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("accepted", estado);
 
 
-        File direct = new File(Environment.getExternalStorageDirectory()
-                + "/vlover");
+                    return params;
+                }
 
-        if (!direct.exists()) {
-            direct.mkdirs();
+            };
+
+
+            Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
         }
 
-        DownloadManager mgr = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-
-        Uri downloadUri = Uri.parse(uRl);
-        DownloadManager.Request request = new DownloadManager.Request(
-                downloadUri);
-
-        request.setAllowedNetworkTypes(
-                DownloadManager.Request.NETWORK_WIFI
-                        | DownloadManager.Request.NETWORK_MOBILE)
-                .setAllowedOverRoaming(false).setTitle("Demo")
-                .setDescription("Descargando imagen...")
-                .setDestinationInExternalPublicDir("/vlover", "test.jpg");
-
-        mgr.enqueue(request);
 
     }
-
-
-
-
 
 }

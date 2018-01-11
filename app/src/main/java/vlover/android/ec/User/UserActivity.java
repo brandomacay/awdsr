@@ -45,6 +45,10 @@ public class UserActivity extends AppCompatActivity {
         dbsqlite = new SQLite(this);
         cargando = new ProgressDialog(this);
         send_s = (FloatingActionButton) findViewById(R.id.enviarsolicitud);
+
+
+        HashMap<String, String> user = dbsqlite.getUserDetails();
+        String myemail = user.get("email");
         send_s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +69,9 @@ public class UserActivity extends AppCompatActivity {
         getName = (String) nombres.get("Name");
         correo.setText(getEmail);
         nombre.setText(getName);
+        if (myemail.equals(getEmail)) {
+            send_s.setVisibility(View.GONE);
+        }
         getProfile(getEmail);
     }
 

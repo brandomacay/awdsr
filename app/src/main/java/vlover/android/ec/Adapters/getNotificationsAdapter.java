@@ -12,7 +12,7 @@ import java.util.Random;
 public class getNotificationsAdapter {
 
     Button deletep;
-    int Id;
+    String user_send;
     String unique_id;
     String user_image;
     String imagen;
@@ -37,14 +37,14 @@ public class getNotificationsAdapter {
         this.unique_id = unique_id1;
     }
 
-    public int getId() {
+    public String getUserSend() {
 
-        return Id;
+        return user_send;
     }
 
-    public void setId(int Id1) {
+    public void setUserSend(String us1) {
 
-        this.Id = Id1;
+        this.user_send = us1;
     }
 
 

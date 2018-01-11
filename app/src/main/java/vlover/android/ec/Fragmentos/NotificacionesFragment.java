@@ -157,7 +157,11 @@ public class NotificacionesFragment extends Fragment {
 
                             JSONArray objdate = postt.getJSONArray("accepted");
 
-                            GetDataAdapter2.setId('0');
+
+                            JSONArray objuser_send = postt.getJSONArray("user_send");
+                            String user_sendd = objuser_send.getString(i);
+
+                            GetDataAdapter2.setUserSend(user_sendd);
 
                             GetDataAdapter2.setUnique_id(name);
 

@@ -100,7 +100,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
 
         holder.unique_idTextView.setText(getDataAdapter1.getUnique_id());
 
-        holder.IdTextView.setText(String.valueOf(getDataAdapter1.getId()));
+        holder.IdTextView.setText(String.valueOf(getDataAdapter1.getUserSend()));
 
         String _userimg = getDataAdapter1.getUserImage();
 
@@ -165,7 +165,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(context, "Aceptando...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Aceptando... " + IdTextView.getText().toString(), Toast.LENGTH_SHORT).show();
                     aceptar_solicitud();
 
                 }
@@ -241,7 +241,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                     // Posting parameters to login url
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("user_get", myemail);
-                    params.put("user_send", "");
+                    params.put("user_send", IdTextView.getText().toString());
                     params.put("response", estado);
 
 

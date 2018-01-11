@@ -73,8 +73,8 @@ public class NotificacionesFragment extends Fragment {
         cargando = new ProgressDialog(getContext());
         HashMap<String, String> user = dbsqlite.getUserDetails();
 
-        email = user.get("email").toString();
-        unique_id = user.get("uid").toString();
+        email = user.get("email");
+        unique_id = user.get("uid");
 
 
         GetDataAdapter1 = new ArrayList<>();

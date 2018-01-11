@@ -90,16 +90,9 @@ public class UserActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean error = jsonObject.getBoolean("error");
 
-                    // Check for error node in json
-                    // jika tidak ada eror, mulai mengeksekusi proses mengam data
+
                     if (!error) {
-                        // user successfully logged in
-                        // Create login session - membuat session
-                        //  session.setLogin(true);
-
-
                         String uid = jsonObject.getString("uid");
-
                         JSONObject user = jsonObject.getJSONObject("user");
                         uniqueid = uid;
                         getEmail = user.getString("email");

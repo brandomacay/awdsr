@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="vlover.android.ec.User.UserActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -15,8 +14,8 @@
 
         <ImageButton
             android:layout_width="45dp"
-            android:src="@drawable/back"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/textView4"
@@ -29,107 +28,107 @@
 
 
     <RelativeLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_user"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="#F4F4F4" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/enviarsolicitud"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/add"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="5dp"
-                app:backgroundTint="@color/azul_claro"
-                android:tint="@color/colorPrimary"
-                app:rippleColor="@color/colorPrimaryDark" />
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_user"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:src="#F4F4F4" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/enviarsolicitud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/add"
+                    android:tint="@color/colorPrimary"
+                    app:backgroundTint="@color/azul_claro"
+                    app:rippleColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="enviar solicitud de amistad" />
+
+
+            </LinearLayout>
 
             <TextView
-                android:layout_gravity="center_vertical"
-                android:text="enviar solicitud de amistad"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombres:"
+                android:textColor="@color/negro"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/name_user"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email:"
+                android:textColor="@color/negro"
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sexo:"
+                android:textColor="@color/negro"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/genero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de nacimiento:"
+                android:textColor="@color/negro"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dateb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Celular:"
+                android:textColor="@color/negro"
+                android:textSize="17dp"
+                android:textStyle="bold" />
         </LinearLayout>
-
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/negro"
-            android:textSize="17dp"
-            android:text="Nombres:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/name_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/negro"
-            android:textSize="17dp"
-            android:text="Email:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/negro"
-            android:textSize="17dp"
-            android:text="sexo:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/genero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/negro"
-            android:textSize="17dp"
-            android:text="Fecha de nacimiento:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/dateb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/negro"
-            android:textSize="17dp"
-            android:text="Celular:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

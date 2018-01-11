@@ -50,6 +50,7 @@ import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.MyProfile.ProfileActivity;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Controller;
+import vlover.android.ec.Service.SQLite;
 
 import static android.content.ContentValues.TAG;
 //import static java.security.AccessController.getContext;
@@ -136,19 +137,25 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private SQLite dbsqlite;
+
         public TextView IdTextView;
         public TextView unique_idTextView;
         public ImageView userimageTextView;
         public FloatingActionButton imageTextView, opciones;
         public SwipeRefreshLayout refreshLayout;
 
+        String myemail;
         public ViewHolder(View itemView) {
 
             super(itemView);
 
             IdTextView = (TextView) itemView.findViewById(R.id.textView2);
             IdTextView.setVisibility(View.GONE);
+            dbsqlite = new SQLite(context);
 
+            HashMap<String, String> user = dbsqlite.getUserDetails();
+            myemail = user.get("email");
             unique_idTextView = (TextView) itemView.findViewById(R.id.textView4);
 
 
@@ -190,7 +197,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
             String tag_string_req = "req_login";
 
             StringRequest strReq = new StringRequest(Request.Method.POST,
-                    "http://vlover.ruvnot.com/" + "friendship_request.php", new Response.Listener<String>() {
+                    "http://vlover.ruvnot.com/" + "friendship_state.php", new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {
@@ -233,7 +240,9 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 protected Map<String, String> getParams() {
                     // Posting parameters to login url
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("accepted", estado);
+                    params.put("user_get", myemail);
+                    params.put("user_send", "");
+                    params.put("response", estado);
 
 
                     return params;

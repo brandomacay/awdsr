@@ -165,7 +165,8 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(context, "Aceptando... " + IdTextView.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Aceptando... " + IdTextView.getText().toString()
+                            + "\n" + myemail + "\n" + estado, Toast.LENGTH_SHORT).show();
                     aceptar_solicitud();
 
                 }
@@ -242,7 +243,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("user_get", myemail);
                     params.put("user_send", IdTextView.getText().toString());
-                    params.put("response", estado);
+                    params.put("choice", estado);
 
 
                     return params;

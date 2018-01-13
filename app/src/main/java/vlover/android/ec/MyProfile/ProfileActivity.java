@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView n_publicaciones;
     private SQLite dbsqlite;
-    String unique_id;
+    String unique_id, email;
 
     ProgressDialog cargando;
 
@@ -84,8 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
         cargando = new ProgressDialog(this);
         HashMap<String, String> user = dbsqlite.getUserDetails();
         n_publicaciones = (TextView) findViewById(R.id.tv_publicaciones);
-        unique_id = user.get("uid").toString();
-
+        unique_id = user.get("uid");
+        email = user.get("email");
         GetDataAdapter1 = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.activity_profile_recyclerview);
@@ -283,7 +283,7 @@ public class ProfileActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("unique_id", unique_id);
+                params.put("user_email", email);
                 //params.put("image", url_image);
                 //params.put("content", descripcion_post.getText().toString());
                 //params.put("datetime", "fecha de prueba");

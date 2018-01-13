@@ -180,6 +180,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                         if (!error) {
                            
                             //exito
+                            enlazar_amistad(myemail, IdTextView.getText().toString());
                             getDataAdapter.remove(getAdapterPosition());
                             notifyDataSetChanged();
                             notifyItemChanged(getAdapterPosition());
@@ -291,6 +292,67 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
             Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
         }
 
+        public void enlazar_amistad(final String myemail, final String emailuser) {
+            // Tag used to cancel the request
+            String tag_string_req = "req_login";
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    context.getString(R.string.url_global) + "friendship_request.php", new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    //Log.d(TAG, "Login Response: " + response.toString());
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean error = jsonObject.getBoolean("error");
+
+                        // Check for error node in json
+                        // jika tidak ada eror, mulai mengeksekusi proses mengam data
+                        if (!error) {
+                            //exito
+                        } else {
+                            // Error in login. Get the error message
+                            // Jika terjadi error dalam pengambilan data
+                            String errorMsg = jsonObject.getString("error_msg");
+                            Toast.makeText(context,
+                                    errorMsg, Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        // JSON error
+                        // Jika terjadi eror pada proses json
+                        e.printStackTrace();
+                        Toast.makeText(context, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // terjadi ketidak sesuain data user pada saat login
+                    //Log.e(TAG, "Login Error: " + error.getMessage());
+                    Toast.makeText(context,
+                            error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("user_send", myemail);
+                    params.put("user_get", emailuser);
+                    params.put("accepted", aceptar);
+
+
+                    return params;
+                }
+
+            };
+
+
+            Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
+        }
 
     }
 

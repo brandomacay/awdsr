@@ -231,6 +231,7 @@ public class UserActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user_send", myemail);
                 params.put("user_get", emailuser);
+                params.put("accepted", "0");
 
 
                 return params;

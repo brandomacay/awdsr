@@ -187,7 +187,7 @@ public class InicioFragment extends Fragment {
         String tag_string_req = "req_login";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                "http://vlover.ruvnot.com/get_post_byuser.php", new Response.Listener<String>() {
+                "http://vlover.ruvnot.com/getAllPostByUser.php", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {

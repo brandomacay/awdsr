@@ -107,12 +107,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
             Picasso.with(context)
                     .load(_userimg)
                     .fit()
-                    //.resize(600,6000)
                     .centerInside()
-                    //.placeholder(R.drawable.agregar_imagen)
-                    //.error(R.drawable.vlover)
-                    //.networkPolicy(NetworkPolicy.NO_STORE)
-                    //.memoryPolicy(MemoryPolicy.NO_STORE)
                     .into(holder.userimageTextView);
         }
         else {
@@ -217,8 +212,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                                     file_download(IMG);
                                 }
 
-                            }
-                            else if (which == 3) {
+                            } else if (which == 3) {
                             }
                         }
                     });
@@ -248,10 +242,6 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                             if (which == 0) {
                                 String ide = IdTextView.getText().toString();
                                 borrarPost(ide);
-                                getDataAdapter.remove(getAdapterPosition());
-                                notifyDataSetChanged();
-                                notifyItemChanged(getAdapterPosition());
-                                dialog.dismiss();
                                 Toast.makeText(context, "Borrando...", Toast.LENGTH_SHORT).show();
 
                             } else if (which == 1) {
@@ -306,6 +296,59 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
             }
         }
 
+        private void borrarPost(final String id) {
+            // Tag used to cancel the request
+            String tag_string_req = "req_login";
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    "http://vlover.ruvnot.com/delete_post.php", new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean error = jsonObject.getBoolean("error");
+
+
+                        if (!error) {
+                            getDataAdapter.remove(getAdapterPosition());
+                            notifyDataSetChanged();
+                            notifyItemChanged(getAdapterPosition());
+                            Toast.makeText(context, "Post borrado! exitosamente", Toast.LENGTH_LONG).show();
+                        } else {
+
+                            String errorMsg = jsonObject.getString("error_msg");
+
+                        }
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                        Toast.makeText(context, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("_id", id);
+                    return params;
+                }
+
+            };
+
+            Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
+        }
 
     }
 
@@ -314,56 +357,7 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
 
     }
 
-    private void borrarPost(final String id) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                "http://vlover.ruvnot.com/delete_post.php", new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean("error");
-
-
-                    if (!error) {
-                        Toast.makeText(context, "Post borrado! exitosamente", Toast.LENGTH_LONG).show();
-                    } else {
-
-                        String errorMsg = jsonObject.getString("error_msg");
-
-                    }
-                } catch (JSONException e) {
-
-                    e.printStackTrace();
-                    Toast.makeText(context, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-
-
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("_id", id);
-                return params;
-            }
-
-        };
-
-        Controller.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
 
     public void file_download(String uRl) {
 

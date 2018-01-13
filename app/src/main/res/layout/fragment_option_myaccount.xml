@@ -49,6 +49,21 @@
             </android.support.v7.widget.CardView>
 
             <Button
+                android:id="@+id/resetpass"
+                android:layout_gravity="center_horizontal"
+                android:text="Cambiar clave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/my_friends"
+                android:layout_margin="20dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="12sp"
+                android:text="Lista de amigos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
                 android:id="@+id/cerrar_sesion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

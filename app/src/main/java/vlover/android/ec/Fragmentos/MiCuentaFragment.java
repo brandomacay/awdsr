@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,8 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +60,7 @@ import vlover.android.ec.Service.Session;
 public class   MiCuentaFragment extends Fragment {
 
     View mView;
-    Button cerrar, edit_account_ib;
+    Button cerrar, edit_account_ib, changepass;
     private TextView emailview, nameview;
     private SQLite dbsqlite;
     private Session session;
@@ -85,6 +88,7 @@ public class   MiCuentaFragment extends Fragment {
         mView= inflater.inflate(R.layout.fragment_mi_cuenta, container, false);
         bloqueo = (RelativeLayout)mView.findViewById(R.id.error);
         loading = (RelativeLayout)mView.findViewById(R.id.cargando);
+        changepass = (Button) mView.findViewById(R.id.resetpass);
         fabreload= (FloatingActionButton)mView.findViewById(R.id.fabR);
         emailview = (TextView) mView.findViewById(R.id.emaildelusuario);
         linear = (NestedScrollView) mView.findViewById(R.id.linear);
@@ -144,6 +148,12 @@ public class   MiCuentaFragment extends Fragment {
                 }else{
                     Toast.makeText(getContext(),getString(R.string.error_internet),Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        changepass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
             }
         });
 
@@ -323,4 +333,50 @@ public class   MiCuentaFragment extends Fragment {
         //condicionInternet();
 
     }
+
+    private void showDialog() {
+
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_reset_password, null);
+        final EditText et_old_password = (EditText) view.findViewById(R.id.et_old_password);
+        final EditText et_new_password = (EditText) view.findViewById(R.id.et_new_password);
+        final TextView tv_message = (TextView) view.findViewById(R.id.tv_message);
+        final ProgressBar progress = (ProgressBar) view.findViewById(R.id.progress);
+        builder.setView(view);
+        builder.setTitle("Change Password");
+        builder.setPositiveButton("Change Password", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String old_password = et_old_password.getText().toString();
+                String new_password = et_new_password.getText().toString();
+                if (!old_password.isEmpty() && !new_password.isEmpty()) {
+
+                    progress.setVisibility(View.VISIBLE);
+                    //changePasswordProcess(pref.getString(SyncStateContract.Constants.EMAIL,""),old_password,new_password);
+
+                } else {
+
+                    tv_message.setVisibility(View.VISIBLE);
+                    tv_message.setText("Fields are empty");
+                }
+            }
+        });
+    }
+
 }

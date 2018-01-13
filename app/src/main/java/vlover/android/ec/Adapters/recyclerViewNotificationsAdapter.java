@@ -1,59 +1,28 @@
 package vlover.android.ec.Adapters;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DownloadManager;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.media.Image;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import vlover.android.ec.MainActivity.MainActivity;
-import vlover.android.ec.MyProfile.ProfileActivity;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Controller;
 import vlover.android.ec.Service.SQLite;
-
-import static android.content.ContentValues.TAG;
-//import static java.security.AccessController.getContext;
 
 public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyclerViewNotificationsAdapter.ViewHolder> {
 
@@ -312,8 +281,6 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                     params.put("user_get", myemail);
                     params.put("user_send", IdTextView.getText().toString());
                     params.put("choice", rechazar);
-
-
                     return params;
                 }
 

@@ -55,7 +55,7 @@ public class PostActivity extends AppCompatActivity {
     ProgressDialog cargando;
     CircleImageView user_image;
     TextView nombre_usuario,user_email;
-    String uniqueid = "", email_user = "",postid = "";
+    String uniqueid = "", email_user = "", postid = "", email;
     ImageView imagen,regresar;
     FloatingActionButton seleccionar_imagen, aggvideo;
     EditText descripcion_post;
@@ -110,7 +110,8 @@ public class PostActivity extends AppCompatActivity {
                 uploadvideo(view);
             }
         });
-
+        HashMap<String, String> user = dbsqlite.getUserDetails();
+        email = user.get("email");
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -319,7 +320,7 @@ public class PostActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", uniqueid);
+                params.put("user_email", email);
                 params.put("image", url_image);
                 params.put("content", descripcion_post.getText().toString());
                 //params.put("datetime", "fecha de prueba");

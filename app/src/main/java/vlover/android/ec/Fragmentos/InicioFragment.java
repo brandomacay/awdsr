@@ -59,7 +59,7 @@ public class InicioFragment extends Fragment {
     View mView;
     TextView n_publicaciones;
     private SQLite dbsqlite;
-    String unique_id;
+    String unique_id, email;
 
     ProgressDialog cargando;
 
@@ -133,6 +133,8 @@ public class InicioFragment extends Fragment {
         HashMap<String, String> user = dbsqlite.getUserDetails();
         n_publicaciones = (TextView) mView.findViewById(R.id.tv_publicaciones);
         unique_id = user.get("uid").toString();
+        email = user.get("email");
+
 
         GetDataAdapter1 = new ArrayList<>();
 
@@ -334,7 +336,7 @@ public class InicioFragment extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("unique_id", unique_id);
+                params.put("user_email", email);
                 //params.put("image", url_image);
                 //params.put("content", descripcion_post.getText().toString());
                 //params.put("datetime", "fecha de prueba");

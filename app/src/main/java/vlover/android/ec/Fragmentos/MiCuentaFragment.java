@@ -48,6 +48,7 @@ import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vlover.android.ec.Edition.Account;
+import vlover.android.ec.List_friends;
 import vlover.android.ec.Login.IniciarSesion;
 import vlover.android.ec.MyProfile.ProfileActivity;
 import vlover.android.ec.R;
@@ -60,7 +61,7 @@ import vlover.android.ec.Service.Session;
 public class   MiCuentaFragment extends Fragment {
 
     View mView;
-    Button cerrar, edit_account_ib, changepass;
+    Button cerrar, edit_account_ib, changepass, myfriends;
     private TextView emailview, nameview;
     private SQLite dbsqlite;
     private Session session;
@@ -90,6 +91,7 @@ public class   MiCuentaFragment extends Fragment {
         loading = (RelativeLayout)mView.findViewById(R.id.cargando);
         changepass = (Button) mView.findViewById(R.id.resetpass);
         fabreload= (FloatingActionButton)mView.findViewById(R.id.fabR);
+        myfriends = (Button) mView.findViewById(R.id.my_friends);
         emailview = (TextView) mView.findViewById(R.id.emaildelusuario);
         linear = (NestedScrollView) mView.findViewById(R.id.linear);
         nameview = (TextView) mView.findViewById(R.id.nombres);
@@ -148,6 +150,14 @@ public class   MiCuentaFragment extends Fragment {
                 }else{
                     Toast.makeText(getContext(),getString(R.string.error_internet),Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        myfriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), List_friends.class);
+                startActivity(intent);
             }
         });
         changepass.setOnClickListener(new View.OnClickListener() {

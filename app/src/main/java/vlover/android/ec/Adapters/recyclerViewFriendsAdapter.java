@@ -123,24 +123,28 @@ public class recyclerViewFriendsAdapter extends RecyclerView.Adapter<recyclerVie
 
             super(itemView);
 
-            IdTextView = (TextView) itemView.findViewById(R.id.textView2);
-            IdTextView.setVisibility(View.GONE);
+            //IdTextView = (TextView) itemView.findViewById(R.id.textView2);
+            //IdTextView.setVisibility(View.GONE);
             dbsqlite = new SQLite(context);
 
             HashMap<String, String> user = dbsqlite.getUserDetails();
             myemail = user.get("email");
-            unique_idTextView = (TextView) itemView.findViewById(R.id.textView4);
+            unique_idTextView = (TextView) itemView.findViewById(R.id.name_user);
 
 
-            userimageTextView = (ImageView) itemView.findViewById(R.id.post_user_image);
-            imageTextView = (FloatingActionButton) itemView.findViewById(R.id.textView6);
+            userimageTextView = (ImageView) itemView.findViewById(R.id.img_avatar);
+            //imageTextView = (FloatingActionButton) itemView.findViewById(R.id.textView6);
+
+            /*
             imageTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                 }
             });
+            */
 
+            /*
             opciones = (FloatingActionButton) itemView.findViewById(R.id.options);
             opciones.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -150,7 +154,9 @@ public class recyclerViewFriendsAdapter extends RecyclerView.Adapter<recyclerVie
             });
 
 
+*/
         }
+
 
         public void itemClean() {
             getDataAdapter.remove(getAdapterPosition());

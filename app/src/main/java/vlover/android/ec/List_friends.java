@@ -101,10 +101,10 @@ public class List_friends extends AppCompatActivity {
                         // StringBuilder s = new StringBuilder();
                         //s.append("");
 
-                        JSONObject postt = jsonObject.getJSONObject("request");
+                        JSONObject postt = jsonObject.getJSONObject("friends");
 
 
-                        JSONArray pray = postt.getJSONArray("accepted");
+                        JSONArray pray = postt.getJSONArray("user_send");
                         //  n_publicaciones.setText("" + pray.length());
 
 
@@ -126,11 +126,11 @@ public class List_friends extends AppCompatActivity {
                             String userimage = getString(R.string.url_global) + "uploads/" +
                                     uniq + "/avatar/" + "small_" + objuserimage.getString(i);
 
-                            JSONArray objcontent = postt.getJSONArray("accepted");
-                            String content = objcontent.getString(i);
+  //                          JSONArray objcontent = postt.getJSONArray("accepted");
+//                            String content = objcontent.getString(i);
 
 
-                            JSONArray objdate = postt.getJSONArray("accepted");
+                           // JSONArray objdate = postt.getJSONArray("accepted");
 
 
                             JSONArray objuser_send = postt.getJSONArray("user_send");

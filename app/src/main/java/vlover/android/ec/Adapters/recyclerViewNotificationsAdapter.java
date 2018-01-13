@@ -178,6 +178,7 @@ public class recyclerViewNotificationsAdapter extends RecyclerView.Adapter<recyc
                         // Check for error node in json
                         // jika tidak ada eror, mulai mengeksekusi proses mengam data
                         if (!error) {
+                           
                             //exito
                             getDataAdapter.remove(getAdapterPosition());
                             notifyDataSetChanged();

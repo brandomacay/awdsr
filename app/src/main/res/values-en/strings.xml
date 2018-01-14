@@ -44,4 +44,7 @@
     <string name="cerrarsesion">Cerrar Sesion</string>
     <string name="birthday">birthday</string>
     <string name="registrando">Registering…</string>
+    <string name="url_global">http://vlover.ruvnot.com/</string>
+    <string name="buscar">Search</string>
+
 </resources>

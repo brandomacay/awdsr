@@ -48,6 +48,7 @@ import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.MyProfile.ProfileActivity;
 import vlover.android.ec.R;
 import vlover.android.ec.Service.Controller;
+import vlover.android.ec.User.UserActivity;
 
 import static android.content.ContentValues.TAG;
 //import static java.security.AccessController.getContext;
@@ -174,6 +175,10 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
             IdTextView.setVisibility(View.GONE);
             unique_idTextView = (TextView) itemView.findViewById(R.id.textView4);
 
+            String uid = unique_idTextView.getText().toString();
+            Intent intent;
+            intent = new Intent(context, UserActivity.class);
+            intent.putExtra("unique_id", uid);
             userimageTextView = (ImageView) itemView.findViewById(R.id.post_user_image);
             imageTextView = (ImageView) itemView.findViewById(R.id.textView6);
             imageTextView.setOnLongClickListener(new View.OnLongClickListener() {

@@ -223,9 +223,12 @@ public class InicioFragment extends Fragment {
                             JSONArray objname = postt.getJSONArray("name");
                             String name = objname.getString(i);
 
+                            JSONArray objuid = postt.getJSONArray("unique_id");
+                            final String uid = objuid.getString(i);
+
                             JSONArray objuserimage = postt.getJSONArray("avatar");
                             String userimage = getString(R.string.url_global)+"uploads/"+
-                                    unique_id + "/avatar/" + "small_" + objuserimage.getString(i);
+                                    uid + "/avatar/" + "small_" + objuserimage.getString(i);
 
                             JSONArray objcontent = postt.getJSONArray("content");
                             String content = objcontent.getString(i);

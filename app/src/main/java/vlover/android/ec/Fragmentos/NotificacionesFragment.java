@@ -195,34 +195,6 @@ public class NotificacionesFragment extends Fragment {
 
                         recyclerView.setAdapter(recyclerViewadapter);
 
-
-                        // t.setText(s);
-
-
-                        // String contentt = postt.getString("content");
-                        //t.setText(contentt);
-                        //Toast.makeText(ProfileActivity.this,
-                        //      contentt, Toast.LENGTH_LONG).show();
-                        //JSONArray post = postt.getJSONArray("pid");
-
-
-                        // String uid = post.getString("pid");
-
-
-                        //for (int i = 0; i<post.length(); i++) {
-                        //JSONObject obj = post.getJSONObject(i);
-                        // String content = obj.getString("pid");
-                        //Toast.makeText(ProfileActivity.this,
-                        //      content, Toast.LENGTH_LONG).show();
-
-                        // }
-
-                        //t.setText(post.getString("content"));
-                        //  imagen.setImageDrawable(null);
-                        //imagen.setImageResource(0);
-                        //  finish();
-
-                        //generoview.setText(genre);
                     } else {
                         String errorMsg = jsonObject.getString("error_msg");
                         sinNotificaciones.setVisibility(View.VISIBLE);

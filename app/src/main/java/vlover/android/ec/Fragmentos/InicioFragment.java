@@ -242,7 +242,7 @@ public class InicioFragment extends Fragment {
                             }
                             else {
                                 image = getString(R.string.url_global) + "uploads/" +
-                                        unique_id + "/post/" + objimg.getString(i);
+                                        uid + "/post/" + objimg.getString(i);
                             }
 
                             JSONArray objdate = postt.getJSONArray("datetime");

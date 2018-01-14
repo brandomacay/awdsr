@@ -61,6 +61,9 @@ public class List_friends extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_friends);
 
+       // recyclerViewadapter = new recyclerViewFriendsAdapter(GetDataAdapter1, List_friends.this);
+
+
 
         // progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
@@ -84,7 +87,7 @@ public class List_friends extends AppCompatActivity {
         String tag_string_req = "req_login";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                "http://vlover.ruvnot.com/getAllFriendsByEmail.php", new Response.Listener<String>() {
+                "http://vlover.ruvnot.com/getAllFriendsByEmailV2.php", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -164,10 +167,11 @@ public class List_friends extends AppCompatActivity {
                         }
 
                         // reload.setRefreshing(false);
-
                         recyclerViewadapter = new recyclerViewFriendsAdapter(GetDataAdapter1, List_friends.this);
 
                         recyclerView.setAdapter(recyclerViewadapter);
+                       // recyclerView.setLayoutManager(new LinearLayoutManager(List_friends.this));
+
 
 
                         // t.setText(s);

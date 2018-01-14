@@ -33,7 +33,7 @@ public class UserActivity extends AppCompatActivity {
     Bundle email, nombres;
     private String getEmail, getName, uniqueid = "";
     ProgressDialog cargando;
-    String previous_avatar = "";
+    String previous_avatar = "", soli_enviada = "0";
     CircleImageView user_image;
     private SQLite dbsqlite;
     FloatingActionButton send_s;
@@ -231,7 +231,7 @@ public class UserActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user_send", myemail);
                 params.put("user_get", emailuser);
-                params.put("accepted", "0");
+                params.put("accepted", soli_enviada);
 
 
                 return params;

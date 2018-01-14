@@ -295,7 +295,6 @@ public class recyclerViewPostAdapter extends RecyclerView.Adapter<recyclerViewPo
                 return true;
             }
         }
-
         private void borrarPost(final String id) {
             // Tag used to cancel the request
             String tag_string_req = "req_login";

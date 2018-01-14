@@ -336,7 +336,7 @@ public class InicioFragment extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_email", email);
+                params.put("user_email", unique_id);
                 //params.put("image", url_image);
                 //params.put("content", descripcion_post.getText().toString());
                 //params.put("datetime", "fecha de prueba");

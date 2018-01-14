@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -55,7 +56,7 @@ public class NotificacionesFragment extends Fragment {
     RecyclerView.LayoutManager recyclerViewlayoutManager;
 
     RecyclerView.Adapter recyclerViewadapter;
-
+    RelativeLayout sinNotificaciones;
 
     public NotificacionesFragment() {
         // Required empty public constructor
@@ -80,8 +81,7 @@ public class NotificacionesFragment extends Fragment {
         GetDataAdapter1 = new ArrayList<>();
 
         recyclerView = (RecyclerView) nfView.findViewById(R.id.activity_notifications_recyclerview);
-
-
+        sinNotificaciones = (RelativeLayout) nfView.findViewById(R.id.vacio);
         // progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
         //button = (Button)findViewById(R.id.button) ;
@@ -225,8 +225,7 @@ public class NotificacionesFragment extends Fragment {
                         //generoview.setText(genre);
                     } else {
                         String errorMsg = jsonObject.getString("error_msg");
-                        Toast.makeText(getContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        sinNotificaciones.setVisibility(View.VISIBLE);
                         cargando.dismiss();
                     }
                 } catch (JSONException e) {

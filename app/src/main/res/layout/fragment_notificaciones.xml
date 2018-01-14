@@ -10,4 +10,23 @@
         android:layout_height="match_parent" />
 
 
+    <RelativeLayout
+        android:id="@+id/vacio"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="No hay notificaciones por el momento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
 </RelativeLayout>

@@ -72,7 +72,6 @@ public class ProfileActivity extends AppCompatActivity {
     RequestQueue requestQueue ;
 
     ImageButton opciones;
-    FloatingActionButton fab;
 
 
     @Override
@@ -89,7 +88,6 @@ public class ProfileActivity extends AppCompatActivity {
         GetDataAdapter1 = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.activity_profile_recyclerview);
-        fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
 
         opciones = (ImageButton) findViewById(R.id.options);
 
@@ -110,18 +108,6 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
         recyclerView.isScrollbarFadingEnabled();
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
-                    fab.hide();
-                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
-                    fab.show();
-                }
-            }
-        });
 
         get_all_post();
 

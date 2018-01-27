@@ -13,6 +13,7 @@
         android:layout_height="45dp">
 
         <ImageButton
+            android:id="@+id/regresar"
             android:layout_width="45dp"
             android:layout_height="match_parent"
             android:src="@drawable/back" />

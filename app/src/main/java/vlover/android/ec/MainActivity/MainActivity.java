@@ -212,10 +212,11 @@ public class MainActivity extends AppCompatActivity {
            return true;
         }
 
-        if (id == R.id.chatear){
+       /* if (id == R.id.chatear){
             startActivity(new Intent(MainActivity.this, MensajesActivity.class));
             return true;
-        }if (id== R.id.trabajo){
+        }*/
+        if (id == R.id.trabajo) {
             startActivity(new Intent(MainActivity.this, MyWorkActivity.class));
         }
 
@@ -227,13 +228,33 @@ public class MainActivity extends AppCompatActivity {
             if (MainActivity.this.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
                 Log.v(TAG, "Permission is granted");
+                isGPSPermissionGranted();
+                return true;
+            } else {
+                Log.v(TAG, "Permission is revoked");
+                // context.startActivity(new Intent(context, ProfileActivity.class));
+                isGPSPermissionGranted();
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted");
+            return true;
+        }
+    }
+
+    public boolean isGPSPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (MainActivity.this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG, "Permission is granted");
                 return true;
             } else {
 
                 Log.v(TAG, "Permission is revoked");
                 // context.startActivity(new Intent(context, ProfileActivity.class));
 
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                 return false;
             }
         } else { //permission is automatically granted on sdk<23 upon installation

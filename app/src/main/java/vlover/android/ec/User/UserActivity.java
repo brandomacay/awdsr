@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class UserActivity extends AppCompatActivity {
     CircleImageView user_image;
     private SQLite dbsqlite;
     FloatingActionButton send_s;
+    ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,13 @@ public class UserActivity extends AppCompatActivity {
         dbsqlite = new SQLite(this);
         cargando = new ProgressDialog(this);
         send_s = (FloatingActionButton) findViewById(R.id.enviarsolicitud);
-
+        back = (ImageButton) findViewById(R.id.regresar);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         HashMap<String, String> user = dbsqlite.getUserDetails();
         String myemail = user.get("email");

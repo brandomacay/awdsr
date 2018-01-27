@@ -292,7 +292,7 @@ public class Account extends AppCompatActivity {
                         String country = user.getString("country");
                         String created_at = user.getString("created_at");
                         if (!user.getString("avatar").isEmpty()) {
-                            String avatar = getString(R.string.url_global)+"uploads/"+
+                            String avatar = getString(R.string.url_global) + "uploads/" +
                                     uniqueid + "/avatar/" + user.getString("avatar");
                             Picasso.with(getApplication())
                                     .load(avatar)
@@ -300,39 +300,7 @@ public class Account extends AppCompatActivity {
                                     .centerCrop()
                                     .into(user_image);
                             previous_avatar = user.getString("avatar");
-                            /*
-
-                            String sss = user.getString("avatar").substring(6);
-                            String[] parts = sss.split(".");
-                            String part1 = parts[0]; // 004
-                            //String part2 = parts[1];
-                            profilecount = Integer.parseInt(part1);
-                            */
-                            /*
-                            Picasso.with(getApplication())
-                                    .load(avatar)
-                                    .resize(200, 200)
-                                    .centerCrop()
-
-                                    //.resize(width,height).
-                                    .into(user_image);
-                                    */
-                            /*
-                            Glide.with(Account.this)
-                                    .load(avatar)
-
-                                    .thumbnail(0.1f)
-
-                                    .into(user_image);
-                                    */
-                            //Toast.makeText(getApplicationContext(), avatar, Toast.LENGTH_LONG).show();
-
                         }
-
-
-                        //session.setLogin(false);
-
-
                         cargando.dismiss();
                         name_et.setText(name);
                         //int idspin = spinner_adapter_genre.getPosition(genre);
@@ -423,10 +391,7 @@ public class Account extends AppCompatActivity {
                         // user successfully logged in
                         // Create login session - membuat session
                         //  session.setLogin(true);
-
-
-
-                       // String uid = jsonObject.getString("uid");
+                        // String uid = jsonObject.getString("uid");
 
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");

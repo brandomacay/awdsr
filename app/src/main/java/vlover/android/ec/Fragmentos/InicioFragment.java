@@ -44,6 +44,7 @@ import java.util.Map;
 import vlover.android.ec.Adapters.getPostAdapter;
 import vlover.android.ec.Adapters.recyclerViewPostAdapter;
 import vlover.android.ec.Edition.Account;
+import vlover.android.ec.Login.IniciarSesion;
 import vlover.android.ec.MainActivity.MainActivity;
 import vlover.android.ec.MyProfile.ProfileActivity;
 import vlover.android.ec.Post.PostActivity;
@@ -98,9 +99,9 @@ public class InicioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.activity_profile, container, false);
+        mView = inflater.inflate(R.layout.fragment_inicio, container, false);
         fab = mView.findViewById(R.id.floating_action_button);
-        reload = (SwipeRefreshLayout) mView.findViewById(R.id.recargar);
+       /* reload = (SwipeRefreshLayout) mView.findViewById(R.id.recargar);
         reload.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -112,7 +113,7 @@ public class InicioFragment extends Fragment {
                 }
                 get_all_post();
             }
-        });
+        });*/
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,8 +132,8 @@ public class InicioFragment extends Fragment {
         dbsqlite = new SQLite(getContext());
         cargando = new ProgressDialog(getContext());
         HashMap<String, String> user = dbsqlite.getUserDetails();
-        n_publicaciones = (TextView) mView.findViewById(R.id.tv_publicaciones);
-        unique_id = user.get("uid").toString();
+        // n_publicaciones = (TextView) mView.findViewById(R.id.tv_publicaciones);
+        unique_id = user.get("uid");
         email = user.get("email");
 
 
@@ -165,15 +166,47 @@ public class InicioFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
-                    fab.hide();
-                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
-                    fab.show();
+                try {
+                    if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
+                        fab.hide();
+                    } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
+                        fab.show();
+                    } else {
+                        Toast.makeText(getContext(), "errrorrrrr", Toast.LENGTH_SHORT);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Error de fab: " + e, Toast.LENGTH_SHORT);
+
                 }
+
             }
         });
 
-        get_all_post();
+        try {
+            get_all_post();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Error inesperado:" + e, Toast.LENGTH_SHORT).show();
+        }
+
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                try {
+                    GetDataAdapter1.clear();
+                    GetDataAdapter1.iterator();
+                    GetDataAdapter1.toArray();
+                    get_all_post();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Error FAB: " + e, Toast.LENGTH_SHORT).show();
+
+                }
+
+                return true;
+            }
+        });
 
         return mView;
     }
@@ -209,7 +242,7 @@ public class InicioFragment extends Fragment {
                         JSONObject postt = jsonObject.getJSONObject("post");
 
                         JSONArray pray = postt.getJSONArray("pid");
-                        n_publicaciones.setText("" + pray.length());
+                        // n_publicaciones.setText("" + pray.length());
 
 
                         for (int i = 0; i < pray.length(); i++) {
@@ -277,7 +310,6 @@ public class InicioFragment extends Fragment {
 
                         }
 
-                        reload.setRefreshing(false);
 
                         recyclerViewadapter = new recyclerViewPostAdapter(GetDataAdapter1, getContext());
 

@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,25 +6,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="vlover.android.ec.Fragmentos.InicioFragment">
 
-
-    <!--<android.support.v7.widget.RecyclerView
-        android:id="@+id/posts_recyclerview"
+    <android.support.v7.widget.RecyclerView
+        android:background="#F4F4F4"
+        android:id="@+id/activity_profile_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        />-->
-    <include
-        layout="@layout/item_main_post"/>
-<android.support.design.widget.FloatingActionButton
-    android:id="@+id/post"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:src="@drawable/add"
-    android:clickable="true"
-    android:tint="@color/colorPrimary"
-    android:layout_margin="7dp"
-    android:focusable="true" />
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        app:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/add"
+        app:rippleColor="@color/morado"
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:fabSize="normal" />
 
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

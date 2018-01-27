@@ -142,7 +142,7 @@ public class IniciarSesion extends AppCompatActivity {
                         cargando.dismiss();
                         AlertDialog.Builder alert = new AlertDialog.Builder(IniciarSesion.this);
                         alert.setTitle("Verificacion enviada");
-                        alert.setMessage("Revisa tu buzon de mensajes o SPAM, espera como minimo 1 minutos si aun no te a llegado");
+                        alert.setMessage("Revisa tu buzon de mensajes o SPAM, espera como minimo 5 minutos si aun no te a llegado");
                         alert.setPositiveButton("Ok", null);
                         alert.show();
                     } else {
@@ -327,8 +327,7 @@ public class IniciarSesion extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (session.isLoggedIn()) {
-            // Jika User tidak tercatat di sesiion atau telah login, Maka user automatis akan terlogout.
-           finish();
+            finish();
         }
     }
 }

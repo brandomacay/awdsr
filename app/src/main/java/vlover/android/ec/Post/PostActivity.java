@@ -2,19 +2,28 @@ package vlover.android.ec.Post;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.design.internal.NavigationMenuPresenter;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.net.Uri;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -49,6 +58,7 @@ import vlover.android.ec.Service.Address;
 import vlover.android.ec.Service.Controller;
 import vlover.android.ec.Service.SQLite;
 import vlover.android.ec.Service.Session;
+import vlover.android.ec.Upload;
 import vlover.android.ec.VolleyMultipartRequest;
 
 public class PostActivity extends AppCompatActivity {
@@ -66,7 +76,12 @@ public class PostActivity extends AppCompatActivity {
     boolean imageIsSet = false;
     String url_image = "";
     Bitmap bitmappost;
+    VideoView vidView;
+    private static final int SELECT_VIDEO = 3;
 
+    private String selectedPath;
+    String vidAddress = "http://vlover.ruvnot.com/uploads/20180106_122338.mp4";
+    Uri vidUri = Uri.parse(vidAddress);
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +91,34 @@ public class PostActivity extends AppCompatActivity {
         imagen=(ImageView)findViewById(R.id.post_photo);
         regresar=(ImageView)findViewById(R.id.back);
         enviar=(Button) findViewById(R.id.send);
+        // vidView = (VideoView)findViewById(R.id.myVideo);
         descripcion_post =(EditText) findViewById(R.id.descripcion);
         user_image = (CircleImageView) findViewById(R.id.img_avatar);
         seleccionar_imagen = (FloatingActionButton) findViewById(R.id.select_image);
         aggvideo = (FloatingActionButton) findViewById(R.id.add_video);
         nombre_usuario = (TextView) findViewById(R.id.name_user);
+        /*try {
+            // Start the MediaController
+            MediaController mediacontroller = new MediaController(
+                    PostActivity.this);
+            mediacontroller.setAnchorView(vidView);
+            // Get the URL from String VideoURL
+            Uri video = Uri.parse(vidAddress);
+            vidView.setMediaController(mediacontroller);
+            vidView.setVideoURI(video);
+
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+            e.printStackTrace();
+        }
+
+        vidView.requestFocus();
+        vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            // Close the progress bar and play the video
+            public void onPrepared(MediaPlayer mp) {
+                vidView.start();
+            }
+        });*/
         regresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,9 +145,10 @@ public class PostActivity extends AppCompatActivity {
         aggvideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadvideo(view);
+                chooseVideo();
             }
         });
+
         HashMap<String, String> user = dbsqlite.getUserDetails();
         email = user.get("email");
         enviar.setOnClickListener(new View.OnClickListener() {
@@ -140,12 +179,66 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
-    public void uploadvideo(View v) {
+
+    public String getPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+        cursor.close();
+
+        return path;
+    }
+
+    private void chooseVideo() {
+        Intent intent = new Intent();
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select a Video "), SELECT_VIDEO);
+    }
+
+    private void uploadVideo() {
+        class UploadVideo extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog uploading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                uploading = ProgressDialog.show(PostActivity.this, "Uploading File", "Please wait...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                uploading.dismiss();
+
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                Upload u = new Upload();
+                String msg = u.uploadVideo(selectedPath);
+                return msg;
+            }
+        }
+        UploadVideo uv = new UploadVideo();
+        uv.execute();
+    }
+
+    /*public void uploadvideo(View v) {
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takeVideoIntent, RECEIVER_VISIBLE_TO_INSTANT_APPS);
         }
-    }
+    }*/
 
     private void  mostrardatodeusuario() {
 
@@ -158,6 +251,12 @@ public class PostActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_VIDEO) {
+            System.out.println("SELECT_VIDEO");
+            Uri selectedImageUri = data.getData();
+            selectedPath = getPath(selectedImageUri);
+        }
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
@@ -341,13 +440,6 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void upload_image_first() {
-
-        //getting the tag from the edittext
-        // final String tags = editTextTags.getText().toString().trim();
-        //final String tags = previous_avatar;
-        //Toast.makeText(getApplicationContext(), previous_avatar , Toast.LENGTH_SHORT).show();
-
-        //our custom volley request
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Address.UPLOAD_URLPOST,
                 new Response.Listener<NetworkResponse>() {
                     @Override

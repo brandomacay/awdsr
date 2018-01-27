@@ -155,7 +155,7 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL("http://vlover.ruvnot.com/user-search.php");
+                url = new URL("http://vlover.ruvnot.com/user_search.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -169,8 +169,6 @@ public class SearchActivity extends AppCompatActivity implements  SearchView.OnQ
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
-
-                // setDoInput and setDoOutput to true as we send and recieve data
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
 

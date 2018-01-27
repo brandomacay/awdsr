@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:context="vlover.android.ec.Search.SearchActivity">
 
+    <RelativeLayout
+        android:background="@color/rosado"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/fab_margin"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerVertical="true"
+            android:text="WELCOME TO VLOVER! IT IS FABULOUS AND BEATIFUL! APP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -20,13 +38,12 @@
             android:elevation="5dp"
             android:minHeight="45dp"
             android:theme="?attr/actionBarTheme" />
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fishPriceList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"

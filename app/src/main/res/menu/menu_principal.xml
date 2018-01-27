@@ -10,12 +10,12 @@
         android:orderInCategory="0"
         app:showAsAction="always"
         />
-    <item
-        android:id="@+id/chatear"
-        android:icon="@drawable/chat"
-        android:orderInCategory="1"
-        android:title="Chat"
-        app:showAsAction="always" />
+    <!-- <item
+         android:id="@+id/chatear"
+         android:icon="@drawable/chat"
+         android:orderInCategory="1"
+         android:title="Chat"
+         app:showAsAction="always" />-->
     <item
         android:id="@+id/trabajo"
         android:iconTint="#424242"
